@@ -18,10 +18,9 @@
   padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
 }
 
-@media (prefers-color-scheme: dark) {
-  .logoloop {
-    --logoloop-fadeColorAuto: #0b0b0b;
-  }
+/* 深色模式 - 使用 data-prefers-color 属性 */
+[data-prefers-color="dark"] .logoloop {
+  --logoloop-fadeColorAuto: #000000;
 }
 
 .logoloop__track {
@@ -125,6 +124,7 @@
   width: clamp(24px, 8%, 120px);
   pointer-events: none;
   z-index: 10;
+  transition: background 0.2s ease;
 }
 
 .logoloop--fade::before {
@@ -144,6 +144,7 @@
     rgba(0, 0, 0, 0) 100%
   );
 }
+
 
 .logoloop--vertical.logoloop--fade::before,
 .logoloop--vertical.logoloop--fade::after {

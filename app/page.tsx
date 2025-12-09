@@ -5,6 +5,7 @@ import { gsap } from "gsap";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { LogoLoop } from "@/components/LogoLoop";
+import "./who-is-using.scss";
 
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
@@ -30,8 +31,8 @@ export default function Home() {
       </section>
 
       {/* 第二屏：Who is using 区域 */}
-      <section className="who-is-using" style={{ height: '354px', paddingTop: '60px', paddingBottom: '60px' }}>
-        <div style={{ maxWidth: '1180px', margin: '0 auto', padding: '0 20px', height: '100%' }}>
+      <section className="who-is-using">
+        <div className="who-is-using-container">
           <LogoLoop
             logos={[
               // 示例 logo，可以根据实际需求替换
