@@ -51,11 +51,12 @@ export function PageFooter() {
                 />
               </div>
               <div className="version">
-                Version: 26.0.0
+                Version: 26.0.x
               </div>
               <div className="version-tips">
                 <p>版本规则：</p>
                 <p>Apron Design 今后每年更新一个大版本，将会以年份作为大版本号进行编号。</p>
+                <p>请参阅 <Link href="/guide/versions">版本说明</Link> 了解版本号编码规则。</p>
               </div>
             </div>
             <div className="footer-company">北京按时下班科技有限公司 开源</div>
