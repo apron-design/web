@@ -27,9 +27,10 @@ jobs:
       - name: Build with Next.js
         run: npm run build
       
-      - name: Copy README.md to build output
+      - name: Copy README.md and .nojekyll to build output
         run: |
           cp README.md out/
+          cp public/.nojekyll out/ || touch out/.nojekyll
       
       - name: Checkout target repository
         uses: actions/checkout@v4
@@ -59,7 +60,7 @@ jobs:
       
       - name: Copy build output to target repository
         run: |
-          cp -r out/* target-repo/
+          cp -r out/. target-repo/
       
       - name: Restore preserved directories
         run: |
