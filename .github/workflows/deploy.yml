@@ -1,0 +1,54 @@
+name: Deploy to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source repository
+        uses: actions/checkout@v4
+      
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+      
+      - name: Install dependencies
+        run: npm ci
+      
+      - name: Build with Next.js
+        run: npm run build
+      
+      - name: Checkout target repository
+        uses: actions/checkout@v4
+        with:
+          repository: apron-design/apron-design.github.io
+          token: ${{ secrets.DEPLOY_TOKEN }}
+          path: target-repo
+      
+      - name: Clear target repository
+        run: |
+          cd target-repo
+          git rm -rf . || true
+          git clean -fxd
+      
+      - name: Copy build output to target repository
+        run: |
+          cp -r out/* target-repo/
+      
+      - name: Commit and push to target repository
+        run: |
+          cd target-repo
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add .
+          git commit -m "Deploy from web repository - $(date +'%Y-%m-%d %H:%M:%S')" || echo "No changes to commit"
+          git push origin main
