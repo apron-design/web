@@ -5,7 +5,11 @@ import { gsap } from "gsap";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { LogoLoop } from "@/components/LogoLoop";
+import { Window } from "@/components/Window";
+import DotGrid from "@/components/DotGrid";
 import { Button, Space } from '@apron-design/react';
+import { SectionTitle } from "@/components/SectionTitle";
+
 import "./home.scss";
 
 export default function Home() {
@@ -55,6 +59,13 @@ export default function Home() {
       
       {/* 第一屏：Hero 区域 */}
       <section className="hero">
+        <DotGrid 
+          dotSize={10}
+          gap={30}
+          baseColor={isDark ? "#131313" : "#eeeeee"}
+          activeColor={isDark ? "#333333" : "#CCCCCC"}
+          style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', zIndex: 0 }}
+        />
         <div className="container hero-container">
           <div className="hero-content">
             <h1 className="main">秩序之下 · 想象之上</h1>
@@ -67,36 +78,58 @@ export default function Home() {
               </Space>
             </div>
           </div>
-          <div className="hero-window-container"></div>
+          <div className="hero-window-container">
+            <Window />
+          </div>
         </div>
       </section>
 
       {/* 第二屏：Who is using 区域 */}
       <section className="who-is-using">
         <div className="who-is-using-container">
+          <SectionTitle>谁在使用</SectionTitle>
           <LogoLoop
             logos={[
-              // 示例 logo，可以根据实际需求替换
-              { src: '/assets/images/logo-light.svg', alt: 'Logo 1' },
-              { src: '/assets/images/logo-light.svg', alt: 'Logo 2' },
-              { src: '/assets/images/logo-light.svg', alt: 'Logo 3' },
-              { src: '/assets/images/logo-light.svg', alt: 'Logo 4' },
-              { src: '/assets/images/logo-light.svg', alt: 'Logo 5' },
+              { src: '/assets/who-is-using/apron.png', srcDark: '/assets/who-is-using/apron-dark.png', alt: 'Apron Design', name: 'Apron Design' } as any,
+              { src: '/assets/who-is-using/davinci.png', srcDark: '/assets/who-is-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
+              { src: '/assets/who-is-using/envoy.png', srcDark: '/assets/who-is-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
+              { src: '/assets/who-is-using/mitkimi.png', srcDark: '/assets/who-is-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
+              { src: '/assets/who-is-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
+              { src: '/assets/who-is-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
+              { src: '/assets/who-is-using/panda.png', srcDark: '/assets/who-is-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
+              { src: '/assets/who-is-using/serendipity.png', alt: 'Serendipity', name: 'Serendipity' } as any,
+              { src: '/assets/who-is-using/soundpad.png', alt: 'Soundpad', name: 'SOUNDPAD' } as any,
+              { src: '/assets/who-is-using/teleprompter.png', alt: 'Teleprompter', name: '提词器' } as any,
             ]}
-            speed={80}
+            speed={40}
             direction="left"
-            logoHeight={40}
-            gap={48}
+            logoHeight={148}
+            gap={60}
             pauseOnHover={true}
             fadeOut={true}
-            scaleOnHover={true}
+            scaleOnHover={false}
             ariaLabel="合作伙伴 Logo"
+            renderItem={(item: any, key) => (
+              <div className="logo-card" key={key}>
+                <div className="logo-image-container">
+                  <img
+                    src={isDark && item.srcDark ? item.srcDark : item.src}
+                    alt={item.alt}
+                    className="logo-image"
+                    loading="lazy"
+                    decoding="async"
+                    draggable={false}
+                  />
+                </div>
+                <div className="logo-name">{item.name}</div>
+              </div>
+            )}
           />
         </div>
       </section>
 
       {/* 原有内容保留在下方 */}
-      <main className="container mx-auto px-4 py-16">
+      {/* <main className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
           <h1
             ref={titleRef}
@@ -174,7 +207,7 @@ export default function Home() {
             </ul>
           </div>
         </div>
-      </main>
+      </main> */}
 
       <PageFooter />
     </div>
