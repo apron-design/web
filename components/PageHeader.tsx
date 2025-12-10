@@ -4,8 +4,13 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import "./PageHeader.scss";
 
-export function PageHeader() {
+interface PageHeaderProps {
+  backgrounded?: number | boolean;
+}
+
+export function PageHeader({ backgrounded }: PageHeaderProps) {
   const [isDark, setIsDark] = useState(false);
+  const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
     // 检查 localStorage 和系统偏好
@@ -25,6 +30,20 @@ export function PageHeader() {
     }
   }, []);
 
+  useEffect(() => {
+    // 如果 backgrounded 是数字，监听滚动事件
+    if (typeof backgrounded === "number") {
+      const handleScroll = () => {
+        setIsScrolled(window.scrollY >= backgrounded);
+      };
+
+      window.addEventListener("scroll", handleScroll);
+      handleScroll(); // 初始检查
+
+      return () => window.removeEventListener("scroll", handleScroll);
+    }
+  }, [backgrounded]);
+
   const toggleTheme = () => {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
@@ -42,8 +61,13 @@ export function PageHeader() {
     }
   };
 
+  // 确定是否显示背景
+  const showBackground = 
+    backgrounded === true || 
+    (typeof backgrounded === "number" && isScrolled);
+
   return (
-    <header className="page-header">
+    <header className={`page-header ${showBackground ? "page-header--backgrounded" : ""}`}>
       <div className="page-header-container">
         <div className="page-header-logo">
           <Image

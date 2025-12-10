@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apron-design/react": "^21.0.4",
+    "@gsap/react": "^2.1.2",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
