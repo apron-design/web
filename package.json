@@ -9,15 +9,14 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@apron-design/react": "^21.0.2",
+    "@apron-design/react": "^21.0.4",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
-    "gsap": "^3.14.1",
+    "gsap": "^3.13.0",
     "lucide-react": "^0.556.0",
     "next": "16.0.8",
     "react": "19.2.1",
-    "react-bit": "^1.2.3",
     "react-dom": "19.2.1",
     "tailwind-merge": "^3.4.0"
   },

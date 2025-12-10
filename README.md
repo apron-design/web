@@ -9,7 +9,6 @@
 - **AOS** - 滚动动画库
 - **GSAP** - 强大的动画库
 - **shadcn/ui** - 高质量 UI 组件库
-- **react-bit** - React 图标库
 - **Tailwind CSS v4** - 实用优先的 CSS 框架
 - **TypeScript** - 类型安全
 

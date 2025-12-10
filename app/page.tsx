@@ -1,14 +1,42 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { LogoLoop } from "@/components/LogoLoop";
-import "./who-is-using.scss";
+import { Button, Space } from '@apron-design/react';
+import "./home.scss";
 
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
+  const [isDark, setIsDark] = useState(false);
+
+  useEffect(() => {
+    // Check initial theme
+    const checkTheme = () => {
+      const theme = document.documentElement.getAttribute("data-prefers-color");
+      setIsDark(theme === "dark");
+    };
+
+    checkTheme();
+
+    // Listen for theme changes
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.type === "attributes" && mutation.attributeName === "data-prefers-color") {
+          checkTheme();
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, {
+      attributes: true,
+      attributeFilter: ["data-prefers-color"]
+    });
+
+    return () => observer.disconnect();
+  }, []);
 
   useEffect(() => {
     if (titleRef.current) {
@@ -26,8 +54,21 @@ export default function Home() {
       <PageHeader />
       
       {/* 第一屏：Hero 区域 */}
-      <section className="hero" style={{ height: '720px' }}>
-        {/* 先留空 */}
+      <section className="hero">
+        <div className="container hero-container">
+          <div className="hero-content">
+            <h1 className="main">秩序之下 · 想象之上</h1>
+            <h1>解构复杂 · 聚合光芒</h1>
+            <div className="hero-tips">一套完全开源的 C 端组件库方案</div>
+            <div className="hero-buttons">
+              <Space>
+                <Button variant="primary">开始使用</Button>
+                <Button variant="default">客户案例</Button>
+              </Space>
+            </div>
+          </div>
+          <div className="hero-window-container"></div>
+        </div>
       </section>
 
       {/* 第二屏：Who is using 区域 */}
@@ -42,7 +83,7 @@ export default function Home() {
               { src: '/assets/images/logo-light.svg', alt: 'Logo 4' },
               { src: '/assets/images/logo-light.svg', alt: 'Logo 5' },
             ]}
-            speed={120}
+            speed={80}
             direction="left"
             logoHeight={40}
             gap={48}

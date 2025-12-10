@@ -49,8 +49,7 @@ export function PageHeader() {
           <Image
             src={isDark ? "/assets/images/logo-dark.svg" : "/assets/images/logo-light.svg"}
             alt="Logo"
-            width={238}
-            height={50}
+            fill
             priority
           />
         </div>
@@ -90,4 +89,3 @@ export function PageHeader() {
     </header>
   );
 }
-
