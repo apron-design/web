@@ -48,7 +48,7 @@ export function Window() {
         </div>
         <div className="window-content">
           <div className="window-content-header">
-            apron.design | 完全开源的 C 端设计系统
+            apron.design | An opensource toC design system.
           </div>
           <div className="window-components">
             <Row gutter={24} style={{ height: '100%' }}>
