@@ -86,22 +86,25 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 第二屏：Who is using 区域 */}
-      <section className="who-is-using">
-        <div className="who-is-using-container">
+      {/* 第二屏：Who are using 区域 */}
+      <section className="who-are-using">
+        <div className="who-are-using-container">
           <SectionTitle>谁在使用</SectionTitle>
           <LogoLoop
             logos={[
-              { src: '/assets/who-is-using/apron.png', srcDark: '/assets/who-is-using/apron-dark.png', alt: 'Apron Design', name: 'Apron Design' } as any,
-              { src: '/assets/who-is-using/davinci.png', srcDark: '/assets/who-is-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
-              { src: '/assets/who-is-using/envoy.png', srcDark: '/assets/who-is-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
-              { src: '/assets/who-is-using/mitkimi.png', srcDark: '/assets/who-is-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
-              { src: '/assets/who-is-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
-              { src: '/assets/who-is-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
-              { src: '/assets/who-is-using/panda.png', srcDark: '/assets/who-is-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
-              { src: '/assets/who-is-using/serendipity.png', alt: 'Serendipity', name: 'Serendipity' } as any,
-              { src: '/assets/who-is-using/soundpad.png', alt: 'Soundpad', name: 'SOUNDPAD' } as any,
-              { src: '/assets/who-is-using/teleprompter.png', alt: 'Teleprompter', name: '提词器' } as any,
+              { src: '/assets/who-are-using/apron.png', srcDark: '/assets/who-are-using/apron-dark.png', alt: 'Apron Design', name: 'Apron Design' } as any,
+              { src: '/assets/who-are-using/davinci.png', srcDark: '/assets/who-are-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
+              { src: '/assets/who-are-using/envoy.png', srcDark: '/assets/who-are-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
+              { src: '/assets/who-are-using/mitkimi.png', srcDark: '/assets/who-are-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
+              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall', name: '黑米说音乐厅' } as any,
+              { src: '/assets/who-are-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
+              { src: '/assets/who-are-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
+              { src: '/assets/who-are-using/panda.png', srcDark: '/assets/who-are-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
+              { src: '/assets/who-are-using/serendipity.png', alt: 'Serendipity', name: 'Serendipity' } as any,
+              { src: '/assets/who-are-using/soundpad.png', alt: 'Soundpad', name: 'SOUNDPAD' } as any,
+              { src: '/assets/who-are-using/teleprompter.png', alt: 'Teleprompter', name: '提词器' } as any,
+              { src: '/assets/who-are-using/tg.png', srcDark: '/assets/who-are-using/tg-dark.png', alt: 'TG', name: 'TG' } as any,
+              { src: '/assets/who-are-using/yike-music.png', alt: 'Yike Music', name: '一刻乐谱' } as any,
             ]}
             speed={40}
             direction="left"
