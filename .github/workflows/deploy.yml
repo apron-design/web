@@ -27,12 +27,29 @@ jobs:
       - name: Build with Next.js
         run: npm run build
       
+      - name: Copy README.md to build output
+        run: |
+          cp README.md out/
+      
       - name: Checkout target repository
         uses: actions/checkout@v4
         with:
           repository: apron-design/apron-design.github.io
           token: ${{ secrets.DEPLOY_TOKEN }}
           path: target-repo
+      
+      - name: Preserve existing directories
+        run: |
+          mkdir -p preserved
+          if [ -d "target-repo/react" ]; then
+            cp -r target-repo/react preserved/
+          fi
+          if [ -d "target-repo/vue-next" ]; then
+            cp -r target-repo/vue-next preserved/
+          fi
+          if [ -d "target-repo/miniprogram" ]; then
+            cp -r target-repo/miniprogram preserved/
+          fi
       
       - name: Clear target repository
         run: |
@@ -43,6 +60,18 @@ jobs:
       - name: Copy build output to target repository
         run: |
           cp -r out/* target-repo/
+      
+      - name: Restore preserved directories
+        run: |
+          if [ -d "preserved/react" ]; then
+            cp -r preserved/react target-repo/
+          fi
+          if [ -d "preserved/vue-next" ]; then
+            cp -r preserved/vue-next target-repo/
+          fi
+          if [ -d "preserved/miniprogram" ]; then
+            cp -r preserved/miniprogram target-repo/
+          fi
       
       - name: Commit and push to target repository
         run: |
