@@ -94,7 +94,7 @@ export default function Home() {
               { src: '/assets/who-are-using/davinci.png', srcDark: '/assets/who-are-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
               { src: '/assets/who-are-using/envoy.png', srcDark: '/assets/who-are-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
               { src: '/assets/who-are-using/mitkimi.png', srcDark: '/assets/who-are-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
-              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall', name: 'Music Hall' } as any,
+              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall', name: '黑米说音乐厅' } as any,
               { src: '/assets/who-are-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
               { src: '/assets/who-are-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
               { src: '/assets/who-are-using/panda.png', srcDark: '/assets/who-are-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
