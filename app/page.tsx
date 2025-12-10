@@ -2,11 +2,13 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { LogoLoop } from "@/components/LogoLoop";
 import { Window } from "@/components/Window";
 import DotGrid from "@/components/DotGrid";
+import Squares from "@/components/Squares";
 import { Button, Space } from '@apron-design/react';
 import { SectionTitle } from "@/components/SectionTitle";
 
@@ -55,7 +57,7 @@ export default function Home() {
 
   return (
     <div className="min-h-screen transition-colors" style={{ backgroundColor: 'var(--color-background)' }}>
-      <PageHeader />
+      <PageHeader backgrounded={80} />
       
       {/* 第一屏：Hero 区域 */}
       <section className="hero">
@@ -115,12 +117,12 @@ export default function Home() {
             renderItem={(item: any, key) => (
               <div className="logo-card" key={key}>
                 <div className="logo-image-container">
-                  <img
+                  <Image
                     src={isDark && item.srcDark ? item.srcDark : item.src}
                     alt={item.alt}
                     className="logo-image"
-                    loading="lazy"
-                    decoding="async"
+                    width={148}
+                    height={148}
                     draggable={false}
                   />
                 </div>
@@ -131,6 +133,119 @@ export default function Home() {
         </div>
       </section>
 
+      {/* 设计屏 */}
+      <section className="design-container">
+        <div className="container">
+          <SectionTitle>完善的 Figma 设计文件</SectionTitle>
+          <div className="design-intro-container">
+
+          </div>
+          <div className="design-keywords-container">
+            <div className="design-keyword-item">
+              <div className="keyword"><span style={{ color: "#393939" }}>A</span>greement</div>
+              <div className="related-text">一致</div>
+            </div>
+            <div className="design-keyword-item">
+              <div className="keyword"><span style={{ color: "#1BBA48" }}>P</span>eace</div>
+              <div className="related-text">平和</div>
+            </div>
+            <div className="design-keyword-item">
+              <div className="keyword"><span style={{ color: "#77BEFF" }}>R</span>ealizing</div>
+              <div className="related-text">意识</div>
+            </div>
+            <div className="design-keyword-item">
+              <div className="keyword"><span style={{ color: "#DDB527" }}>O</span>pen</div>
+              <div className="related-text">开放</div>
+            </div>
+            <div className="design-keyword-item">
+              <div className="keyword"><span style={{ color: "#C11717" }}>N</span>ecessity</div>
+              <div className="related-text">必要</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="development-container">
+        <SectionTitle>跨平台组件开发资源</SectionTitle>
+        <div className="container development-features">
+          <div className="feature-item">
+            <div className="feature-title">React 组件库</div>
+            <div className="feature-description">
+              <p>React 组件库支持 React 16+ 版本，并且支持 Next。js 服务端渲染方案。</p>
+              <p>目前已经完成了 40+ 组件，已经可以大部分支持 toC 场景的开发。</p>
+            </div>
+            <div className="feature-related">
+              <div className="bash-container">
+                npm i @apron-design/react -S
+              </div>
+            </div>
+          </div>
+          <div className="feature-item">
+            <div className="feature-title">Vue3 组件库</div>
+            <div className="feature-description">
+              <p>Vue 组件库支持 Vue3 版本，并且支持 Nuxt.js 服务端渲染方案。</p>
+              <p>目前已经完成了 40+ 组件，已经可以大部分支持 toC 场景的开发。</p>
+            </div>
+            <div className="feature-related">
+              <div className="bash-container">
+                npm i @apron-design/vue-next -S
+              </div>
+            </div>
+          </div>
+          <div className="feature-item">
+            <div className="feature-title">微信小程序组件库</div>
+            <div className="feature-description">
+              <p>微信小程序组件库支持原生开发，与 React 和 Vue 组件库使用相同的设计语言。</p>
+              <p>目前已经完成了 40+ 组件，几乎涵盖微信小程序所有的使用场景。</p>
+            </div>
+            <div className="feature-related" style={{ display: 'flex', gap: 20 }}>
+              <div style={{ width: 'calc((100% - 20px) / 2)' }}>
+                <Button block variant="default">小程序预览</Button>
+              </div>
+              <div style={{ width: 'calc((100% - 20px) / 2)' }}>
+                <Button block variant="primary">如何使用</Button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      {/* 推荐屏 */}
+      <section className="recommend-users-container">
+        <div className="recommend-background">
+          <div className="half-background left-background">
+            <Squares 
+              direction="diagonal"
+              speed={0.2}
+              borderColor={isDark ? "#333" : "#e0e0e0"}
+              squareSize={40}
+              hoverFillColor={isDark ? "#1a1a1a" : "#f5f5f5"}
+            />
+          </div>
+          <div className="half-background right-background"></div>
+        </div>
+        <div className="container recommend-container">
+          <div className="half-container left-container">
+            <SectionTitle align="left">和众多产品一起创造价值</SectionTitle>
+            <div className="recommend-blocks-container">
+              <div className="recommend-block">
+                <div className="value">4000+</div>
+                <div className="label">接入项目</div>
+              </div>
+              <div className="recommend-block">
+                <div className="value">3w+</div>
+                <div className="label">总下载量</div>
+              </div>
+            </div>
+            <div className="recommend-buttons-container">
+              <Space>
+                <Button variant="primary">开始使用</Button>
+                <Button variant="default">客户案例</Button>
+              </Space>
+            </div>
+          </div>
+          <div className="half-container right-container"></div>
+        </div>
+      </section>
       {/* 原有内容保留在下方 */}
       {/* <main className="container mx-auto px-4 py-16">
         <div className="text-center space-y-8">
