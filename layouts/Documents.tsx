@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { PageHeader } from '@/components/PageHeader';
 import { PageFooter } from '@/components/PageFooter';
-import './documents.scss';
+import './Documents.scss';
 
 interface NavItem {
   label: string;
@@ -15,12 +15,12 @@ interface NavSection {
   items: NavItem[];
 }
 
-interface DocumentTemplateProps {
+interface DocumentsProps {
   navigation: NavSection[];
   children: React.ReactNode;
 }
 
-export function DocumentTemplate({ navigation, children }: DocumentTemplateProps) {
+export function Documents({ navigation, children }: DocumentsProps) {
   const pathname = usePathname();
 
   return (
@@ -54,7 +54,7 @@ export function DocumentTemplate({ navigation, children }: DocumentTemplateProps
           </nav>
         </aside>
 
-        <main className="documents-main">
+        <main className="documents-main" id="document-container">
           <div className="documents-container">
             {children}
           </div>

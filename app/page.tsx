@@ -291,7 +291,7 @@ export default function Home() {
                 },
                 {
                   quote: "可访问性做得很好，所有组件都符合 WCAG 标准，支持键盘导航和屏幕阅读器。这不仅体现了技术的专业性，更展现了开发团队对用户体验和社会责任的重视，是一个真正有温度的设计系统。",
-                  name: "刘洋",
+                  name: "张磊",
                   company: "Envoy",
                   role: "designer"
                 },

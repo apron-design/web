@@ -1,4 +1,4 @@
-import { DocumentTemplate } from '@/components/DocumentTemplate';
+import { Documents } from '@/layouts/Documents';
 import { MarkdownRenderer } from '@/components/MarkdownRenderer';
 import { readFileSync } from 'fs';
 import { join } from 'path';
@@ -33,8 +33,8 @@ export default async function DesignPage(props: { params: Promise<{ alias: strin
     const cwd = process.cwd();
     const filePath = join(cwd, 'docs', 'design', `${params.alias}.md`);
     content = readFileSync(filePath, 'utf-8');
-  } catch (error: any) {
-    errorInfo = error.message || String(error);
+  } catch (error) {
+    errorInfo = (error as Error).message || String(error);
     content = `# Page Not Found
 
 The documentation for "${params.alias}" could not be found.
@@ -47,8 +47,8 @@ Current working directory: ${process.cwd()}`;
   }
 
   return (
-    <DocumentTemplate navigation={navigation}>
+    <Documents navigation={navigation}>
       <MarkdownRenderer content={content} />
-    </DocumentTemplate>
+    </Documents>
   );
 }
