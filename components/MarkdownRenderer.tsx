@@ -25,7 +25,22 @@ hljs.registerLanguage('xml', xml);
 hljs.registerLanguage('css', css);
 hljs.registerLanguage('scss', css);
 hljs.registerLanguage('bash', bash);
+hljs.registerLanguage('shell', bash); // Add shell support
+hljs.registerLanguage('sh', bash);    // Add sh support
 hljs.registerLanguage('json', json);
+
+// Helper function to generate ID from text (same as FloatingToc)
+const generateId = (text: string): string => {
+  // Remove HTML tags before generating ID
+  const cleanText = text.replace(/<[^>]*>/g, '');
+  
+  return cleanText
+    .toLowerCase()
+    .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+    .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+    .replace(/[\s_-]+/g, '-')
+    .replace(/^-+|-+$/g, '') || cleanText.toLowerCase().replace(/\s+/g, '-');
+};
 
 interface MarkdownRendererProps {
   content: string;
@@ -36,6 +51,13 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     // Highlight code blocks
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightElement(block as HTMLElement);
+      
+      // 特殊处理包管理器命令
+      const packageManagers = ['npm', 'yarn', 'pnpm', 'npx'];
+      packageManagers.forEach(pkg => {
+        const regex = new RegExp(`\\b(${pkg})\\b`, 'g');
+        block.innerHTML = block.innerHTML.replace(regex, `<span class="hljs-name" name="${pkg}">$1</span>`);
+      });
     });
 
     // Add copy buttons and language labels
@@ -102,62 +124,32 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
             // Add ID attributes to headings
             h1: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h1 id={id}>{children}</h1>;
             },
             h2: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h2 id={id}>{children}</h2>;
             },
             h3: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h3 id={id}>{children}</h3>;
             },
             h4: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h4 id={id}>{children}</h4>;
             },
             h5: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h5 id={id}>{children}</h5>;
             },
             h6: ({ children }) => {
               const text = children?.toString() || '';
-              const id = text
-                .toLowerCase()
-                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
-                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
-                .replace(/[\s_-]+/g, '-')
-                .replace(/^-+|-+$/g, '');
+              const id = generateId(text);
               return <h6 id={id}>{children}</h6>;
             }
           }}

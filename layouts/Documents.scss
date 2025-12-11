@@ -32,7 +32,7 @@
 }
 
 .documents-nav {
-  padding: 40px 20px;
+  padding: 40px 0; // 减少右侧内边距
 }
 
 .nav-section {
@@ -50,7 +50,7 @@
   letter-spacing: 0.05em;
   color: #999999;
   margin: 0 0 12px 0;
-  padding: 0;
+  padding: 0 20px; // 统一内边距
 
   [data-prefers-color="dark"] & {
     color: #666666;
@@ -68,19 +68,17 @@
 
   a {
     display: block;
-    padding: 0;
-    line-height: 40px;
-    height: 40px;
+    padding: 8px 20px; // 统一内边距，取消胶囊形状
     color: #666666;
     text-decoration: none;
     font-size: 14px;
-    border-radius: 20px;
+    border-radius: 0; // 取消圆角
     transition: all 0.2s ease;
+    position: relative;
 
     &:hover {
       background-color: #f0f0f0;
       color: #000000;
-      padding: 0 20px;
 
       [data-prefers-color="dark"] & {
         background-color: #1a1a1a;
@@ -94,15 +92,29 @@
   }
 
   &.active a {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: transparent; // 取消背景色
+    color: #000000;
     font-weight: 500;
-    padding: 0 20px;
+    
+    &::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 3px;
+      height: 16px;
+      background-color: #000000;
+      border-radius: 0; // 取消圆角
 
+      [data-prefers-color="dark"] & {
+        background-color: #ffffff;
+      }
+    }
 
     [data-prefers-color="dark"] & {
-      background-color: #ffffff;
-      color: #000000;
+      background-color: transparent;
+      color: #ffffff;
     }
   }
 }

@@ -18,7 +18,7 @@ cd my-app
 npm install @apron-design/react --save
 ```
 
-然后在 `main.ts(js)` 中导入样式
+然后在 `main.ts` 或 `main.js` 中导入样式
 
 ```typescript
 import '@apron-desing/react/styles'

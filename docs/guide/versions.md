@@ -18,11 +18,13 @@ Apron Design 版本号遵循 Semver 规范，但略有区别：
   align-items: center;
   border-radius: 8px;
   width: 300px;
-  margin-bottom: 20px;
+  margin: 40px auto;
 }
 .version-container > .version-item {
   width: calc(100% / 3);
   text-align: center;
+  height: 60px;
+  line-height: 60px;
   font-size: 24px;
   position: relative;
 }
@@ -35,7 +37,7 @@ Apron Design 版本号遵循 Semver 规范，但略有区别：
   border-radius: 50%;
   position: absolute;
   left: 0;
-  bottom: 15px;
+  bottom: 24px;
 }
 .version-container > .version-item:first-child::before {
   display: none;
@@ -44,10 +46,10 @@ Apron Design 版本号遵循 Semver 规范，但略有区别：
 
 <div class="version-container">
   <div class="version-item version-0">26</div>
-  <div class="version-item version-1">0</div>
-  <div class="version-item version-2">x</div>
+  <div class="version-item version-1">4</div>
+  <div class="version-item version-2">13</div>
 </div>
 
-* 26：大版本号，跟随年份走，26 为 2026年发布；
-* 0：中版本号，有组件更新、功能发布时更新；
-* x：小版本号：各端可能略有差异，主要是用来修复现有功能。
+* 26：大版本号，跟随年份走，例子 26 表示 2026 年发布；
+* 4：中版本号，有组件更新、功能发布时更新，例子是第 26 年第 5 个中版本；
+* 13：小版本号：各端可能略有差异，主要是用来修复现有功能，例子是第 13 个小版本。
