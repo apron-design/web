@@ -6,6 +6,7 @@ import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
 import { LogoLoop } from "@/components/LogoLoop";
+import { TestimonialLoop } from "@/components/TestimonialLoop";
 import { Window } from "@/components/Window";
 import DotGrid from "@/components/DotGrid";
 import Squares from "@/components/Squares";
@@ -254,7 +255,60 @@ export default function Home() {
               </Space>
             </div>
           </div>
-          <div className="half-container right-container"></div>
+          <div className="half-container right-container">
+            <TestimonialLoop
+              testimonials={[
+
+                {
+                  quote: "ApronDesign 的组件设计非常精美，开箱即用的特性让我们的开发团队能够快速构建高质量的用户界面。组件库的 TypeScript 支持完善，类型定义清晰准确，大大提升了我们的开发效率和代码质量。",
+                  name: "田昊天",
+                  company: "按时下班",
+                  role: "developer"
+                },
+                {
+                  quote: "设计系统非常完善，组件的一致性做得很好，从基础组件到复杂的业务组件都遵循统一的设计语言。这为我们的产品提供了统一的视觉体验，也让设计师和开发者之间的协作变得更加高效顺畅。",
+                  name: "史林海",
+                  company: "OPPO",
+                  role: "designer"
+                },
+                {
+                  quote: "文档详细且易于理解，API 设计合理直观，上手非常快。无论是新手还是经验丰富的开发者都能快速掌握。组件的可定制性强，能够很好地适配各种业务场景，强烈推荐给所有前端开发者。",
+                  name: "孙永豪",
+                  company: "达芬奇",
+                  role: "developer"
+                },
+                {
+                  quote: "深色模式适配完美，每个组件在明暗主题下都有精心设计的视觉表现。组件库的主题系统设计得非常灵活，支持自定义主题色和设计令牌，让我们能够轻松打造符合品牌调性的产品界面。",
+                  name: "刘丹阳",
+                  company: "美团",
+                  role: "designer"
+                },
+                {
+                  quote: "性能优异，组件渲染速度快，即使在复杂的页面场景下也能保持流畅的用户体验。虚拟滚动、懒加载等优化手段的运用恰到好处，完全满足我们对高性能应用的业务需求。",
+                  name: "聂玉坤",
+                  company: "一刻乐谱",
+                  role: "developer"
+                },
+                {
+                  quote: "可访问性做得很好，所有组件都符合 WCAG 标准，支持键盘导航和屏幕阅读器。这不仅体现了技术的专业性，更展现了开发团队对用户体验和社会责任的重视，是一个真正有温度的设计系统。",
+                  name: "刘洋",
+                  company: "Envoy",
+                  role: "designer"
+                },
+                {
+
+                  quote: "组件库的响应式设计非常出色，无论是桌面端还是移动端都能提供一致的用户体验。布局系统灵活且强大，让我们能够轻松实现各种复杂的界面需求，大大减少了开发时间和维护成本。",
+                  name: "潘钧挺",
+                  company: "Panda",
+                  role: "developer"
+                }
+              ]}
+              speed={50}
+              direction="up"
+              gap={12}
+              pauseOnHover={true}
+            />
+          </div>
         </div>
       </section>
       {/* 原有内容保留在下方 */}
