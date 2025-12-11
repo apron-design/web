@@ -11,6 +11,7 @@ import xml from 'highlight.js/lib/languages/xml';
 import css from 'highlight.js/lib/languages/css';
 import bash from 'highlight.js/lib/languages/bash';
 import json from 'highlight.js/lib/languages/json';
+import { FloatingToc } from '@/components/FloatingToc';
 import './MarkdownRenderer.scss';
 
 // Register languages
@@ -91,13 +92,79 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   }, [content]);
 
   return (
-    <div className="markdown-content">
-      <ReactMarkdown
-        remarkPlugins={[remarkGfm]}
-        rehypePlugins={[rehypeRaw]}
-      >
-        {content}
-      </ReactMarkdown>
-    </div>
+    <>
+      <FloatingToc content={content} />
+      <div className="markdown-content">
+        <ReactMarkdown
+          remarkPlugins={[remarkGfm]}
+          rehypePlugins={[rehypeRaw]}
+          components={{
+            // Add ID attributes to headings
+            h1: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h1 id={id}>{children}</h1>;
+            },
+            h2: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h2 id={id}>{children}</h2>;
+            },
+            h3: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h3 id={id}>{children}</h3>;
+            },
+            h4: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h4 id={id}>{children}</h4>;
+            },
+            h5: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h5 id={id}>{children}</h5>;
+            },
+            h6: ({ children }) => {
+              const text = children?.toString() || '';
+              const id = text
+                .toLowerCase()
+                .replace(/[\u{0080}-\u{FFFF}]/gu, '')
+                .replace(/[^\w\u4e00-\u9fa5\s-]/g, '') // Allow Chinese characters
+                .replace(/[\s_-]+/g, '-')
+                .replace(/^-+|-+$/g, '');
+              return <h6 id={id}>{children}</h6>;
+            }
+          }}
+        >
+          {content}
+        </ReactMarkdown>
+      </div>
+    </>
   );
 }

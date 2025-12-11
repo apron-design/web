@@ -1,0 +1,82 @@
+.floating-toc {
+  position: fixed;
+  top: 100px;
+  right: 20px;
+  z-index: 1000;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+}
+
+.floating-toc__content {
+  width: 240px;
+  background: #ffffff;
+  border: 1px solid #e5e5e5;
+  border-radius: 8px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  max-height: calc(100vh - 140px);
+  overflow-y: auto;
+}
+
+[data-prefers-color="dark"] .floating-toc__content {
+  background: #1a1a1a;
+  border-color: #333;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+}
+
+.toc-title {
+  font-size: 14px;
+  font-weight: 600;
+  margin: 0 0 12px 0;
+  color: #393939;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+[data-prefers-color="dark"] .toc-title {
+  color: #e6e6e6;
+}
+
+.toc-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.toc-item {
+  margin-bottom: 8px;
+}
+
+.toc-item:last-child {
+  margin-bottom: 0;
+}
+
+.toc-link {
+  text-decoration: none;
+  color: #666;
+  font-size: 13px;
+  line-height: 1.4;
+  display: block;
+  transition: color 0.2s ease;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+[data-prefers-color="dark"] .toc-link {
+  color: #999;
+}
+
+.toc-link:hover {
+  color: #4BA4F7;
+}
+
+[data-prefers-color="dark"] .toc-link:hover {
+  color: #74E9CB;
+}
+
+/* Hide on mobile */
+@media (max-width: 768px) {
+  .floating-toc {
+    display: none;
+  }
+}
