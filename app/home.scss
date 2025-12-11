@@ -121,6 +121,40 @@
     [data-prefers-color="dark"] & {
       background: #1a1a1a;
     }
+    padding: 40px;
+    position: relative;
+    overflow: hidden!important;
+    .design-intro {
+      width: 35%;
+      .image-container {
+        width: 120px;
+        height: 120px;
+        position: relative;
+      }
+      .design-title-text {
+        font-size: 24px;
+        font-weight: 700;
+        margin-top: 40px;
+      }
+      .design-content-text {
+        font-size: 16px;
+        font-weight: 400;
+
+        color: #999999;
+        
+        [data-prefers-color="dark"] & {
+          color: #666666;
+        }
+        margin-top: 20px;
+      }
+    }
+    .figma-design-window {
+      width: 846px;
+      height: 457px;
+      position: absolute;
+      right: -120px;
+      bottom: -130px;
+    }
   }
   .design-keywords-container {
     padding: 20px 0;
@@ -217,8 +251,9 @@
 }
 
 .recommend-users-container {
-  height: 600px; // 临时设置
+  height: 80vh; // 临时设置
   position: relative;
+  margin-bottom: 180px;
   .recommend-background {
     position: absolute;
     top: 0;
