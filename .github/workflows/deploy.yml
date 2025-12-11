@@ -50,6 +50,9 @@ jobs:
           if [ -d "target-repo/miniprogram" ]; then
             cp -r target-repo/miniprogram preserved/
           fi
+          if [ -d "target-repo/palette" ]; then
+            cp -r target-repo/palette preserved/
+          fi
       
       - name: Clear target repository
         run: |
@@ -71,6 +74,9 @@ jobs:
           fi
           if [ -d "preserved/miniprogram" ]; then
             cp -r preserved/miniprogram target-repo/
+          fi
+          if [ -d "preserved/palette" ]; then
+            cp -r preserved/palette target-repo/
           fi
       
       - name: Commit and push to target repository

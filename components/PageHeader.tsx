@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import { Link } from '@apron-design/react'
 import "./PageHeader.scss";
 
 interface PageHeaderProps {
@@ -69,17 +70,53 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
   return (
     <header className={`page-header ${showBackground ? "page-header--backgrounded" : ""}`}>
       <div className="page-header-container">
-        <div className="page-header-logo">
+        <Link href="/" className="page-header-logo">
           <Image
             src={isDark ? "/assets/images/logo-dark.svg" : "/assets/images/logo-light.svg"}
             alt="Logo"
             fill
             priority
           />
-        </div>
+        </Link>
         
         <div className="page-header-actions">
-          <a
+          <Link
+            variant="primary"
+            href="/design/principles"
+          >
+            设计
+          </Link>
+          <Link
+            variant="primary"
+            href="/guide/quick-start"
+          >
+            指南
+          </Link>
+          <Link
+            variant="primary"
+            href="/usage/best-practices"
+          >
+            最佳实践
+          </Link>
+          <Link
+            variant="primary"
+            href="/react"
+          >
+            React
+          </Link>
+          <Link
+            variant="primary"
+            href="/vue-next"
+          >
+            Vue3
+          </Link>
+          <Link
+            variant="primary"
+            href="/miniprogram"
+          >
+            微信小程序
+          </Link>
+          <Link 
             href="https://github.com/apron-design"
             target="_blank"
             rel="noopener noreferrer"
@@ -93,7 +130,7 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
               height={24}
               className="page-header-icon"
             />
-          </a>
+          </Link>
           
           <button
             onClick={toggleTheme}

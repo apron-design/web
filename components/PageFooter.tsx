@@ -68,25 +68,25 @@ export function PageFooter() {
                 <div className="footer-content">
                   <Link href="/design/specifications">设计规范</Link>
                   <Link href="/design/principles">设计原则</Link>
+                  <Link href="/design/color" target="_blank">标准色</Link>
                 </div>
               </Col>
               <Col span={6}>
                 <div className="footer-title">组件</div>
                 <div className="footer-content">
-                  <Link href="/react">React 组件库</Link>
-                  <Link href="/vue-next">Vue3 组件库</Link>
-                  <Link href="/wechat-miniprogram">微信小程序组件库</Link>
-                  <Link href="/guide/faq">常见问题</Link>
-                  <Link href="/guide/changelog">更新日志</Link>
+                  <Link href="/react">React</Link>
+                  <Link href="/vue-next">Vue3</Link>
+                  <Link href="/miniprogram">微信小程序</Link>
                 </div>
               </Col>
               <Col span={6}>
                 <div className="footer-title">最佳实践</div>
                 <div className="footer-content">
-                  <Link href="/usages/best-practices">最佳实践</Link>
-                  <Link href="/usages/icons">图标库</Link>
-                  <Link href="/usages/codes">二维码/条形码</Link>
-                  <Link href="/usages/recommends">推荐搭配</Link>
+                  <Link href="/usage/best-practices">最佳实践</Link>
+                  <Link href="/usage/icons">图标库</Link>
+                  <Link href="/usage/codes">二维码/条形码</Link>
+                  <Link href="/usage/media">音视频媒体</Link>
+                  <Link href="/usage/recommends">推荐搭配</Link>
                   <Link href="/palette" target="_blank">色彩配置工具</Link>
                 </div>
               </Col>
@@ -94,9 +94,10 @@ export function PageFooter() {
                 <div className="footer-title">资源和社区</div>
                 <div className="footer-content">
                   <Link href="https://www.figma.com/design/jykh8vluIdbVHhS6LhQUJx/Apron-Design-System?node-id=0-1&p=f&t=XHRXp7fQo2tb5IVx-0" target="_blank">组件库 Figma 资源</Link>
-                  <Link href="https://www.figma.com/design/jykh8vluIdbVHhS6LhQUJx/Apron-Design-System?node-id=708-2&p=f&t=XHRXp7fQo2tb5IVx-0" target="_blank">标准色</Link>
                   <Link href="https://github.com/apron-design" target="_blank">Github</Link>
                   <Link href="https://github.com/apron-design/awesome-apron" target="_blank">Awesome Apron</Link>
+                  <Link href="/guide/faq">常见问题</Link>
+                  <Link href="/guide/changelog">更新日志</Link>
                   <Link href="/guide/feedback">反馈与建议</Link>
                 </div>
               </Col>

@@ -138,7 +138,18 @@ export default function Home() {
         <div className="container">
           <SectionTitle>完善的 Figma 设计文件</SectionTitle>
           <div className="design-intro-container">
-
+            <div className="design-intro">
+              <div className="image-container">
+                <Image src="/assets/images/figma.png" alt="Figma" fill />
+              </div>
+              <div className="design-title-text">Figma Design Files</div>
+              <div className="design-content-text">我们使用 Figma 将设计原则和组件设计开源，了解 Apron Design 的设计思想，这里有包括全局色、文字、图标和布局的指南。</div>
+            </div>
+            <div className="figma-design-window">
+              <div data-aos="fade-up-left" style={{ width: '100%', height: '100%', borderRadius: 8, overflow: 'hidden' }}>
+                <Image src="/assets/images/figma-design-window.png" alt="Figma Design Window" fill />
+              </div>
+            </div>
           </div>
           <div className="design-keywords-container">
             <div className="design-keyword-item">
