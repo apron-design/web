@@ -84,3 +84,6 @@ cd my-react-app
 npm install
 npm run dev
 ```
+
+# 安全建议
+由于 Next.js 的 `CVE-2025-55182` 漏洞是 10 级漏洞，我们强烈建议您升级您的 Next.js 到最新版。

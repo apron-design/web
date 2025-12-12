@@ -22,13 +22,59 @@ export function SearchModal() {
   const modalRef = useRef<HTMLDivElement>(null);
   const resultRefs = useRef<HTMLDivElement[]>([]);
 
+  // 跳转到文档页面
+  const handleNavigate = (path: string) => {
+    setIsOpen(false);
+    setSelectedIndex(-1);
+    router.push(path);
+  };
+
+  // 打开搜索模态框
+  const handleOpenSearch = () => {
+    setIsOpen(true);
+    // 清空搜索框和结果
+    setSearchQuery("");
+    setSearchResults([]);
+    setSelectedIndex(-1);
+  };
+
+  // 处理结果项的键盘事件
+  const handleResultKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>, index: number) => {
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      // 如果当前是最后一个结果，则不再向下移动
+      if (index < searchResults.length - 1) {
+        setSelectedIndex(index + 1);
+      }
+    } else if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      // 如果当前是第一个结果，则不再向上移动
+      if (index > 0) {
+        setSelectedIndex(index - 1);
+      }
+    } else if (e.key === 'Enter') {
+      e.preventDefault();
+      handleNavigate(searchResults[index].path);
+    }
+  }, [searchResults, handleNavigate]);
+
+  // 处理结果项的点击
+  const handleResultClick = (index: number, path: string) => {
+    setSelectedIndex(index);
+    handleNavigate(path);
+  };
+
+  // 处理结果项的鼠标悬停
+  const handleResultHover = (index: number) => {
+    setSelectedIndex(index);
+  };
+
   // 处理键盘事件
   const handleKeyDown = useCallback((e: KeyboardEvent) => {
     // Windows/Linux: Ctrl+K, Mac: Cmd+K
     if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
       e.preventDefault();
-      setIsOpen(true);
-      setSelectedIndex(-1); // 打开时重置选中索引
+      handleOpenSearch();
     }
 
     // ESC 关闭模态框
@@ -67,7 +113,7 @@ export function SearchModal() {
         handleNavigate(searchResults[selectedIndex].path);
       }
     }
-  }, [searchResults, selectedIndex]);
+  }, [searchResults, selectedIndex, handleNavigate]);
 
   // 处理点击外部关闭
   const handleClickOutside = useCallback((e: MouseEvent) => {
@@ -87,9 +133,9 @@ export function SearchModal() {
 
     const lowerQuery = query.toLowerCase();
     const results = documents.filter(doc => 
-      doc.title.toLowerCase().includes(lowerQuery) || 
-      doc.content.toLowerCase().includes(lowerQuery)
-    ).slice(0, 8); // 限制结果数量
+      doc && doc.title && doc.title.toLowerCase().includes(lowerQuery) || 
+      doc && doc.content && doc.content.toLowerCase().includes(lowerQuery)
+    ).slice(0, 8).filter(Boolean) as SearchResult[]; // 限制结果数量并过滤掉 undefined
 
     setSearchResults(results);
     setSelectedIndex(results.length > 0 ? 0 : -1); // 有结果时默认选中第一个
@@ -115,18 +161,25 @@ export function SearchModal() {
 
   // 当模态框打开时聚焦输入框
   useEffect(() => {
-    if (isOpen && inputRef.current) {
-      // 等待模态框完全渲染后再聚焦
+    if (isOpen) {
+      // 聚焦输入框
       setTimeout(() => {
-        inputRef.current?.focus();
+        if (inputRef.current) {
+          inputRef.current.focus();
+        }
       }, 100);
     }
   }, [isOpen]);
 
   // 处理搜索输入变化
+  // 注意：这里调用 performSearch 会触发 setState，但这在搜索场景中是必要的
+  // 每次搜索查询变化时都需要更新搜索结果
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   useEffect(() => {
-    performSearch(searchQuery);
-  }, [searchQuery, performSearch]);
+    if (isOpen) {
+      performSearch(searchQuery);
+    }
+  }, [searchQuery, isOpen]);
 
   // 滚动选中的结果到视野中
   useEffect(() => {
@@ -141,47 +194,9 @@ export function SearchModal() {
     }
   }, [selectedIndex]);
 
-  // 跳转到文档页面
-  const handleNavigate = (path: string) => {
-    setIsOpen(false);
-    setSelectedIndex(-1);
-    router.push(path);
-  };
-
   // 阻止事件冒泡
   const handleModalClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-  };
-
-  // 处理结果项的键盘事件
-  const handleResultKeyDown = useCallback((e: React.KeyboardEvent<HTMLDivElement>, index: number) => {
-    if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      // 如果当前是最后一个结果，则不再向下移动
-      if (index < searchResults.length - 1) {
-        setSelectedIndex(index + 1);
-      }
-    } else if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      // 如果当前是第一个结果，则不再向上移动
-      if (index > 0) {
-        setSelectedIndex(index - 1);
-      }
-    } else if (e.key === 'Enter') {
-      e.preventDefault();
-      handleNavigate(searchResults[index].path);
-    }
-  }, [searchResults]);
-
-  // 处理结果项的点击
-  const handleResultClick = (index: number, path: string) => {
-    setSelectedIndex(index);
-    handleNavigate(path);
-  };
-
-  // 处理结果项的鼠标悬停
-  const handleResultHover = (index: number) => {
-    setSelectedIndex(index);
   };
 
   return (
@@ -189,7 +204,7 @@ export function SearchModal() {
       {/* 搜索触发按钮 */}
       <button 
         className="search-trigger"
-        onClick={() => setIsOpen(true)}
+        onClick={handleOpenSearch}
         aria-label="打开搜索"
       >
         <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
@@ -256,7 +271,7 @@ export function SearchModal() {
                 ))
               ) : searchQuery ? (
                 <div className="no-results">
-                  <p>未找到与 "{searchQuery}" 相关的结果</p>
+                  <p>{`未找到与 "${searchQuery}" 相关的结果`}</p>
                 </div>
               ) : (
                 <div className="search-placeholder">
