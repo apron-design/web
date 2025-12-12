@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import AOS from "aos";
+import { SearchModal } from '@/components/SearchModal';
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
   useEffect(() => {
@@ -26,6 +27,10 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
-  return <>{children}</>;
+  return (
+    <>
+      {children}
+      <SearchModal />
+    </>
+  );
 }
-

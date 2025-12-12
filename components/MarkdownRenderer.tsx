@@ -12,6 +12,7 @@ import css from 'highlight.js/lib/languages/css';
 import bash from 'highlight.js/lib/languages/bash';
 import json from 'highlight.js/lib/languages/json';
 import { FloatingToc } from '@/components/FloatingToc';
+import { DemoBlock } from '@/components/DemoBlock';
 import './MarkdownRenderer.scss';
 
 // Register languages
@@ -52,11 +53,66 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     document.querySelectorAll('pre code').forEach((block) => {
       hljs.highlightElement(block as HTMLElement);
       
-      // 特殊处理包管理器命令
+      // 特殊处理包管理器命令，但避免在注释中高亮
       const packageManagers = ['npm', 'yarn', 'pnpm', 'npx'];
       packageManagers.forEach(pkg => {
-        const regex = new RegExp(`\\b(${pkg})\\b`, 'g');
-        block.innerHTML = block.innerHTML.replace(regex, `<span class="hljs-name" name="${pkg}">$1</span>`);
+        // 只在非注释的文本节点中替换
+        const walker = document.createTreeWalker(
+          block,
+          NodeFilter.SHOW_TEXT,
+          {
+            acceptNode: function(node) {
+              // 检查父元素是否为注释类
+              const parent = node.parentElement;
+              if (parent && (parent.classList.contains('hljs-comment') || parent.classList.contains('hljs-quote'))) {
+                return NodeFilter.FILTER_REJECT;
+              }
+              return NodeFilter.FILTER_ACCEPT;
+            }
+          }
+        );
+        
+        const textNodes = [];
+        let node;
+        while (node = walker.nextNode()) {
+          textNodes.push(node);
+        }
+        
+        textNodes.forEach(textNode => {
+          const regex = new RegExp(`\\b(${pkg})\\b`, 'g');
+          const text = textNode.textContent || '';
+          const matches = text.match(regex);
+          
+          if (matches) {
+            const span = document.createElement('span');
+            let lastIndex = 0;
+            let html = '';
+            
+            let match;
+            while ((match = regex.exec(text)) !== null) {
+              // 添加匹配前的文本
+              html += text.substring(lastIndex, match.index);
+              
+              // 添加高亮的包管理器名称
+              html += `<span class="hljs-name" name="${pkg}">${match[0]}</span>`;
+              
+              lastIndex = match.index + match[0].length;
+            }
+            
+            // 添加剩余的文本
+            html += text.substring(lastIndex);
+            
+            span.innerHTML = html;
+            
+            // 替换文本节点
+            if (textNode.parentNode) {
+              while (span.firstChild) {
+                textNode.parentNode.insertBefore(span.firstChild, textNode);
+              }
+              textNode.parentNode.removeChild(textNode);
+            }
+          }
+        });
       });
     });
 
@@ -113,6 +169,23 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     });
   }, [content]);
 
+  // Process :::demo blocks
+  const processDemoBlocks = (markdownContent: string): string => {
+    // Match :::demo blocks with code blocks inside
+    const demoRegex = /:::demo\s*```(?:jsx|tsx)\s*([\s\S]*?)\s*```\s*:::/g;
+    
+    return markdownContent.replace(demoRegex, (match, content) => {
+      // Extract component code (everything inside the demo block)
+      const componentCode = content.trim();
+      
+      // Return a placeholder that will be replaced with the DemoBlock component
+      return `<div class="demo-block-placeholder" data-code="${encodeURIComponent(componentCode)}"></div>`;
+    });
+  };
+
+  // Process the content
+  const processedContent = processDemoBlocks(content);
+
   return (
     <>
       <FloatingToc content={content} />
@@ -151,10 +224,27 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               const text = children?.toString() || '';
               const id = generateId(text);
               return <h6 id={id}>{children}</h6>;
+            },
+            // Handle div elements to render DemoBlock components
+            div: ({ node, ...props }: any) => {
+              // Check if this is a demo block placeholder
+              if (props.className === 'demo-block-placeholder') {
+                const code = props['data-code'];
+                if (code) {
+                  try {
+                    const decodedCode = decodeURIComponent(code);
+                    return <DemoBlock componentCode={decodedCode} />;
+                  } catch (e) {
+                    return <div>解析代码块时出错</div>;
+                  }
+                }
+              }
+              // Render normal divs
+              return <div {...props} />;
             }
           }}
         >
-          {content}
+          {processedContent}
         </ReactMarkdown>
       </div>
     </>

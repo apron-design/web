@@ -3,6 +3,7 @@
 import { usePathname } from 'next/navigation';
 import { PageHeader } from '@/components/PageHeader';
 import { PageFooter } from '@/components/PageFooter';
+import { useEffect, useRef } from 'react';
 import './Documents.scss';
 
 interface NavItem {
@@ -22,13 +23,39 @@ interface DocumentsProps {
 
 export function Documents({ navigation, children }: DocumentsProps) {
   const pathname = usePathname();
+  const sidebarRef = useRef<HTMLDivElement>(null);
+
+  // 保存和恢复侧边栏滚动位置
+  useEffect(() => {
+    const sidebar = sidebarRef.current;
+    if (!sidebar) return;
+
+    // 从 sessionStorage 恢复滚动位置
+    const savedScrollTop = sessionStorage.getItem('sidebar-scroll-top');
+    if (savedScrollTop) {
+      sidebar.scrollTop = parseInt(savedScrollTop, 10);
+    }
+
+    // 保存滚动位置的函数
+    const saveScrollPosition = () => {
+      sessionStorage.setItem('sidebar-scroll-top', sidebar.scrollTop.toString());
+    };
+
+    // 监听滚动事件
+    sidebar.addEventListener('scroll', saveScrollPosition);
+
+    // 组件卸载时清理事件监听器
+    return () => {
+      sidebar.removeEventListener('scroll', saveScrollPosition);
+    };
+  }, []);
 
   return (
     <div className="documents-page">
       <PageHeader backgrounded />
       
       <div className="documents-content">
-        <aside className="documents-sidebar">
+        <aside className="documents-sidebar" ref={sidebarRef}>
           <nav className="documents-nav">
             {navigation.map((section, index) => (
               <div className="nav-section" key={index}>

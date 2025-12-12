@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@apron-design/react": "^21.0.4",
+    "@babel/preset-react": "^7.28.5",
+    "@babel/standalone": "^7.28.5",
     "@gsap/react": "^2.1.2",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
@@ -28,6 +30,7 @@
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
     "@types/aos": "^3.0.7",
+    "@types/babel__standalone": "^7.1.9",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
