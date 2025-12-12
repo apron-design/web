@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import './FloatingToc.scss';
 
 interface TocItem {
@@ -69,6 +69,22 @@ export function FloatingToc({ content }: FloatingTocProps) {
     }
   });
 
+  // Ensure unique IDs by adding a counter suffix if needed
+  const uniqueTocItems = tocItems.map((item, index) => {
+    // Count how many times this ID has appeared before
+    const previousCount = tocItems.slice(0, index).filter(prevItem => prevItem.id === item.id).length;
+    
+    // If this ID has appeared before, append a counter to make it unique
+    if (previousCount > 0) {
+      return {
+        ...item,
+        id: `${item.id}-${previousCount}`
+      };
+    }
+    
+    return item;
+  });
+
   const [isExpanded, setIsExpanded] = useState(false);
   const [showFullToc, setShowFullToc] = useState(true);
   const [activeId, setActiveId] = useState<string>('');
@@ -133,7 +149,7 @@ export function FloatingToc({ content }: FloatingTocProps) {
   useEffect(() => {
     const handleScroll = () => {
       // Get all headings
-      const headings = tocItems.map(item => document.getElementById(item.id)).filter(Boolean) as HTMLElement[];
+      const headings = uniqueTocItems.map(item => document.getElementById(item.id)).filter(Boolean) as HTMLElement[];
       
       if (headings.length === 0) return;
       
@@ -153,7 +169,7 @@ export function FloatingToc({ content }: FloatingTocProps) {
       
       if (closestHeading) {
         // Find the corresponding TOC item
-        const tocItem = tocItems.find(item => item.id === closestHeading!.id);
+        const tocItem = uniqueTocItems.find(item => item.id === closestHeading!.id);
         if (tocItem) {
           setActiveId(tocItem.id);
         }
@@ -169,9 +185,9 @@ export function FloatingToc({ content }: FloatingTocProps) {
     return () => {
       window.removeEventListener('scroll', handleScroll);
     };
-  }, [tocItems]);
+  }, [uniqueTocItems]);
 
-  if (tocItems.length === 0) {
+  if (uniqueTocItems.length === 0) {
     return null;
   }
 
@@ -183,7 +199,7 @@ export function FloatingToc({ content }: FloatingTocProps) {
           <h3 className="toc-title">本页目录</h3>
           <div className="toc-title-divider"></div>
           <ul className="toc-list">
-            {tocItems.map((heading, index) => (
+            {uniqueTocItems.map((heading, index) => (
               <li 
                 key={heading.id} 
                 className={`toc-item level-${heading.level} ${activeId === heading.id ? 'active' : ''}`}
@@ -221,7 +237,7 @@ export function FloatingToc({ content }: FloatingTocProps) {
               <h3 className="toc-title">本页目录</h3>
               <div className="toc-title-divider"></div>
               <ul className="toc-list">
-                {tocItems.map((heading, index) => (
+                {uniqueTocItems.map((heading, index) => (
                   <li 
                     key={heading.id} 
                     className={`toc-item level-${heading.level} ${activeId === heading.id ? 'active' : ''}`}

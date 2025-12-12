@@ -44,7 +44,6 @@ yarn add @apron-design/vue-next
 ### 使用 pnpm 安装
 pnpm install @apron-design/react
 pnpm install @apron-design/vue-next
-
 ```
 
 如果你在防火墙内无法获取最佳的安装体验，也可以使用 [cnpm](https://github.com/cnpm/cnpm) 或 [npmmirror](https://github.com/cnpm/cnpm)

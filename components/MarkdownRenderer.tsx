@@ -12,6 +12,7 @@ import css from 'highlight.js/lib/languages/css';
 import bash from 'highlight.js/lib/languages/bash';
 import json from 'highlight.js/lib/languages/json';
 import { FloatingToc } from '@/components/FloatingToc';
+import { DemoBlock } from '@/components/DemoBlock';
 import './MarkdownRenderer.scss';
 
 // Register languages
@@ -168,6 +169,23 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
     });
   }, [content]);
 
+  // Process :::demo blocks
+  const processDemoBlocks = (markdownContent: string): string => {
+    // Match :::demo blocks with code blocks inside
+    const demoRegex = /:::demo\s*```(?:jsx|tsx)\s*([\s\S]*?)\s*```\s*:::/g;
+    
+    return markdownContent.replace(demoRegex, (match, content) => {
+      // Extract component code (everything inside the demo block)
+      const componentCode = content.trim();
+      
+      // Return a placeholder that will be replaced with the DemoBlock component
+      return `<div class="demo-block-placeholder" data-code="${encodeURIComponent(componentCode)}"></div>`;
+    });
+  };
+
+  // Process the content
+  const processedContent = processDemoBlocks(content);
+
   return (
     <>
       <FloatingToc content={content} />
@@ -206,10 +224,27 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
               const text = children?.toString() || '';
               const id = generateId(text);
               return <h6 id={id}>{children}</h6>;
+            },
+            // Handle div elements to render DemoBlock components
+            div: ({ node, ...props }: any) => {
+              // Check if this is a demo block placeholder
+              if (props.className === 'demo-block-placeholder') {
+                const code = props['data-code'];
+                if (code) {
+                  try {
+                    const decodedCode = decodeURIComponent(code);
+                    return <DemoBlock componentCode={decodedCode} />;
+                  } catch (e) {
+                    return <div>解析代码块时出错</div>;
+                  }
+                }
+              }
+              // Render normal divs
+              return <div {...props} />;
             }
           }}
         >
-          {content}
+          {processedContent}
         </ReactMarkdown>
       </div>
     </>
