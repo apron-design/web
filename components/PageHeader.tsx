@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Link } from '@apron-design/react'
+import { Link } from '@apron-design/react';
+import { SearchButton } from './SearchButton'; // 添加导入
 import "./PageHeader.scss";
 
 interface PageHeaderProps {
@@ -70,14 +71,19 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
   return (
     <header className={`page-header ${showBackground ? "page-header--backgrounded" : ""}`}>
       <div className="page-header-container">
-        <Link href="/" className="page-header-logo">
-          <Image
-            src={isDark ? "/assets/images/logo-dark.svg" : "/assets/images/logo-light.svg"}
-            alt="Logo"
-            fill
-            priority
-          />
-        </Link>
+        <div className="page-header-left">
+          <Link href="/" className="page-header-logo">
+            <Image
+              src={isDark ? "/assets/images/logo-dark.svg" : "/assets/images/logo-light.svg"}
+              alt="Logo"
+              fill
+              priority
+            />
+          </Link>
+          
+          {/* 将搜索按钮放在 logo 右边 */}
+          <SearchButton />
+        </div>
         
         <div className="page-header-actions">
           <Link
