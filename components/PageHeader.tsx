@@ -15,26 +15,28 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
 
   useEffect(() => {
-    // 检查 localStorage 和系统偏好
-    const stored = localStorage.getItem("theme");
-    const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-    const shouldBeDark = stored === "dark" || (!stored && prefersDark);
-    
-    setIsDark(shouldBeDark);
-    if (shouldBeDark) {
-      document.documentElement.setAttribute("data-prefers-color", "dark");
-      document.documentElement.style.backgroundColor = "#000000";
-      document.body.style.backgroundColor = "#000000";
-    } else {
-      document.documentElement.setAttribute("data-prefers-color", "light");
-      document.documentElement.style.backgroundColor = "#FFFFFF";
-      document.body.style.backgroundColor = "#FFFFFF";
+    // 检查 localStorage 和系统偏好 (仅在客户端执行)
+    if (typeof window !== 'undefined') {
+      const stored = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const shouldBeDark = stored === "dark" || (!stored && prefersDark);
+      
+      setIsDark(shouldBeDark);
+      if (shouldBeDark) {
+        document.documentElement.setAttribute("data-prefers-color", "dark");
+        document.documentElement.style.backgroundColor = "#000000";
+        document.body.style.backgroundColor = "#000000";
+      } else {
+        document.documentElement.setAttribute("data-prefers-color", "light");
+        document.documentElement.style.backgroundColor = "#FFFFFF";
+        document.body.style.backgroundColor = "#FFFFFF";
+      }
     }
   }, []);
 
   useEffect(() => {
     // 如果 backgrounded 是数字，监听滚动事件
-    if (typeof backgrounded === "number") {
+    if (typeof backgrounded === "number" && typeof window !== 'undefined') {
       const handleScroll = () => {
         setIsScrolled(window.scrollY >= backgrounded);
       };
@@ -50,16 +52,18 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
     const newIsDark = !isDark;
     setIsDark(newIsDark);
     
-    if (newIsDark) {
-      document.documentElement.setAttribute("data-prefers-color", "dark");
-      document.documentElement.style.backgroundColor = "#000000";
-      document.body.style.backgroundColor = "#000000";
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.setAttribute("data-prefers-color", "light");
-      document.documentElement.style.backgroundColor = "#FFFFFF";
-      document.body.style.backgroundColor = "#FFFFFF";
-      localStorage.setItem("theme", "light");
+    if (typeof window !== 'undefined') {
+      if (newIsDark) {
+        document.documentElement.setAttribute("data-prefers-color", "dark");
+        document.documentElement.style.backgroundColor = "#000000";
+        document.body.style.backgroundColor = "#000000";
+        localStorage.setItem("theme", "dark");
+      } else {
+        document.documentElement.setAttribute("data-prefers-color", "light");
+        document.documentElement.style.backgroundColor = "#FFFFFF";
+        document.body.style.backgroundColor = "#FFFFFF";
+        localStorage.setItem("theme", "light");
+      }
     }
   };
 

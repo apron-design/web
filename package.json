@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apron-design/react": "^21.0.4",
+    "@apron-design/vue-next": "^21.0.1",
     "@babel/preset-react": "^7.28.5",
     "@babel/standalone": "^7.28.5",
     "@gsap/react": "^2.1.2",
