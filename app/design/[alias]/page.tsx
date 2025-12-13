@@ -15,7 +15,7 @@ const navigation = [
   {
     title: '设计系统',
     items: [
-      { label: '设计规范', href: '/design/specifications' },
+      // { label: '设计规范', href: '/design/specifications' },
       { label: '设计原则', href: '/design/principles' },
       { label: '标准色', href: '/design/color' },
     ],

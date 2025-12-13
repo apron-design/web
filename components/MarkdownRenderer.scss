@@ -7,6 +7,20 @@
     color: #cccccc;
   }
 
+  // 限制链接样式只在 Markdown 内容中生效，避免污染组件库的 Link 组件
+  :not([class*="apron-"]) > a:not([class*="apron-"]) {
+    color: #0969da;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+
+    [data-prefers-color="dark"] & {
+      color: #58a6ff;
+    }
+  }
+
   h1, h2, h3, h4, h5, h6 {
     margin-top: 24px;
     margin-bottom: 16px;
@@ -99,19 +113,6 @@
   p {
     margin-top: 0;
     margin-bottom: 16px;
-  }
-
-  a {
-    color: #0969da;
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: underline;
-    }
-
-    [data-prefers-color="dark"] & {
-      color: #58a6ff;
-    }
   }
 
   ul, ol {
