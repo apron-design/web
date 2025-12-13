@@ -41,15 +41,6 @@ jobs:
       - name: Preserve existing directories
         run: |
           mkdir -p preserved
-          if [ -d "target-repo/react" ]; then
-            cp -r target-repo/react preserved/
-          fi
-          if [ -d "target-repo/vue-next" ]; then
-            cp -r target-repo/vue-next preserved/
-          fi
-          if [ -d "target-repo/miniprogram" ]; then
-            cp -r target-repo/miniprogram preserved/
-          fi
           if [ -d "target-repo/palette" ]; then
             cp -r target-repo/palette preserved/
           fi
@@ -66,15 +57,6 @@ jobs:
       
       - name: Restore preserved directories
         run: |
-          if [ -d "preserved/react" ]; then
-            cp -r preserved/react target-repo/
-          fi
-          if [ -d "preserved/vue-next" ]; then
-            cp -r preserved/vue-next target-repo/
-          fi
-          if [ -d "preserved/miniprogram" ]; then
-            cp -r preserved/miniprogram target-repo/
-          fi
           if [ -d "preserved/palette" ]; then
             cp -r preserved/palette target-repo/
           fi
