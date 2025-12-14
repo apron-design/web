@@ -2,6 +2,7 @@
 
 import { useEffect } from "react";
 import AOS from "aos";
+import { AppProgressBar as ProgressBar } from 'next-nprogress-bar';
 import { SearchModal } from '@/components/SearchModal';
 
 export function ClientProviders({ children }: { children: React.ReactNode }) {
@@ -27,8 +28,20 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
     });
   }, []);
 
+  // 获取当前主题颜色
+  const stored = typeof window !== 'undefined' ? localStorage.getItem("theme") : null;
+  const prefersDark = typeof window !== 'undefined' ? window.matchMedia("(prefers-color-scheme: dark)").matches : false;
+  const isDark = stored === "dark" || (!stored && prefersDark);
+  const progressBarColor = isDark ? "#f5f5f5" : "#393939";
+
   return (
     <>
+      <ProgressBar
+        color={progressBarColor}
+        height="2px"
+        options={{ showSpinner: false }}
+        shallowRouting
+      />
       {children}
       <SearchModal />
     </>

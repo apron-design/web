@@ -2,6 +2,8 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
+import AOS from "aos";
+import NProgress from "nprogress";
 import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -42,7 +44,13 @@ export default function Home() {
       attributeFilter: ["data-prefers-color"]
     });
 
-    return () => observer.disconnect();
+    // Handle route changes for NProgress
+    const handleRouteStart = () => NProgress.start();
+    const handleRouteComplete = () => NProgress.done();
+
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   useEffect(() => {
@@ -54,6 +62,9 @@ export default function Home() {
         ease: "power3.out",
       });
     }
+    
+    // Refresh AOS to ensure animations work properly
+    AOS.refresh();
   }, []);
 
   return (
@@ -76,8 +87,8 @@ export default function Home() {
             <div className="hero-tips">一套完全开源的 C 端组件库方案</div>
             <div className="hero-buttons">
               <Space>
-                <Button variant="primary">开始使用</Button>
-                <Button variant="default">客户案例</Button>
+                <Button variant="primary" onClick={() => window.location.href = '/guide/quick-start/'}>开始使用</Button>
+                <Button variant="default" onClick={() => window.location.href = '/showcase'}>客户案例</Button>
               </Space>
             </div>
           </div>
@@ -93,19 +104,19 @@ export default function Home() {
           <SectionTitle>谁在使用</SectionTitle>
           <LogoLoop
             logos={[
-              { src: '/assets/who-are-using/apron.png', srcDark: '/assets/who-are-using/apron-dark.png', alt: 'Apron Design', name: 'Apron Design' } as any,
-              { src: '/assets/who-are-using/davinci.png', srcDark: '/assets/who-are-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
-              { src: '/assets/who-are-using/envoy.png', srcDark: '/assets/who-are-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
-              { src: '/assets/who-are-using/mitkimi.png', srcDark: '/assets/who-are-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
-              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall', name: '黑米说音乐厅' } as any,
-              { src: '/assets/who-are-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
-              { src: '/assets/who-are-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
-              { src: '/assets/who-are-using/panda.png', srcDark: '/assets/who-are-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
-              { src: '/assets/who-are-using/serendipity.png', alt: 'Serendipity', name: 'Serendipity' } as any,
-              { src: '/assets/who-are-using/soundpad.png', alt: 'Soundpad', name: 'SOUNDPAD' } as any,
-              { src: '/assets/who-are-using/teleprompter.png', alt: 'Teleprompter', name: '提词器' } as any,
-              { src: '/assets/who-are-using/tg.png', srcDark: '/assets/who-are-using/tg-dark.png', alt: 'TG', name: 'TG' } as any,
-              { src: '/assets/who-are-using/yike-music.png', alt: 'Yike Music', name: '一刻乐谱' } as any,
+              { src: '/assets/who-are-using/apron.png', alt: 'Apron Design' },
+              { src: '/assets/who-are-using/davinci.png', alt: 'Davinci' },
+              { src: '/assets/who-are-using/envoy.png', alt: 'Envoy' },
+              { src: '/assets/who-are-using/mitkimi.png', alt: 'Mitkimi' },
+              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall' },
+              { src: '/assets/who-are-using/offontime.png', alt: 'Offontime' },
+              { src: '/assets/who-are-using/offshop.png', alt: 'Offshop' },
+              { src: '/assets/who-are-using/panda.png', alt: 'Panda' },
+              { src: '/assets/who-are-using/serendipity.png', alt: 'Serendipity' },
+              { src: '/assets/who-are-using/soundpad.png', alt: 'Soundpad' },
+              { src: '/assets/who-are-using/teleprompter.png', alt: 'Teleprompter' },
+              { src: '/assets/who-are-using/tg.png', alt: 'TG' },
+              { src: '/assets/who-are-using/yike-music.png', alt: 'Yike Music' },
             ]}
             speed={40}
             direction="left"
@@ -115,21 +126,32 @@ export default function Home() {
             fadeOut={true}
             scaleOnHover={false}
             ariaLabel="合作伙伴 Logo"
-            renderItem={(item: any, key) => (
-              <div className="logo-card" key={key}>
-                <div className="logo-image-container">
-                  <Image
-                    src={isDark && item.srcDark ? item.srcDark : item.src}
-                    alt={item.alt}
-                    className="logo-image"
-                    width={148}
-                    height={148}
-                    draggable={false}
-                  />
+            renderItem={(item, key) => {
+              // Type guard to check if item has src property
+              if ('src' in item) {
+                return (
+                  <div className="logo-card" key={key}>
+                    <div className="logo-image-container">
+                      <Image
+                        src={item.src}
+                        alt={item.alt || ''}
+                        className="logo-image"
+                        width={148}
+                        height={148}
+                        draggable={false}
+                      />
+                    </div>
+                  </div>
+                );
+              }
+              return (
+                <div className="logo-card" key={key}>
+                  <div className="logo-image-container">
+                    {item.node}
+                  </div>
                 </div>
-                <div className="logo-name">{item.name}</div>
-              </div>
-            )}
+              );
+            }}
           />
         </div>
       </section>
@@ -212,10 +234,10 @@ export default function Home() {
             </div>
             <div className="feature-related" style={{ display: 'flex', gap: 20 }}>
               <div style={{ width: 'calc((100% - 20px) / 2)' }}>
-                <Button block variant="default">小程序预览</Button>
+                <Button block variant="default" onClick={() => window.location.href = '/miniprogram'}>小程序预览</Button>
               </div>
               <div style={{ width: 'calc((100% - 20px) / 2)' }}>
-                <Button block variant="primary">如何使用</Button>
+                <Button block variant="primary" onClick={() => window.location.href = '/guide/quick-start/'}>如何使用</Button>
               </div>
             </div>
           </div>
@@ -250,8 +272,8 @@ export default function Home() {
             </div>
             <div className="recommend-buttons-container">
               <Space>
-                <Button variant="primary">开始使用</Button>
-                <Button variant="default">客户案例</Button>
+                <Button variant="primary" onClick={() => window.location.href = '/guide/quick-start/'}>开始使用</Button>
+                <Button variant="default" onClick={() => window.location.href = '/showcase'}>客户案例</Button>
               </Space>
             </div>
           </div>

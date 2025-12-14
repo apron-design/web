@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Row, Col, Skeleton, Space, Switch, Badge, Button, Rate, Avatar, AvatarGroup } from "@apron-design/react";
 import "./Window.scss";
+import AOS from "aos";
 
 export function Window() {
   const [isDark, setIsDark] = useState(false);
@@ -33,8 +34,13 @@ export function Window() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    // Refresh AOS when component mounts to ensure animations work
+    AOS.refresh();
+  }, []);
+
   return (
-    <div data-aos="fade-up">
+    <div data-aos="fade-right">
       <div className={`window ${isDark ? 'dark' : 'light'}`} >
         <div className="window-header">
           <div className="window-controls">
