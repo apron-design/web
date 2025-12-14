@@ -16,7 +16,9 @@
 :::demo
 ```vue
 <template>
-  <ad-alert message="Information goes here" />
+  <ad-alert>
+    Information goes here
+  </ad-alert>
 </template>
 ```
 :::
@@ -29,10 +31,18 @@
 ```vue
 <template>
   <ad-space orientation="vertical">
-    <ad-alert type="info" message="Information goes here" />
-    <ad-alert type="success" message="Success information goes here" />
-    <ad-alert type="warning" message="Warning information goes here" />
-    <ad-alert type="error" message="Error information goes here" />
+    <ad-alert type="info">
+      Information goes here
+    </ad-alert>
+    <ad-alert type="success">
+      Success information goes here
+    </ad-alert>
+    <ad-alert type="warning">
+      Warning information goes here
+    </ad-alert>
+    <ad-alert type="error">
+      Error information goes here
+    </ad-alert>
   </ad-space>
 </template>
 ```
@@ -45,10 +55,9 @@
 :::demo
 ```vue
 <template>
-  <ad-alert 
-    type="success" 
-    message="<span>Your file <strong>report.pdf</strong> has been uploaded successfully!</span>"
-  />
+  <ad-alert type="success">
+    <span>Your file <strong>report.pdf</strong> has been uploaded successfully!</span>
+  </ad-alert>
 </template>
 ```
 :::
@@ -60,5 +69,4 @@
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
 | type | 指定警告提示的样式 | `info` \| `success` \| `warning` \| `error` | `info` |
-| message | 警告提示内容 | string | - |
-| className | 自定义类名 | string | - |
+| class | 自定义类名 | string | - |
