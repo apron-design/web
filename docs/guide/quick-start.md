@@ -35,13 +35,13 @@ Vue3 版本组件库我们选用的 less 作为样式预处理，组件库样式
 我们建议您使用包管理器（例如 [NPM](https://npmjs.com)、[Yarn](https://classic.yarnpkg.com/lang/en/) 或 [pnpm](https://classic.yarnpkg.com/lang/en/)）安装 Apron Design，然后使用打包工具（例如 [Vite](https://vitejs.dev/) 或 [webpack](https://webpack.js.org/)）打包。
 
 ```bash
-### 使用 npm 安装
+# 使用 npm 安装
 npm install @apron-design/react --save # React
 npm install @apron-design/vue-next --save # Vue3
-### 使用 yarn 安装
+# 使用 yarn 安装
 yarn add @apron-design/react
 yarn add @apron-design/vue-next
-### 使用 pnpm 安装
+# 使用 pnpm 安装
 pnpm install @apron-design/react
 pnpm install @apron-design/vue-next
 ```

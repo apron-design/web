@@ -172,7 +172,7 @@ export function MarkdownRenderer({ content }: MarkdownRendererProps) {
   // Process :::demo blocks
   const processDemoBlocks = (markdownContent: string): string => {
     // Match :::demo blocks with code blocks inside
-    const demoRegex = /:::demo\s*```(?:jsx|tsx)\s*([\s\S]*?)\s*```\s*:::/g;
+    const demoRegex = /:::demo\s*```(?:jsx|tsx|vue)\s*([\s\S]*?)\s*```\s*:::/g;
     
     return markdownContent.replace(demoRegex, (match, content) => {
       // Extract component code (everything inside the demo block)
