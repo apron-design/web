@@ -14,6 +14,8 @@
     "@babel/preset-react": "^7.28.5",
     "@babel/standalone": "^7.28.5",
     "@gsap/react": "^2.1.2",
+    "@vue/compiler-sfc": "^3.5.25",
+    "@vue/runtime-dom": "^3.5.25",
     "aos": "^2.3.4",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
@@ -26,7 +28,8 @@
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
     "remark-gfm": "^4.0.1",
-    "tailwind-merge": "^3.4.0"
+    "tailwind-merge": "^3.4.0",
+    "vue": "^3.5.25"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

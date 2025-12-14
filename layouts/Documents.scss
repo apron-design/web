@@ -129,6 +129,11 @@
   padding: 60px 0 100px;
   margin: 0 auto;
 
+  // 当宽度不足板心宽度时，给板心左右两边加上 20px 的外边距
+  @media (max-width: 1200px) {
+    margin: 0 20px;
+  }
+
   h1 {
     font-size: 48px;
     font-weight: 700;

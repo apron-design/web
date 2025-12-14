@@ -2,7 +2,8 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
-import { Link } from '@apron-design/react';
+import Link from "next/link";
+import { usePathname } from 'next/navigation';
 import { SearchButton } from './SearchButton'; // 添加导入
 import "./PageHeader.scss";
 
@@ -11,18 +12,23 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({ backgrounded }: PageHeaderProps) {
-  const [isDark, setIsDark] = useState(false);
-  const [isScrolled, setIsScrolled] = useState(false);
-
-  useEffect(() => {
-    // 检查 localStorage 和系统偏好 (仅在客户端执行)
+  // 使用函数式初始化来避免在useEffect中调用setIsDark
+  const [isDark, setIsDark] = useState(() => {
     if (typeof window !== 'undefined') {
       const stored = localStorage.getItem("theme");
       const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const shouldBeDark = stored === "dark" || (!stored && prefersDark);
-      
-      setIsDark(shouldBeDark);
-      if (shouldBeDark) {
+      return stored === "dark" || (!stored && prefersDark);
+    }
+    return false;
+  });
+  
+  const [isScrolled, setIsScrolled] = useState(false);
+  const pathname = usePathname();
+
+  useEffect(() => {
+    // 应用主题到DOM元素
+    if (typeof window !== 'undefined') {
+      if (isDark) {
         document.documentElement.setAttribute("data-prefers-color", "dark");
         document.documentElement.style.backgroundColor = "#000000";
         document.body.style.backgroundColor = "#000000";
@@ -32,7 +38,7 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
         document.body.style.backgroundColor = "#FFFFFF";
       }
     }
-  }, []);
+  }, [isDark]); // 依赖isDark变化来应用主题
 
   useEffect(() => {
     // 如果 backgrounded 是数字，监听滚动事件
@@ -72,6 +78,45 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
     backgrounded === true || 
     (typeof backgrounded === "number" && isScrolled);
 
+  // 判断导航项是否应该高亮
+  const isNavActive = (href: string) => {
+    // 根路径特殊处理
+    if (href === '/' && pathname === '/') {
+      return true;
+    }
+    
+    // 对于根路径，不匹配其他路径
+    if (href === '/') {
+      return false;
+    }
+    
+    // 移除尾部斜杠进行比较
+    const normalizedHref = href.replace(/\/$/, '');
+    const normalizedPathname = pathname.replace(/\/$/, '');
+    
+    // 如果是精确匹配
+    if (normalizedHref === normalizedPathname) {
+      return true;
+    }
+    
+    // 如果是前缀匹配（处理二级页面）
+    if (normalizedPathname.startsWith(normalizedHref) && normalizedHref !== '') {
+      return true;
+    }
+    
+    return false;
+  };
+
+  // 导航项配置
+  const navItems = [
+    { href: '/design', label: '设计' },
+    { href: '/guide', label: '指南' },
+    { href: '/usage', label: '最佳实践' },
+    { href: '/react', label: 'React' },
+    { href: '/vue-next', label: 'Vue3' },
+    { href: '/miniprogram', label: '微信小程序' }
+  ];
+
   return (
     <header className={`page-header ${showBackground ? "page-header--backgrounded" : ""}`}>
       <div className="page-header-container">
@@ -90,42 +135,16 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
         </div>
         
         <div className="page-header-actions">
-          <Link
-            variant="primary"
-            href="/design/principles"
-          >
-            设计
-          </Link>
-          <Link
-            variant="primary"
-            href="/guide/quick-start"
-          >
-            指南
-          </Link>
-          <Link
-            variant="primary"
-            href="/usage/best-practices"
-          >
-            最佳实践
-          </Link>
-          <Link
-            variant="primary"
-            href="/react"
-          >
-            React
-          </Link>
-          <Link
-            variant="primary"
-            href="/vue-next"
-          >
-            Vue3
-          </Link>
-          <Link
-            variant="primary"
-            href="/miniprogram"
-          >
-            微信小程序
-          </Link>
+          {navItems.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`page-header-nav-link ${isNavActive(item.href) ? 'active' : ''}`}
+            >
+              {item.label}
+            </Link>
+          ))}
+          
           <Link 
             href="https://github.com/apron-design"
             target="_blank"

@@ -20,6 +20,39 @@
   overflow: visible;
 }
 
+.demo-vue-container {
+  // Vue 组件容器样式
+}
+
+.demo-vue-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  text-align: center;
+  background-color: #f0f8ff;
+  border: 1px dashed #409eff;
+  border-radius: 8px;
+  color: #409eff;
+
+  .demo-vue-note {
+    margin-top: 8px;
+    font-size: 14px;
+    color: #888;
+  }
+
+  [data-prefers-color="dark"] & {
+    background-color: #1a2a3a;
+    border-color: #409eff;
+    color: #409eff;
+
+    .demo-vue-note {
+      color: #aaa;
+    }
+  }
+}
+
 .demo-code-section {
   background: var(--color-card);
 }
