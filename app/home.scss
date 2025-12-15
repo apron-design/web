@@ -236,12 +236,49 @@
           background: #393939;
           color: #FFFFFF;
           border-radius: 20px;
-          padding: 0 20px;
+          padding: 0 12px 0 20px;
           line-height: 40px;
+          display: inline-flex;
+          align-items: center;
+          position: relative;
           
           [data-prefers-color="dark"] & {
             background: #2a2a2a;
             color: #E5E5E5;
+          }
+          
+          // 复制按钮样式
+          .copy-button {
+            position: relative;
+            width: 24px;
+            height: 24px;
+            background: transparent;
+            color: #FFFFFF;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.2s ease;
+            flex-shrink: 0;
+            margin-left: 8px;
+            
+            [data-prefers-color="dark"] & {
+              color: #E5E5E5;
+            }
+            
+            &:hover {
+              background: rgba(255, 255, 255, 0.1);
+            }
+            
+            &.copied {
+              color: #7ee787;
+            }
+            
+            svg {
+              display: block;
+            }
           }
         }
       }
@@ -346,5 +383,110 @@
   }
   100% {
     background-position: 200% 50%;
+  }
+}
+
+/* 小程序预览 Modal 样式 */
+.mini-program-modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.mini-program-modal {
+  background: #ffffff;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  width: 400px;
+  max-width: 90vw;
+  overflow: hidden;
+  
+  [data-prefers-color="dark"] & {
+    background: #1a1a1a;
+    box-shadow: 0 4px 12px rgba(255, 255, 255, 0.15);
+  }
+}
+
+.mini-program-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #e5e5e5;
+  
+  [data-prefers-color="dark"] & {
+    border-bottom-color: #333333;
+  }
+  
+  h3 {
+    margin: 0;
+    font-size: 18px;
+    font-weight: 600;
+    color: #393939;
+    
+    [data-prefers-color="dark"] & {
+      color: #E5E5E5;
+    }
+  }
+}
+
+.mini-program-modal-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999999;
+  padding: 0;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  &:hover {
+    color: #666666;
+  }
+  
+  [data-prefers-color="dark"] & {
+    color: #999999;
+    
+    &:hover {
+      color: #E5E5E5;
+    }
+  }
+}
+
+.mini-program-modal-content {
+  padding: 32px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.mini-program-qrcode {
+  margin-bottom: 20px;
+  
+  img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+  }
+}
+
+.mini-program-modal-tip {
+  margin: 0;
+  font-size: 14px;
+  color: #666666;
+  text-align: center;
+  
+  [data-prefers-color="dark"] & {
+    color: #999999;
   }
 }
