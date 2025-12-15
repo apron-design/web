@@ -2,8 +2,6 @@
 
 import { useEffect, useRef, useState } from "react";
 import { gsap } from "gsap";
-import AOS from "aos";
-import NProgress from "nprogress";
 import Image from "next/image";
 import { PageHeader } from "@/components/PageHeader";
 import { PageFooter } from "@/components/PageFooter";
@@ -12,7 +10,7 @@ import { TestimonialLoop } from "@/components/TestimonialLoop";
 import { Window } from "@/components/Window";
 import DotGrid from "@/components/DotGrid";
 import Squares from "@/components/Squares";
-import { Button, Space } from '@apron-design/react';
+import { Button, Space, message } from '@apron-design/react';
 import { SectionTitle } from "@/components/SectionTitle";
 
 import "./home.scss";
@@ -20,6 +18,7 @@ import "./home.scss";
 export default function Home() {
   const titleRef = useRef<HTMLHeadingElement>(null);
   const [isDark, setIsDark] = useState(false);
+  const [isMiniProgramModalOpen, setIsMiniProgramModalOpen] = useState(false);
 
   useEffect(() => {
     // Check initial theme
@@ -44,13 +43,7 @@ export default function Home() {
       attributeFilter: ["data-prefers-color"]
     });
 
-    // Handle route changes for NProgress
-    const handleRouteStart = () => NProgress.start();
-    const handleRouteComplete = () => NProgress.done();
-
-    return () => {
-      observer.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -62,10 +55,47 @@ export default function Home() {
         ease: "power3.out",
       });
     }
-    
-    // Refresh AOS to ensure animations work properly
-    AOS.refresh();
   }, []);
+
+  // 关闭小程序预览modal
+  const closeMiniProgramModal = () => {
+    setIsMiniProgramModalOpen(false);
+  };
+
+  // 点击modal外部关闭
+  const handleModalBackdropClick = (e: React.MouseEvent) => {
+    if (e.target === e.currentTarget) {
+      closeMiniProgramModal();
+    }
+  };
+
+  // 复制bash命令到剪贴板
+  const copyToClipboard = async (text: string, element: HTMLElement) => {
+    try {
+      await navigator.clipboard.writeText(text);
+      // 显示成功消息
+      message.success('复制成功');
+      
+      // 更新按钮状态
+      const button = element;
+      const originalHTML = button.innerHTML;
+      button.innerHTML = `
+        <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+          <path d="M3 8l3 3 7-7" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      `;
+      button.classList.add('copied');
+      
+      // 2秒后恢复原始状态
+      setTimeout(() => {
+        button.innerHTML = originalHTML;
+        button.classList.remove('copied');
+      }, 2000);
+    } catch (err) {
+      console.error('Failed to copy:', err);
+      message.error('复制失败');
+    }
+  };
 
   return (
     <div className="min-h-screen transition-colors" style={{ backgroundColor: 'var(--color-background)' }}>
@@ -104,19 +134,19 @@ export default function Home() {
           <SectionTitle>谁在使用</SectionTitle>
           <LogoLoop
             logos={[
-              { src: '/assets/who-are-using/apron.png', alt: 'Apron Design' },
-              { src: '/assets/who-are-using/davinci.png', alt: 'Davinci' },
-              { src: '/assets/who-are-using/envoy.png', alt: 'Envoy' },
-              { src: '/assets/who-are-using/mitkimi.png', alt: 'Mitkimi' },
-              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall' },
-              { src: '/assets/who-are-using/offontime.png', alt: 'Offontime' },
-              { src: '/assets/who-are-using/offshop.png', alt: 'Offshop' },
-              { src: '/assets/who-are-using/panda.png', alt: 'Panda' },
-              { src: '/assets/who-are-using/serendipity.png', alt: 'Serendipity' },
-              { src: '/assets/who-are-using/soundpad.png', alt: 'Soundpad' },
-              { src: '/assets/who-are-using/teleprompter.png', alt: 'Teleprompter' },
-              { src: '/assets/who-are-using/tg.png', alt: 'TG' },
-              { src: '/assets/who-are-using/yike-music.png', alt: 'Yike Music' },
+              { src: '/assets/who-are-using/apron.png', srcDark: '/assets/who-are-using/apron-dark.png', alt: 'Apron Design', name: 'Apron Design' } as any,
+              { src: '/assets/who-are-using/davinci.png', srcDark: '/assets/who-are-using/davinci-dark.png', alt: 'Davinci', name: 'DAVINCI' } as any,
+              { src: '/assets/who-are-using/envoy.png', srcDark: '/assets/who-are-using/envoy-dark.png', alt: 'Envoy', name: 'ENVOY' } as any,
+              { src: '/assets/who-are-using/mitkimi.png', srcDark: '/assets/who-are-using/mitkimi-dark.png', alt: 'Mitkimi', name: '黑米说' } as any,
+              { src: '/assets/who-are-using/music-hall.png', alt: 'Music Hall', name: '黑米说音乐厅' } as any,
+              { src: '/assets/who-are-using/offontime.png', alt: 'Offontime', name: '按时下班' } as any,
+              { src: '/assets/who-are-using/offshop.png', alt: 'Offshop', name: '下班小铺' } as any,
+              { src: '/assets/who-are-using/panda.png', srcDark: '/assets/who-are-using/panda-dark.png', alt: 'Panda', name: 'Panda' } as any,
+              { src: '/assets/who-are-using/serendipity.png', alt: 'Serendipity', name: 'Serendipity' } as any,
+              { src: '/assets/who-are-using/soundpad.png', alt: 'Soundpad', name: 'SOUNDPAD' } as any,
+              { src: '/assets/who-are-using/teleprompter.png', alt: 'Teleprompter', name: '提词器' } as any,
+              { src: '/assets/who-are-using/tg.png', srcDark: '/assets/who-are-using/tg-dark.png', alt: 'TG', name: 'TG' } as any,
+              { src: '/assets/who-are-using/yike-music.png', alt: 'Yike Music', name: '一刻乐谱' } as any,
             ]}
             speed={40}
             direction="left"
@@ -126,32 +156,21 @@ export default function Home() {
             fadeOut={true}
             scaleOnHover={false}
             ariaLabel="合作伙伴 Logo"
-            renderItem={(item, key) => {
-              // Type guard to check if item has src property
-              if ('src' in item) {
-                return (
-                  <div className="logo-card" key={key}>
-                    <div className="logo-image-container">
-                      <Image
-                        src={item.src}
-                        alt={item.alt || ''}
-                        className="logo-image"
-                        width={148}
-                        height={148}
-                        draggable={false}
-                      />
-                    </div>
-                  </div>
-                );
-              }
-              return (
-                <div className="logo-card" key={key}>
-                  <div className="logo-image-container">
-                    {item.node}
-                  </div>
+            renderItem={(item: any, key) => (
+              <div className="logo-card" key={key}>
+                <div className="logo-image-container">
+                  <Image
+                    src={isDark && item.srcDark ? item.srcDark : item.src}
+                    alt={item.alt}
+                    className="logo-image"
+                    width={148}
+                    height={148}
+                    draggable={false}
+                  />
                 </div>
-              );
-            }}
+                <div className="logo-name">{item.name}</div>
+              </div>
+            )}
           />
         </div>
       </section>
@@ -211,6 +230,16 @@ export default function Home() {
             <div className="feature-related">
               <div className="bash-container">
                 npm i @apron-design/react -S
+                <button 
+                  className="copy-button"
+                  onClick={(e) => copyToClipboard('npm i @apron-design/react -S', e.currentTarget)}
+                  title="复制到剪贴板"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -223,6 +252,16 @@ export default function Home() {
             <div className="feature-related">
               <div className="bash-container">
                 npm i @apron-design/vue-next -S
+                <button 
+                  className="copy-button"
+                  onClick={(e) => copyToClipboard('npm i @apron-design/vue-next -S', e.currentTarget)}
+                  title="复制到剪贴板"
+                >
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
@@ -234,7 +273,7 @@ export default function Home() {
             </div>
             <div className="feature-related" style={{ display: 'flex', gap: 20 }}>
               <div style={{ width: 'calc((100% - 20px) / 2)' }}>
-                <Button block variant="default" onClick={() => window.location.href = '/miniprogram'}>小程序预览</Button>
+                <Button block variant="default" onClick={() => setIsMiniProgramModalOpen(true)}>小程序预览</Button>
               </div>
               <div style={{ width: 'calc((100% - 20px) / 2)' }}>
                 <Button block variant="primary" onClick={() => window.location.href = '/guide/quick-start/'}>如何使用</Button>
@@ -280,7 +319,6 @@ export default function Home() {
           <div className="half-container right-container">
             <TestimonialLoop
               testimonials={[
-
                 {
                   quote: "ApronDesign 的组件设计非常精美，开箱即用的特性让我们的开发团队能够快速构建高质量的用户界面。组件库的 TypeScript 支持完善，类型定义清晰准确，大大提升了我们的开发效率和代码质量。",
                   name: "田昊天",
@@ -318,7 +356,6 @@ export default function Home() {
                   role: "designer"
                 },
                 {
-
                   quote: "组件库的响应式设计非常出色，无论是桌面端还是移动端都能提供一致的用户体验。布局系统灵活且强大，让我们能够轻松实现各种复杂的界面需求，大大减少了开发时间和维护成本。",
                   name: "潘钧挺",
                   company: "Panda",
@@ -335,6 +372,33 @@ export default function Home() {
       </section>
 
       <PageFooter />
+
+      {/* 小程序预览 Modal */}
+      {isMiniProgramModalOpen && (
+        <div className="mini-program-modal-backdrop" onClick={handleModalBackdropClick}>
+          <div className="mini-program-modal">
+            <div className="mini-program-modal-header">
+              <h3>微信小程序预览</h3>
+              <button className="mini-program-modal-close" onClick={closeMiniProgramModal}>
+                ×
+              </button>
+            </div>
+            <div className="mini-program-modal-content">
+              <div className="mini-program-qrcode">
+                <Image 
+                  src="/miniprogram-code.jpg" 
+                  alt="微信小程序预览码" 
+                  width={200} 
+                  height={200} 
+                />
+              </div>
+              <p className="mini-program-modal-tip">
+                使用微信扫描此太阳码预览组件库
+              </p>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

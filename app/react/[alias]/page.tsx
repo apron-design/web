@@ -60,7 +60,7 @@ const navigation = [
     title: '通用',
     items: [
       { label: '按钮 Button', href: '/react/button' },
-      { label: '图标 Icons', href: '/react/icon' },
+      { label: '图标 Icons', href: '/react/icons' },
       { label: '链接 Link', href: '/react/link' },
     ],
   },
