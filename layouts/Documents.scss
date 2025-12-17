@@ -162,10 +162,12 @@
   max-width: 1200px;
   padding: 60px 0 100px;
   margin: 0 auto;
+  padding-right: 20px; // 始终有 20px 右边距
 
   // 当宽度不足板心宽度时，给板心左右两边加上 20px 的外边距
   @media (max-width: 1200px) {
     margin: 0 20px;
+    padding-right: 20px; // 确保在媒体查询中也保持右边距
   }
 
   h1 {
