@@ -45,6 +45,25 @@
   height: 40px;
   width: 140px;
   position: relative;
+
+  // Logo 主题切换 - 使用 CSS 控制
+  .logo-light {
+    opacity: 1;
+  }
+  
+  .logo-dark {
+    opacity: 0;
+  }
+
+  [data-prefers-color="dark"] & {
+    .logo-light {
+      opacity: 0;
+    }
+    
+    .logo-dark {
+      opacity: 1;
+    }
+  }
 }
 
 .page-header-actions {
@@ -109,8 +128,29 @@
 }
 
 .page-header-theme-toggle {
+  position: relative;
+  
   &:focus {
     outline: none;
+  }
+
+  // 主题图标切换 - 使用 CSS 控制
+  .theme-icon-light {
+    display: block;
+  }
+  
+  .theme-icon-dark {
+    display: none;
+  }
+
+  [data-prefers-color="dark"] & {
+    .theme-icon-light {
+      display: none;
+    }
+    
+    .theme-icon-dark {
+      display: block;
+    }
   }
 }
 

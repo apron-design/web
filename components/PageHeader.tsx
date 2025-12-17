@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
@@ -12,23 +12,17 @@ interface PageHeaderProps {
 }
 
 export function PageHeader({ backgrounded }: PageHeaderProps) {
-  // 使用函数式初始化来避免在useEffect中调用setIsDark
-  const [isDark, setIsDark] = useState(() => {
-    if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      return stored === "dark" || (!stored && prefersDark);
-    }
-    return false;
-  });
-  
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
 
+  // 初始化主题 - 在客户端首次渲染时执行
   useEffect(() => {
-    // 应用主题到DOM元素
     if (typeof window !== 'undefined') {
-      if (isDark) {
+      const stored = localStorage.getItem("theme");
+      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+      const shouldBeDark = stored === "dark" || (!stored && prefersDark);
+      
+      if (shouldBeDark) {
         document.documentElement.setAttribute("data-prefers-color", "dark");
         document.documentElement.style.backgroundColor = "#000000";
         document.body.style.backgroundColor = "#000000";
@@ -38,7 +32,7 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
         document.body.style.backgroundColor = "#FFFFFF";
       }
     }
-  }, [isDark]); // 依赖isDark变化来应用主题
+  }, []);
 
   useEffect(() => {
     // 如果 backgrounded 是数字，监听滚动事件
@@ -54,24 +48,24 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
     }
   }, [backgrounded]);
 
-  const toggleTheme = () => {
-    const newIsDark = !isDark;
-    setIsDark(newIsDark);
+  const toggleTheme = useCallback(() => {
+    if (typeof window === 'undefined') return;
     
-    if (typeof window !== 'undefined') {
-      if (newIsDark) {
-        document.documentElement.setAttribute("data-prefers-color", "dark");
-        document.documentElement.style.backgroundColor = "#000000";
-        document.body.style.backgroundColor = "#000000";
-        localStorage.setItem("theme", "dark");
-      } else {
-        document.documentElement.setAttribute("data-prefers-color", "light");
-        document.documentElement.style.backgroundColor = "#FFFFFF";
-        document.body.style.backgroundColor = "#FFFFFF";
-        localStorage.setItem("theme", "light");
-      }
+    const currentTheme = document.documentElement.getAttribute("data-prefers-color");
+    const newIsDark = currentTheme !== "dark";
+    
+    if (newIsDark) {
+      document.documentElement.setAttribute("data-prefers-color", "dark");
+      document.documentElement.style.backgroundColor = "#000000";
+      document.body.style.backgroundColor = "#000000";
+      localStorage.setItem("theme", "dark");
+    } else {
+      document.documentElement.setAttribute("data-prefers-color", "light");
+      document.documentElement.style.backgroundColor = "#FFFFFF";
+      document.body.style.backgroundColor = "#FFFFFF";
+      localStorage.setItem("theme", "light");
     }
-  };
+  }, []);
 
   // 确定是否显示背景
   const showBackground = 
@@ -122,11 +116,20 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
       <div className="page-header-container">
         <div className="page-header-left">
           <Link href="/" className="page-header-logo">
+            {/* 使用 CSS 控制 logo 切换，避免 hydration 错误 */}
             <Image
-              src={isDark ? "/assets/images/logo-dark.svg" : "/assets/images/logo-light.svg"}
+              src="/assets/images/logo-light.svg"
               alt="Logo"
               fill
               priority
+              className="logo-light"
+            />
+            <Image
+              src="/assets/images/logo-dark.svg"
+              alt="Logo"
+              fill
+              priority
+              className="logo-dark"
             />
           </Link>
           
@@ -166,12 +169,20 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
             className="page-header-icon-button page-header-theme-toggle"
             aria-label="切换主题"
           >
+            {/* 使用 CSS 控制主题图标切换，避免 hydration 错误 */}
             <Image
-              src={isDark ? "/assets/icons/sun.svg" : "/assets/icons/moon.svg"}
-              alt={isDark ? "切换到浅色模式" : "切换到深色模式"}
+              src="/assets/icons/moon.svg"
+              alt="切换到深色模式"
               width={24}
               height={24}
-              className="page-header-icon"
+              className="page-header-icon theme-icon-light"
+            />
+            <Image
+              src="/assets/icons/sun.svg"
+              alt="切换到浅色模式"
+              width={24}
+              height={24}
+              className="page-header-icon theme-icon-dark"
             />
           </button>
         </div>
