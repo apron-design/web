@@ -86,7 +86,7 @@ export default () => (
     <CardFooter>
       <Space>
         <Button variant="primary" size="sm">确认</Button>
-        <Button variant="secondary" size="sm">取消</Button>
+        <Button variant="default" size="sm">取消</Button>
       </Space>
     </CardFooter>
   </Card>
@@ -119,7 +119,7 @@ export default () => (
     <CardFooter>
       <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
         <Space>
-          <Button variant="secondary" size="sm">取消</Button>
+          <Button variant="default" size="sm">取消</Button>
           <Button variant="primary" size="sm">保存</Button>
         </Space>
       </div>

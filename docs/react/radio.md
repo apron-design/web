@@ -306,60 +306,6 @@ export default function UncontrolledRadioGroup() {
 ```
 :::
 
-### 暗色模式
-
-单选框在暗色模式下会自动适配主题颜色。
-:::demo
-```jsx
-import { RadioGroup, Radio } from '@apron-design/react';
-
-export default function DarkModeRadio() {
-  return (
-    <div
-      data-theme="dark"
-      style={{
-        padding: '32px',
-        backgroundColor: '#18181b',
-        borderRadius: '12px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-      }}
-    >
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Available</h4>
-        <div style={{ display: 'flex', gap: '32px' }}>
-          <Radio>Unchecked</Radio>
-          <Radio checked onChange={() => {}}>Checked</Radio>
-        </div>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Disabled</h4>
-        <div style={{ display: 'flex', gap: '32px' }}>
-          <Radio disabled>Unchecked</Radio>
-          <Radio checked disabled onChange={() => {}}>Checked</Radio>
-        </div>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Radio Group</h4>
-        <RadioGroup
-          defaultValue="option1"
-          direction="horizontal"
-          options={[
-            { label: 'Option 1', value: 'option1' },
-            { label: 'Option 2', value: 'option2' },
-            { label: 'Option 3', value: 'option3' },
-          ]}
-        />
-      </div>
-    </div>
-  );
-}
-```
-:::
-
 ## API
 
 ### Radio Props

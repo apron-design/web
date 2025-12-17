@@ -1,7 +1,5 @@
 .documents-page {
   min-height: 100vh;
-  display: flex;
-  flex-direction: column;
   background-color: #ffffff;
 
   [data-prefers-color="dark"] & {
@@ -10,7 +8,6 @@
 }
 
 .documents-content {
-  flex: 1;
   display: flex;
   padding-top: 60px; // Header height
   min-height: calc(100vh - 60px);
@@ -18,16 +15,52 @@
 
 .documents-sidebar {
   width: 300px;
+  flex-shrink: 0;
   background-color: #f9f9f9;
   border-right: 1px solid #e5e5e5;
-  overflow-y: auto;
   position: sticky;
   top: 60px;
   height: calc(100vh - 60px);
+  overflow-y: auto;
+
+  // 自定义滚动条
+  &::-webkit-scrollbar {
+    width: 14px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 7px;
+    transition: background 0.2s ease;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
+
+  &::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, 0.35);
+  }
 
   [data-prefers-color="dark"] & {
     background-color: #0a0a0a;
     border-right-color: #262626;
+
+    &::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &::-webkit-scrollbar-thumb:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    &::-webkit-scrollbar-thumb:active {
+      background: rgba(255, 255, 255, 0.3);
+    }
   }
 }
 
@@ -120,7 +153,8 @@
 }
 
 .documents-main {
-  width: 100%;
+  flex: 1;
+  min-width: 0;
 }
 
 .documents-container {

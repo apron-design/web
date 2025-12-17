@@ -17,7 +17,9 @@
 ```vue
 <template>
   <ad-popover title="提示标题" content="这是 Popover 的内容区域，可以放置任何文本信息。">
-    <ad-button>点击显示</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick">点击显示</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -32,7 +34,9 @@ Popover 支持两种触发方式：点击和悬停。
 ```vue
 <template>
   <ad-popover mode="click" title="点击触发" content="点击按钮或外部区域关闭。">
-    <ad-button>点击显示</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick">点击显示</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -43,7 +47,9 @@ Popover 支持两种触发方式：点击和悬停。
 ```vue
 <template>
   <ad-popover mode="hover" title="悬停触发" content="鼠标移出后自动关闭。">
-    <ad-button>悬停显示</ad-button>
+    <template #trigger="{ handleMouseEnter, handleMouseLeave, triggerRef }">
+      <ad-button :ref="triggerRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">悬停显示</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -58,7 +64,9 @@ Popover 可以与多种元素搭配使用。
 ```vue
 <template>
   <ad-popover mode="hover" title="链接提示" content="这是链接的详细说明。">
-    <ad-link>悬停查看详情</ad-link>
+    <template #trigger="{ handleMouseEnter, handleMouseLeave, triggerRef }">
+      <ad-link :ref="triggerRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave">悬停查看详情</ad-link>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -69,9 +77,11 @@ Popover 可以与多种元素搭配使用。
 ```vue
 <template>
   <ad-popover mode="hover" content="这是一段说明文字">
-    <span style="cursor: pointer; text-decoration: underline; color: #4C9EEA;">
-      帮助信息
-    </span>
+    <template #trigger="{ handleMouseEnter, handleMouseLeave, triggerRef }">
+      <span :ref="triggerRef" @mouseenter="handleMouseEnter" @mouseleave="handleMouseLeave" style="cursor: pointer; text-decoration: underline; color: #4C9EEA;">
+        帮助信息
+      </span>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -86,7 +96,9 @@ Popover 支持不同的内容组合。
 ```vue
 <template>
   <ad-popover title="只有标题">
-    <ad-button variant="secondary">只有标题</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick" variant="secondary">只有标题</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -97,7 +109,9 @@ Popover 支持不同的内容组合。
 ```vue
 <template>
   <ad-popover content="只有内容，没有标题。">
-    <ad-button variant="secondary">只有内容</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick" variant="secondary">只有内容</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -111,7 +125,9 @@ Popover 支持不同的内容组合。
     title="详细说明"
     content="这是一段很长的内容，用来测试 Popover 的最大宽度限制。当内容超过 300px 宽度时，会自动换行显示，确保内容可读性良好。"
   >
-    <ad-button>长内容</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick">长内容</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -125,7 +141,9 @@ Popover 支持不同的内容组合。
     title="用户信息"
     content="<div style='display: flex; flex-direction: column; gap: 8px;'><div>用户名：admin</div><div>邮箱：admin@example.com</div><div>角色：管理员</div></div>"
   >
-    <ad-button>查看用户信息</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick">查看用户信息</ad-button>
+    </template>
   </ad-popover>
 </template>
 ```
@@ -139,10 +157,14 @@ Popover 支持不同的内容组合。
 <template>
   <div style="display: flex; gap: 16px;">
     <ad-popover title="Popover 1" content="这是第一个 Popover">
-      <ad-button>Popover 1</ad-button>
+      <template #trigger="{ handleClick, triggerRef }">
+        <ad-button :ref="triggerRef" @click="handleClick">Popover 1</ad-button>
+      </template>
     </ad-popover>
     <ad-popover title="Popover 2" content="这是第二个 Popover">
-      <ad-button>Popover 2</ad-button>
+      <template #trigger="{ handleClick, triggerRef }">
+        <ad-button :ref="triggerRef" @click="handleClick">Popover 2</ad-button>
+      </template>
     </ad-popover>
   </div>
 </template>
@@ -158,8 +180,19 @@ Popover 支持不同的内容组合。
 | mode | 触发方式 | `'click'` \| `'hover'` | `'click'` |
 | title | 标题 | string | - |
 | content | 内容 | string | - |
-| children | 触发元素 | VNode | - |
 | className | 自定义类名 | string | - |
+
+### ad-popover Slots
+
+| 插槽名 | 说明 | 作用域参数 |
+| --- | --- | --- |
+| trigger | 触发元素 | `{ handleClick, handleMouseEnter, handleMouseLeave, triggerRef }` |
+
+**作用域参数说明：**
+- `handleClick`: 点击事件处理函数（用于 `mode="click"`）
+- `handleMouseEnter`: 鼠标进入事件处理函数（用于 `mode="hover"`）
+- `handleMouseLeave`: 鼠标离开事件处理函数（用于 `mode="hover"`）
+- `triggerRef`: 触发元素的 ref，需要绑定到触发元素上
 
 ## 注意事项
 

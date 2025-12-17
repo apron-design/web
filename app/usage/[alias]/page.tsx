@@ -22,7 +22,7 @@ const navigation = [
       { label: '二维码/条形码', href: '/usage/codes' },
       { label: '音视频媒体', href: '/usage/media' },
       { label: '推荐搭配', href: '/usage/recommends' },
-      { label: '色彩配置工具', href: '/palette' },
+      // { label: '色彩配置工具', href: '/palette' },
     ],
   },
 ];

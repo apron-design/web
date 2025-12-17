@@ -198,60 +198,6 @@ const checked = ref(false);
 ```
 :::
 
-### 暗色模式
-
-Switch 组件在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    "
-  >
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Default / Primary</h4>
-      <div style="display: flex; gap: 24px;">
-        <ad-switch />
-        <ad-switch :default-checked="true" />
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Secondary</h4>
-      <div style="display: flex; gap: 24px;">
-        <ad-switch variant="secondary" />
-        <ad-switch variant="secondary" :default-checked="true" />
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Disabled</h4>
-      <div style="display: flex; gap: 24px;">
-        <ad-switch disabled />
-        <ad-switch disabled :default-checked="true" />
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">All Sizes</h4>
-      <div style="display: flex; gap: 24px; align-items: center;">
-        <ad-switch size="default" :default-checked="true" />
-        <ad-switch size="small" :default-checked="true" />
-        <ad-switch size="mini" :default-checked="true" />
-      </div>
-    </div>
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-switch

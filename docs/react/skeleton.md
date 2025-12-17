@@ -382,30 +382,6 @@ export default function ProfileCardSkeleton() {
 ```
 :::
 
-### 暗色模式
-
-骨架屏在暗色模式下会自动适配主题颜色。
-:::demo
-```jsx
-import { Skeleton } from '@apron-design/react';
-
-export default function DarkModeSkeleton() {
-  return (
-    <div
-      data-theme="dark"
-      style={{
-        padding: '24px',
-        backgroundColor: '#18181b',
-        borderRadius: '12px',
-        width: '400px',
-      }}
-    >
-      <Skeleton loading={true} />
-    </div>
-  );
-}
-```
-:::
 
 ## API
 

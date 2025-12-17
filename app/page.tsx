@@ -236,8 +236,8 @@ export default function Home() {
                   title="复制到剪贴板"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                   </svg>
                 </button>
               </div>
@@ -258,8 +258,8 @@ export default function Home() {
                   title="复制到剪贴板"
                 >
                   <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
-                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" stroke-width="1.5"/>
+                    <path d="M5.5 2.5h-2a1 1 0 0 0-1 1v9a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1v-2" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/>
+                    <rect x="6.5" y="1.5" width="7" height="9" rx="1" stroke="currentColor" strokeWidth="1.5"/>
                   </svg>
                 </button>
               </div>
@@ -298,7 +298,7 @@ export default function Home() {
         </div>
         <div className="container recommend-container">
           <div className="half-container left-container">
-            <SectionTitle align="left">和众多产品一起创造价值</SectionTitle>
+            <SectionTitle align="left">与每一份力量共赴山海</SectionTitle>
             <div className="recommend-blocks-container">
               <div className="recommend-block">
                 <div className="value">4000+</div>

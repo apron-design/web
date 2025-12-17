@@ -22,7 +22,9 @@
     @cancel="handleCancel"
     @confirm="handleConfirm"
   >
-    <ad-button variant="primary" danger>删除</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick" variant="primary" danger>删除</ad-button>
+    </template>
   </ad-popconfirm>
 </template>
 
@@ -52,7 +54,9 @@ const handleConfirm = () => {
     @cancel="handleCancel"
     @confirm="handleConfirm"
   >
-    <ad-button variant="primary">提交</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick" variant="primary">提交</ad-button>
+    </template>
   </ad-popconfirm>
 </template>
 
@@ -84,7 +88,9 @@ const handleConfirm = () => {
     @cancel="handleCancel"
     @confirm="handleConfirm"
   >
-    <ad-button danger>危险操作</ad-button>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-button :ref="triggerRef" @click="handleClick" danger>危险操作</ad-button>
+    </template>
   </ad-popconfirm>
 </template>
 
@@ -112,7 +118,9 @@ const handleConfirm = () => {
     @cancel="handleCancel"
     @confirm="handleConfirm"
   >
-    <ad-link>退出登录</ad-link>
+    <template #trigger="{ handleClick, triggerRef }">
+      <ad-link :ref="triggerRef" @click="handleClick">退出登录</ad-link>
+    </template>
   </ad-popconfirm>
 </template>
 
@@ -140,7 +148,9 @@ const handleConfirm = () => {
       content="确定要删除此项目吗？"
       @confirm="handleDelete"
     >
-      <ad-button danger>删除项目</ad-button>
+      <template #trigger="{ handleClick, triggerRef }">
+        <ad-button :ref="triggerRef" @click="handleClick" danger>删除项目</ad-button>
+      </template>
     </ad-popconfirm>
     <ad-popconfirm
       title="提交确认"
@@ -149,7 +159,9 @@ const handleConfirm = () => {
       confirm-text="提交"
       @confirm="handleSubmit"
     >
-      <ad-button variant="primary">提交表单</ad-button>
+      <template #trigger="{ handleClick, triggerRef }">
+        <ad-button :ref="triggerRef" @click="handleClick" variant="primary">提交表单</ad-button>
+      </template>
     </ad-popconfirm>
   </div>
 </template>
@@ -168,7 +180,7 @@ const handleSubmit = () => {
 
 ## API
 
-### ad-popconfirm
+### ad-popconfirm Props
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -181,6 +193,16 @@ const handleSubmit = () => {
 | @cancel | 取消回调 | `() => void` | - |
 | @confirm | 确定回调 | `() => void` | - |
 | class-name | 自定义类名 | string | - |
+
+### ad-popconfirm Slots
+
+| 插槽名 | 说明 | 作用域参数 |
+| --- | --- | --- |
+| trigger | 触发元素 | `{ handleClick, triggerRef }` |
+
+**作用域参数说明：**
+- `handleClick`: 点击事件处理函数
+- `triggerRef`: 触发元素的 ref，需要绑定到触发元素上
 
 ## 注意事项
 

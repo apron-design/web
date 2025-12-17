@@ -22,6 +22,9 @@
 
 .demo-vue-container {
   // Vue 组件容器样式
+  // 确保不会阻止 Portal/Teleport 渲染
+  position: relative;
+  overflow: visible;
 }
 
 .demo-vue-placeholder {

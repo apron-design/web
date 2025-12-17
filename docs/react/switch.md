@@ -228,63 +228,6 @@ export default function UncontrolledModeSwitch() {
 ```
 :::
 
-### 暗色模式
-
-Switch 组件在暗色模式下会自动适配主题颜色。
-:::demo
-```jsx
-import { Switch } from '@apron-design/react';
-
-export default function DarkModeSwitch() {
-  return (
-    <div
-      data-theme="dark"
-      style={{
-        padding: '32px',
-        backgroundColor: '#18181b',
-        borderRadius: '12px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-      }}
-    >
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Default / Primary</h4>
-        <div style={{ display: 'flex', gap: '24px' }}>
-          <Switch />
-          <Switch defaultChecked />
-        </div>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Secondary</h4>
-        <div style={{ display: 'flex', gap: '24px' }}>
-          <Switch variant="secondary" />
-          <Switch variant="secondary" defaultChecked />
-        </div>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Disabled</h4>
-        <div style={{ display: 'flex', gap: '24px' }}>
-          <Switch disabled />
-          <Switch disabled defaultChecked />
-        </div>
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>All Sizes</h4>
-        <div style={{ display: 'flex', gap: '24px', alignItems: 'center' }}>
-          <Switch size="default" defaultChecked />
-          <Switch size="small" defaultChecked />
-          <Switch size="mini" defaultChecked />
-        </div>
-      </div>
-    </div>
-  );
-}
-```
-:::
 
 ## API
 

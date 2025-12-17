@@ -201,24 +201,7 @@ export function SearchModal() {
 
   return (
     <>
-      {/* 搜索触发按钮 */}
-      <button 
-        className="search-trigger"
-        onClick={handleOpenSearch}
-        aria-label="打开搜索"
-      >
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-          <circle cx="11" cy="11" r="8" />
-          <path d="m21 21-4.35-4.35" />
-        </svg>
-        <span className="search-text">搜索</span>
-        <span className="search-shortcut">
-          <kbd className="square-key">⌘</kbd>
-          <kbd className="square-key">K</kbd>
-        </span>
-      </button>
-
-      {/* 搜索模态框 */}
+      {/* 搜索模态框 - 触发按钮在 PageHeader 的 SearchButton 组件中 */}
       {isOpen && (
         <div className="search-modal-overlay">
           <div 

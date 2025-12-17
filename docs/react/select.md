@@ -417,60 +417,6 @@ export default function ControlledModeSelect() {
 ```
 :::
 
-### 暗色模式
-
-选择器在暗色模式下会自动适配主题颜色。
-:::demo
-```jsx
-import { Select } from '@apron-design/react';
-
-const defaultOptions = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2', disabled: true },
-  { label: 'Selected Option', value: 'selected' },
-  { label: 'Hover Option', value: 'hover' },
-  { label: 'Option 5 goes here', value: 'option5' },
-];
-
-export default function DarkModeSelect() {
-  return (
-    <div
-      data-theme="dark"
-      style={{
-        padding: '32px',
-        backgroundColor: '#18181b',
-        borderRadius: '12px',
-        display: 'flex',
-        flexDirection: 'column',
-        gap: '24px',
-        width: '400px',
-      }}
-    >
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Normal</h4>
-        <Select options={defaultOptions} placeholder="Placeholder goes here" />
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Selected</h4>
-        <Select options={defaultOptions} defaultValue="option1" />
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Loading</h4>
-        <Select options={defaultOptions} placeholder="Placeholder goes here" loading />
-      </div>
-
-      <div>
-        <h4 style={{ margin: '0 0 12px 0', color: '#a1a1aa' }}>Disabled</h4>
-        <Select options={defaultOptions} defaultValue="option1" disabled />
-      </div>
-    </div>
-  );
-}
-```
-:::
-
 ## API
 
 ### Select Props

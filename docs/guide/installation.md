@@ -8,12 +8,12 @@
 npm install @apron-design/react --save
 ```
 
-## 导入样式
+### 导入样式
 ```typescript
 import '@apron-desing/react/styles'
 ```
 
-## 按需加载
+### 按需加载
 ```jsx
 import { Button } from '@apron-design/react'
 
@@ -113,3 +113,7 @@ export default defineNuxtConfig({
 import { AdButton } from '@apron-design/react'
 </script>
 ```
+
+## 在微信小程序使用
+
+微信小程序版本正在探索一种最佳的构建模式，将会尽快公布。
