@@ -115,6 +115,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       return;
     }
 
+    let templateContent: string | undefined;
     try {
       // 动态导入完整的 Vue 运行时以支持模板编译
       // @ts-expect-error TS7016: Could not find a declaration file for module
@@ -163,7 +164,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       }
       
       // 提取模板内容（去掉最外层的 <template> 和 </template> 标签）
-      const templateContent = code.slice(templateStart + '<template>'.length, templateEnd).trim();
+      templateContent = code.slice(templateStart + '<template>'.length, templateEnd).trim();
       
       // 提取 script 部分
       const scriptMatch = code.match(/<script setup>([\s\S]*?)<\/script>/);
@@ -386,7 +387,11 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       setError(errorMessage);
       console.error('Vue component mount error:', err);
       // 输出模板内容以便调试
-      console.error('Template content:', templateContent);
+      if (templateContent !== undefined) {
+        console.error('Template content:', templateContent);
+      } else {
+        console.error('Template content not extracted yet');
+      }
     }
   };
 
