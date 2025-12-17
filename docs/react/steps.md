@@ -310,37 +310,6 @@ export default function RegistrationFlowSteps() {
 ```
 :::
 
-### 暗色模式
-
-Steps 组件在暗色模式下会自动适配主题颜色。
-:::demo
-```jsx
-import { Steps } from '@apron-design/react';
-
-const defaultItems = [
-  { title: 'Step 1' },
-  { title: 'Step 2' },
-  { title: 'Current' },
-  { title: 'Not reach' },
-];
-
-export default function DarkModeSteps() {
-  return (
-    <div
-      data-theme="dark"
-      style={{
-        padding: '32px',
-        backgroundColor: '#18181b',
-        borderRadius: '12px',
-      }}
-    >
-      <Steps items={defaultItems} current={2} />
-    </div>
-  );
-}
-```
-:::
-
 ## API
 
 ### Steps Props

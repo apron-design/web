@@ -74,7 +74,7 @@
     <ad-card-footer>
       <ad-space>
         <ad-button variant="primary" size="sm">确认</ad-button>
-        <ad-button variant="secondary" size="sm">取消</ad-button>
+        <ad-button variant="default" size="sm">取消</ad-button>
       </ad-space>
     </ad-card-footer>
   </ad-card>
@@ -104,7 +104,7 @@
     <ad-card-footer>
       <div style="display: flex; justify-content: flex-end;">
         <ad-space>
-          <ad-button variant="secondary" size="sm">取消</ad-button>
+          <ad-button variant="default" size="sm">取消</ad-button>
           <ad-button variant="primary" size="sm">保存</ad-button>
         </ad-space>
       </div>

@@ -145,8 +145,23 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       await loadStyles();
       
       // 提取模板部分
-      const templateMatch = code.match(/<template>([\s\S]*?)<\/template>/);
-      const templateContent = templateMatch ? templateMatch[1].trim() : '<p>Empty Template</p>';
+      // 需要匹配最外层的 <template> 标签，而不是内部的 <template #slot> 标签
+      // 使用更智能的匹配：找到第一个 <template>，然后找到最后一个对应的 </template>
+      const templateStart = code.indexOf('<template>');
+      if (templateStart === -1) {
+        setError('未找到 <template> 标签');
+        return;
+      }
+      
+      // 从后往前找最后一个 </template>，确保匹配最外层的标签
+      const templateEnd = code.lastIndexOf('</template>');
+      if (templateEnd === -1) {
+        setError('未找到 </template> 结束标签');
+        return;
+      }
+      
+      // 提取模板内容（去掉最外层的 <template> 和 </template> 标签）
+      const templateContent = code.slice(templateStart + '<template>'.length, templateEnd).trim();
       
       // 提取 script 部分
       const scriptMatch = code.match(/<script setup>([\s\S]*?)<\/script>/);
@@ -198,7 +213,10 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       }
       
       // 添加模板
-      appConfig.template = `<div>${templateContent}</div>`;
+      // Vue 3 支持多个根节点，但如果模板只有一个根元素，直接使用可以避免额外的包装
+      // 命名插槽语法 #name（v-slot:name 的简写）应该能被 Vue 3 的模板编译器正确处理
+      // 直接使用模板内容，让 Vue 3 的编译器处理命名插槽
+      appConfig.template = templateContent;
       
       // 创建 Vue 应用
       const app = createApp(appConfig);
@@ -223,6 +241,8 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       const errorMessage = err instanceof Error ? `Vue 组件渲染失败: ${err.message}` : 'Vue 组件渲染失败';
       setError(errorMessage);
       console.error('Vue component mount error:', err);
+      // 输出模板内容以便调试
+      console.error('Template content:', templateContent);
     }
   };
 

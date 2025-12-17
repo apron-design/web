@@ -202,44 +202,6 @@ export default () => (
 ```
 :::
 
-## 暗色模式
-
-Timeline 组件支持暗色模式，在暗色主题下会自动应用合适的样式。
-:::demo
-```jsx
-import { Timeline, TimelineItem } from '@apron-design/react';
-
-export default () => (
-  <div
-    data-theme="dark"
-    style={{
-      padding: '32px',
-      backgroundColor: '#18181b',
-      borderRadius: '12px',
-      display: 'flex',
-      gap: '48px',
-    }}
-  >
-    <div style={{ flex: 1 }}>
-      <h4 style={{ margin: '0 0 16px 0', color: '#a1a1aa' }}>右侧内容</h4>
-      <Timeline>
-        <TimelineItem title="The first milestone" date="2017-03-10" dotColor="primary" />
-        <TimelineItem title="The second milestone" date="2018-05-10" dotColor="main" />
-        <TimelineItem title="The third milestone" date="2019-01-31" dotColor="success" />
-      </Timeline>
-    </div>
-    <div style={{ flex: 1 }}>
-      <h4 style={{ margin: '0 0 16px 0', color: '#a1a1aa' }}>左侧内容</h4>
-      <Timeline side="left">
-        <TimelineItem title="The first milestone" date="2017-03-10" />
-        <TimelineItem title="The second milestone" date="2018-05-10" />
-      </Timeline>
-    </div>
-  </div>
-);
-```
-:::
-
 ## API
 
 ### Timeline
