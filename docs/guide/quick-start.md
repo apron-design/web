@@ -20,7 +20,7 @@ Apron Design 支持最近两个版本的浏览器。
 由于 React16 和 Vue3 不再支持 IE11，因此 Apron Design 也不支持 IE 浏览器。
 
 
-| 版本 | <img src="/assets/icons/chrome.svg" width="16" height="16" style="vertical-align: middle; display: inline-block;"/> Chrome | <img src="/assets/icons/edge.svg" width="16" height="16" style="vertical-align: middle; display: inline-block;"/> Edge | <img src="/assets/icons/firefox.svg" width="16" height="16" style="vertical-align: middle; display: inline-block;"/> Firefox | <img src="/assets/icons/Safari.svg" width="16" height="16" style="vertical-align: middle; display: inline-block;"/> Safari | <img src="/assets/icons/electron.svg" width="16" height="16" style="vertical-align: middle; display: inline-block;"/> Electron |
+| 版本 | <img src="/assets/icons/chrome.svg" width="40" height="40" style="vertical-align: middle; display: inline-block;"/> <div>Chrome</div> | <img src="/assets/icons/edge.svg" width="40" height="40" style="vertical-align: middle; display: inline-block;"/> <div>Edge</div> | <img src="/assets/icons/firefox.svg" width="40" height="40" style="vertical-align: middle; display: inline-block;"/> <div>Firefox</div> | <img src="/assets/icons/Safari.svg" width="40" height="40" style="vertical-align: middle; display: inline-block;"/> <div>Safari</div> | <img src="/assets/icons/electron.svg" width="40" height="40" style="vertical-align: middle; display: inline-block;"/> <div>Electron</div> |
 | :-----: | :-----: | :-----: | :-----: | :-----: | :-----: |
 | 26.0.x | Chrome ≥ 85 | Edge ≥ 85| Firefox ≥ 79 | Safari ≥ 14.1 | 最后两个版本 |
 

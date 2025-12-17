@@ -19,12 +19,34 @@
   transform: scale(1);
   opacity: 1;
   transition: all 0.2s cubic-bezier(0.33, 1, 0.68, 1);
+
+  // 自定义滚动条
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.25);
+  }
 }
 
 [data-prefers-color="dark"] .floating-toc__content {
   background: #1a1a1a;
   border-color: #333;
   box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 255, 255, 0.22);
+  }
 }
 
 .toc-title {

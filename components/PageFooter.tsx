@@ -87,7 +87,7 @@ export function PageFooter() {
                   <Link href="/usage/codes">二维码/条形码</Link>
                   <Link href="/usage/media">音视频媒体</Link>
                   <Link href="/usage/recommends">推荐搭配</Link>
-                  <Link href="/palette" target="_blank">色彩配置工具</Link>
+                  {/* <Link href="/palette" target="_blank">色彩配置工具</Link> */}
                 </div>
               </Col>
               <Col span={6}>
