@@ -4,7 +4,6 @@ import React, { useState, useEffect, ReactElement, useRef, ComponentType } from 
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import * as ApronReactComponents from '@apron-design/react';
 import * as ApronVueComponents from '@apron-design/vue-next';
-import * as CodeApronReactComponents from '@code-apron/react';
 
 
 import { transform } from '@babel/standalone';
@@ -37,12 +36,11 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
   // 处理 React 代码
   const renderReactComponent = (code: string): ReactElement | null => {
     try {
-      // 创建一个包含所有 apron-design React 组件和 code-apron React 组件的安全环境
+      // 创建一个包含所有 apron-design React 组件的安全环境
       const safeEnv = {
         React,
         useState,
-        ...ApronReactComponents,
-        ...CodeApronReactComponents
+        ...ApronReactComponents
       };
 
       // 移除 import 语句，因为在安全环境中已经提供了所有组件
@@ -123,60 +121,21 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       const vueModule = await import('vue/dist/vue.esm-bundler.js');
       const { createApp, ref } = vueModule;
       
-      // 动态导入 @code-apron/vue-next 组件
-      // 由于该包的构建文件使用了 require('./AdBarcode.vue')，在浏览器中无法直接工作
-      // 我们尝试使用静态导入，让 Turbopack 在构建时处理（即使包有构建问题）
-      let CodeApronVueComponents: any = {};
-      
-      // 由于包的构建文件问题，我们暂时无法在运行时动态加载
-      // 包的 dist/index.es.js 使用了 require('./AdBarcode.vue')，这在浏览器中无法工作
-      // 暂时跳过加载，等待包的构建配置修复
-      
-      // TODO: 修复包的构建配置后，可以尝试以下方式加载：
-      // const codeApronModule = await import('@code-apron/vue-next');
-      // CodeApronVueComponents = codeApronModule;
-      
-      if (process.env.NODE_ENV === 'development') {
-        console.warn('@code-apron/vue-next is not loaded due to build issues. The package uses require() for .vue files which cannot work in browser. Components from this package (like ad-barcode) will not be available.');
-      }
-      
       // 动态加载样式文件
       const loadStyles = () => {
         return new Promise<void>((resolve) => {
           if (typeof document !== 'undefined') {
-            let loadedCount = 0;
-            const totalStyles = 2;
-            const checkResolve = () => {
-              loadedCount++;
-              if (loadedCount >= totalStyles) {
-                resolve();
-              }
-            };
-            
-            // 加载 @apron-design/vue-next 样式
-            const existingApronLink = document.querySelector('link[href*="@apron-design/vue-next"]');
-            if (!existingApronLink) {
-              const apronLink = document.createElement('link');
-              apronLink.rel = 'stylesheet';
-              apronLink.href = 'https://unpkg.com/@apron-design/vue-next@21.0.1/dist/index.css';
-              apronLink.onload = () => checkResolve();
-              apronLink.onerror = () => checkResolve();
-              document.head.appendChild(apronLink);
+            // 检查样式是否已经加载
+            const existingLink = document.querySelector('link[href*="@apron-design/vue-next"]');
+            if (!existingLink) {
+              const link = document.createElement('link');
+              link.rel = 'stylesheet';
+              link.href = 'https://unpkg.com/@apron-design/vue-next@21.0.1/dist/index.css';
+              link.onload = () => resolve();
+              link.onerror = () => resolve();
+              document.head.appendChild(link);
             } else {
-              checkResolve();
-            }
-            
-            // 加载 @code-apron/vue-next 样式
-            const existingCodeApronLink = document.querySelector('link[href*="@code-apron/vue-next"]');
-            if (!existingCodeApronLink) {
-              const codeApronLink = document.createElement('link');
-              codeApronLink.rel = 'stylesheet';
-              codeApronLink.href = 'https://unpkg.com/@code-apron/vue-next@latest/dist/index.css';
-              codeApronLink.onload = () => checkResolve();
-              codeApronLink.onerror = () => checkResolve();
-              document.head.appendChild(codeApronLink);
-            } else {
-              checkResolve();
+              resolve();
             }
           } else {
             resolve();
@@ -299,58 +258,6 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
           }
         }
       });
-      
-      // 注册 @code-apron/vue-next 组件
-      if (CodeApronVueComponents && Object.keys(CodeApronVueComponents).length > 0) {
-        if (process.env.NODE_ENV === 'development') {
-          console.log('CodeApronVueComponents loaded:', Object.keys(CodeApronVueComponents));
-        }
-        
-        Object.keys(CodeApronVueComponents).forEach(key => {
-          try {
-            const component = CodeApronVueComponents[key as keyof typeof CodeApronVueComponents];
-            
-            // 跳过非组件导出（如函数、常量等）
-            if (!component || typeof component !== 'object') {
-              return;
-            }
-            
-            // 检查是否是 Vue 组件（有 setup、name、__name 等属性）
-            const isVueComponent = 'setup' in component || 'name' in component || '__name' in component || 'render' in component;
-            if (!isVueComponent) {
-              return;
-            }
-            
-            // 注册驼峰命名的组件
-            app.component(key, component);
-            if (!registeredComponents.includes(key)) {
-              registeredComponents.push(key);
-            }
-            
-            // 同时注册短横线命名的组件
-            const kebabName = key.replace(/([A-Z])/g, (match, p1, offset) => {
-              return (offset > 0 ? '-' : '') + p1.toLowerCase();
-            });
-            app.component(kebabName, component);
-            if (!registeredComponents.includes(kebabName)) {
-              registeredComponents.push(kebabName);
-            }
-            
-            if (process.env.NODE_ENV === 'development') {
-              console.log(`Registered CodeApron component: ${key} -> ${kebabName}`);
-            }
-          } catch (err) {
-            // 忽略注册失败的组件
-            if (process.env.NODE_ENV === 'development') {
-              console.warn(`Failed to register component ${key}:`, err);
-            }
-          }
-        });
-      } else {
-        if (process.env.NODE_ENV === 'development') {
-          console.warn('CodeApronVueComponents is empty or not loaded');
-        }
-      }
       
       // 检查 popover 和 popconfirm 是否已注册
       if (process.env.NODE_ENV === 'development') {
