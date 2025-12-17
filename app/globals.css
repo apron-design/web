@@ -139,8 +139,8 @@ html[data-prefers-color="light"] body {
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.35);
   --scrollbar-thumb-active: rgba(0, 0, 0, 0.5);
   --scrollbar-track: transparent;
-  --scrollbar-width: 12px;
-  --scrollbar-radius: 6px;
+  --scrollbar-width: 16px;
+  --scrollbar-radius: 8px;
 }
 
 html[data-prefers-color="dark"] {
@@ -188,13 +188,13 @@ html[data-prefers-color="dark"] {
 /* 滚动条在侧边栏等元素上的特殊样式 */
 .documents-sidebar::-webkit-scrollbar,
 .floating-toc::-webkit-scrollbar {
-  width: 10px;
+  width: 14px;
 }
 
 .documents-sidebar::-webkit-scrollbar-thumb,
 .floating-toc::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border-radius: 5px;
+  border-radius: 7px;
 }
 
 .documents-sidebar::-webkit-scrollbar-thumb:hover,
@@ -205,13 +205,13 @@ html[data-prefers-color="dark"] {
 /* 主内容区域滚动条 */
 .documents-main::-webkit-scrollbar,
 #document-container::-webkit-scrollbar {
-  width: 12px;
+  width: 16px;
 }
 
 .documents-main::-webkit-scrollbar-thumb,
 #document-container::-webkit-scrollbar-thumb {
   background: var(--scrollbar-thumb);
-  border-radius: 6px;
+  border-radius: 8px;
   border: 2px solid transparent;
   background-clip: padding-box;
 }
