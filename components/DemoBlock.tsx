@@ -376,9 +376,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
             'ad-popconfirm': checkComponent('ad-popconfirm'),
             'ad-popover-confirm': checkComponent('ad-popover-confirm'),
             'AdPopoverConfirm': checkComponent('AdPopoverConfirm')
-          },
-          popoverRegistered,
-          popconfirmRegistered
+          }
         });
       }
       
