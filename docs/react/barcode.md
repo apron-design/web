@@ -34,7 +34,7 @@ npm install @code-apron/react --save-dev
 ```jsx
 import { Barcode } from "@code-apron/react";
 
-export default function BarcodeDemo () => {
+export default function BarcodeDemo() {
   return <Barcode type="upc-a">139912478900</Barcode>
 }
 ```

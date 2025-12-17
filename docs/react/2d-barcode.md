@@ -28,9 +28,10 @@ npm install @code-apron/react --save-dev
 ## 在页面上渲染二维码
 :::demo
 ```jsx
+'use client';
 import { Barcode } from "@code-apron/react";
 
-export default function BarcodeDemo () => {
+export default function BarcodeDemo() {
   return <Barcode type="qr-code">139912478900</Barcode>
 }
 ```
