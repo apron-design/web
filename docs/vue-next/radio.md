@@ -304,56 +304,6 @@ const setValue = (val) => {
 ```
 :::
 
-### 暗色模式
-
-单选框在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    "
-  >
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Available</h4>
-      <div style="display: flex; gap: 32px;">
-        <ad-radio>Unchecked</ad-radio>
-        <ad-radio checked @change="() => {}">Checked</ad-radio>
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Disabled</h4>
-      <div style="display: flex; gap: 32px;">
-        <ad-radio disabled>Unchecked</ad-radio>
-        <ad-radio checked disabled @change="() => {}">Checked</ad-radio>
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Radio Group</h4>
-      <ad-radio-group
-        default-value="option1"
-        direction="horizontal"
-        :options="[
-          { label: 'Option 1', value: 'option1' },
-          { label: 'Option 2', value: 'option2' },
-          { label: 'Option 3', value: 'option3' },
-        ]"
-      />
-    </div>
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-radio

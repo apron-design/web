@@ -186,42 +186,6 @@ Timeline 组件也可用于展示产品的版本迭代历史。
 ```
 :::
 
-## 暗色模式
-
-Timeline 组件支持暗色模式，在暗色主题下会自动应用合适的样式。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      gap: 48px;
-    "
-  >
-    <div style="flex: 1;">
-      <h4 style="margin: 0 0 16px 0; color: #a1a1aa;">右侧内容</h4>
-      <ad-timeline>
-        <ad-timeline-item title="The first milestone" date="2017-03-10" dot-color="primary" />
-        <ad-timeline-item title="The second milestone" date="2018-05-10" dot-color="main" />
-        <ad-timeline-item title="The third milestone" date="2019-01-31" dot-color="success" />
-      </ad-timeline>
-    </div>
-    <div style="flex: 1;">
-      <h4 style="margin: 0 0 16px 0; color: #a1a1aa;">左侧内容</h4>
-      <ad-timeline side="left">
-        <ad-timeline-item title="The first milestone" date="2017-03-10" />
-        <ad-timeline-item title="The second milestone" date="2018-05-10" />
-      </ad-timeline>
-    </div>
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-timeline

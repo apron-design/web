@@ -149,43 +149,50 @@
 
 ### 带图标按钮
 
-通过 `iconLeft` 和 `iconRight` 属性添加图标。
+通过 `#iconLeft` 和 `#iconRight` 命名插槽添加图标。
 :::demo
 ```vue
 <template>
   <div style="display: flex; gap: 12px; align-items: center;">
-    <ad-button :iconLeft="SearchIcon">Search</ad-button>
-    <ad-button :iconRight="ArrowIcon">Next</ad-button>
-    <ad-button :iconLeft="SearchIcon" :iconRight="ArrowIcon">
+    <ad-button>
+      <template #iconLeft>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+      </template>
+      Search
+    </ad-button>
+    <ad-button>
+      <template #iconRight>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </template>
+      Next
+    </ad-button>
+    <ad-button>
+      <template #iconLeft>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+      </template>
+      <template #iconRight>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M5 12h14M12 5l7 7-7 7" />
+        </svg>
+      </template>
       Both Icons
     </ad-button>
   </div>
 </template>
-
-<script setup>
-const SearchIcon = () => ({
-  template: `
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <circle cx="11" cy="11" r="8" />
-      <path d="m21 21-4.35-4.35" />
-    </svg>
-  `
-});
-
-const ArrowIcon = () => ({
-  template: `
-    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M5 12h14M12 5l7 7-7 7" />
-    </svg>
-  `
-});
-</script>
 ```
 :::
 
 ## API
 
-通过设置 ad-button 的属性来产生不同的按钮样式。
+通过设置 Button 的属性来产生不同的按钮样式。
 
 | 参数 | 说明 | 类型 | 默认值 |
 | --- | --- | --- | --- |
@@ -196,6 +203,18 @@ const ArrowIcon = () => ({
 | loading | 设置按钮载入状态 | boolean | false |
 | block | 将按钮宽度调整为其父宽度的选项 | boolean | false |
 | disabled | 按钮失效状态 | boolean | false |
-| iconLeft | 左侧图标 | VNode | - |
-| iconRight | 右侧图标 | VNode | - |
-| onClick | 点击按钮时的回调 | (event) => void | - |
+| class | 自定义类名 | `string` | - |
+
+### Button Slots
+
+| 名称 | 说明 |
+| --- | --- |
+| default | 按钮内容 |
+| iconLeft | 左侧图标 |
+| iconRight | 右侧图标 |
+
+### Button Events
+
+| 事件名 | 说明 | 回调参数 |
+| --- | --- | --- |
+| click | 点击按钮时的回调 | `(event: MouseEvent) => void` |

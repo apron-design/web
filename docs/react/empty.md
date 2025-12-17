@@ -73,54 +73,6 @@ export default () => (
 ```
 :::
 
-### 完整示例
-
-展示空状态的各种使用方式。
-:::demo
-```jsx
-import { Empty, Button } from '@apron-design/react';
-
-const FileIcon = () => (
-  <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-    <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-    <polyline points="14 2 14 8 20 8" />
-    <line x1="16" y1="13" x2="8" y2="13" />
-    <line x1="16" y1="17" x2="8" y2="17" />
-    <polyline points="10 9 9 9 8 9" />
-  </svg>
-);
-
-export default () => (
-  <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-    <div>
-      <h3>默认空状态</h3>
-      <Empty />
-    </div>
-
-    <div>
-      <h3>自定义文字</h3>
-      <Empty>没有找到相关数据</Empty>
-    </div>
-
-    <div>
-      <h3>自定义图标</h3>
-      <Empty icon={<FileIcon />}>暂无文件</Empty>
-    </div>
-
-    <div>
-      <h3>带操作按钮</h3>
-      <Empty>
-        <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '16px' }}>
-          <span>暂无数据</span>
-          <Button variant="primary" size="sm">立即创建</Button>
-        </div>
-      </Empty>
-    </div>
-  </div>
-);
-```
-:::
-
 ## API
 
 ### Empty

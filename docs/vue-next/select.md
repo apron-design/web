@@ -407,58 +407,6 @@ const setValue = (val) => {
 ```
 :::
 
-### 暗色模式
-
-选择器在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-      width: 400px;
-    "
-  >
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Normal</h4>
-      <ad-select :options="defaultOptions" placeholder="Placeholder goes here" />
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Selected</h4>
-      <ad-select :options="defaultOptions" default-value="option1" />
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Loading</h4>
-      <ad-select :options="defaultOptions" placeholder="Placeholder goes here" loading />
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Disabled</h4>
-      <ad-select :options="defaultOptions" default-value="option1" disabled />
-    </div>
-  </div>
-</template>
-
-<script setup>
-const defaultOptions = [
-  { label: 'Option 1', value: 'option1' },
-  { label: 'Option 2', value: 'option2', disabled: true },
-  { label: 'Selected Option', value: 'selected' },
-  { label: 'Hover Option', value: 'hover' },
-  { label: 'Option 5 goes here', value: 'option5' },
-];
-</script>
-```
-:::
-
 ## API
 
 ### ad-select

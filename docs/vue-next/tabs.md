@@ -184,59 +184,6 @@ Tabs 组件常用于用户资料页，用来组织不同类型的信息。
 ```
 :::
 
-## 暗色模式
-
-Tabs 组件支持暗色模式，在暗色主题下会自动应用合适的样式。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 32px;
-    "
-  >
-    <div>
-      <h4 style="margin: 0 0 16px 0; color: #a1a1aa;">默认模式</h4>
-      <ad-tabs default-active-key="1">
-        <ad-tab-list>
-          <ad-tab tab-key="1">标签一</ad-tab>
-          <ad-tab tab-key="2">标签二</ad-tab>
-        </ad-tab-list>
-        <ad-tab-panel tab-key="1">
-          默认模式下的标签页内容。
-        </ad-tab-panel>
-        <ad-tab-panel tab-key="2">
-          默认模式下的标签页内容。
-        </ad-tab-panel>
-      </ad-tabs>
-    </div>
-    
-    <div>
-      <h4 style="margin: 0 0 16px 0; color: #a1a1aa;">胶囊模式</h4>
-      <ad-tabs default-active-key="1" capsule>
-        <ad-tab-list>
-          <ad-tab tab-key="1">标签一</ad-tab>
-          <ad-tab tab-key="2">标签二</ad-tab>
-        </ad-tab-list>
-        <ad-tab-panel tab-key="1">
-          胶囊模式下的标签页内容。
-        </ad-tab-panel>
-        <ad-tab-panel tab-key="2">
-          胶囊模式下的标签页内容。
-        </ad-tab-panel>
-      </ad-tabs>
-    </div>
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-tabs

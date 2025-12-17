@@ -328,27 +328,6 @@ Skeleton 提供了多种基础元素变体。
 ```
 :::
 
-### 暗色模式
-
-骨架屏在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 24px;
-      background-color: #18181b;
-      border-radius: 12px;
-      width: 400px;
-    "
-  >
-    <ad-skeleton :loading="true" />
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-skeleton

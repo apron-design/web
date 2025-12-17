@@ -91,10 +91,12 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
     }
 
     // 返回一个包含 ref 的 React 元素，用于挂载 Vue 应用
+    // 确保容器样式不会阻止 Portal/Teleport 渲染
     return (
       <div 
         ref={vueContainerRef} 
         className="demo-vue-container"
+        style={{ position: 'relative', zIndex: 1 }}
       />
     );
   };
@@ -145,8 +147,23 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       await loadStyles();
       
       // 提取模板部分
-      const templateMatch = code.match(/<template>([\s\S]*?)<\/template>/);
-      const templateContent = templateMatch ? templateMatch[1].trim() : '<p>Empty Template</p>';
+      // 需要匹配最外层的 <template> 标签，而不是内部的 <template #slot> 标签
+      // 使用更智能的匹配：找到第一个 <template>，然后找到最后一个对应的 </template>
+      const templateStart = code.indexOf('<template>');
+      if (templateStart === -1) {
+        setError('未找到 <template> 标签');
+        return;
+      }
+      
+      // 从后往前找最后一个 </template>，确保匹配最外层的标签
+      const templateEnd = code.lastIndexOf('</template>');
+      if (templateEnd === -1) {
+        setError('未找到 </template> 结束标签');
+        return;
+      }
+      
+      // 提取模板内容（去掉最外层的 <template> 和 </template> 标签）
+      const templateContent = code.slice(templateStart + '<template>'.length, templateEnd).trim();
       
       // 提取 script 部分
       const scriptMatch = code.match(/<script setup>([\s\S]*?)<\/script>/);
@@ -195,34 +212,183 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
             return {};
           }
         };
+      } else {
+        // 即使没有 script 代码，也需要一个 setup 函数来注入 $message
+        appConfig.setup = () => {
+          return {};
+        };
       }
       
       // 添加模板
-      appConfig.template = `<div>${templateContent}</div>`;
+      // Vue 3 支持多个根节点，但如果模板只有一个根元素，直接使用可以避免额外的包装
+      // 命名插槽语法 #name（v-slot:name 的简写）应该能被 Vue 3 的模板编译器正确处理
+      // 直接使用模板内容，让 Vue 3 的编译器处理命名插槽
+      appConfig.template = templateContent;
       
       // 创建 Vue 应用
       const app = createApp(appConfig);
       
       // 注册所有 Apron Vue 组件
+      const registeredComponents: string[] = [];
       Object.keys(ApronVueComponents).forEach(key => {
+        const component = ApronVueComponents[key as keyof typeof ApronVueComponents];
+        
         // 注册驼峰命名的组件
-        app.component(key, ApronVueComponents[key as keyof typeof ApronVueComponents]);
+        app.component(key, component);
+        registeredComponents.push(key);
+        
         // 同时注册短横线命名的组件（修正首字母大写的处理）
         const kebabName = key.replace(/([A-Z])/g, (match, p1, offset) => {
           return (offset > 0 ? '-' : '') + p1.toLowerCase();
         });
-        app.component(kebabName, ApronVueComponents[key as keyof typeof ApronVueComponents]);
+        app.component(kebabName, component);
+        registeredComponents.push(kebabName);
+        
+        // 为 AdPopoverConfirm 添加 ad-popconfirm 别名（文档中使用的名称）
+        if (key === 'AdPopoverConfirm') {
+          app.component('ad-popconfirm', component);
+          registeredComponents.push('ad-popconfirm');
+        }
+        
+        // 为 AdPopover 确保注册为 ad-popover（虽然转换应该已经正确，但确保一下）
+        if (key === 'AdPopover') {
+          app.component('ad-popover', component);
+          if (!registeredComponents.includes('ad-popover')) {
+            registeredComponents.push('ad-popover');
+          }
+        }
       });
+      
+      // 检查 popover 和 popconfirm 是否已注册
+      if (process.env.NODE_ENV === 'development') {
+        const hasPopover = registeredComponents.some(name => 
+          name.toLowerCase().includes('popover') && !name.toLowerCase().includes('confirm')
+        );
+        const hasPopconfirm = registeredComponents.some(name => 
+          name.toLowerCase().includes('popconfirm') || name.toLowerCase() === 'ad-popconfirm'
+        );
+        console.log('Popover/Popconfirm components check:', {
+          hasPopover,
+          hasPopconfirm,
+          registeredComponents: registeredComponents.filter(name => 
+            name.toLowerCase().includes('pop')
+          ),
+          allComponents: Object.keys(ApronVueComponents).filter(k => 
+            k.toLowerCase().includes('pop')
+          )
+        });
+      }
+      
+      // 确保 Teleport 功能可用（Vue 3 的 Teleport 用于 Portal 渲染）
+      // popover 和 popconfirm 需要通过 Teleport 渲染到 body
+      // Vue 3 的运行时已经包含了 Teleport 支持，无需额外配置
+      
+      // 配置 $message 全局方法
+      // 检查 ApronVueComponents 中是否有 message 相关的导出
+      const allKeys = Object.keys(ApronVueComponents);
+      const messageKeys = allKeys.filter(key => 
+        key.toLowerCase().includes('message') || key === 'Message' || key === 'useMessage'
+      );
+      
+      // 尝试多种可能的导出名称
+      const possibleMessageNames = ['message', 'Message', 'useMessage', 'AdMessage', 'adMessage'];
+      let messageInstance = null;
+      
+      for (const name of possibleMessageNames) {
+        if (name in ApronVueComponents) {
+          const exported = (ApronVueComponents as any)[name];
+          if (exported) {
+            // 如果是一个函数，尝试调用它
+            if (typeof exported === 'function') {
+              try {
+                messageInstance = exported();
+              } catch (e) {
+                // 如果调用失败，可能它本身就是要使用的对象
+                messageInstance = exported;
+              }
+            } else {
+              messageInstance = exported;
+            }
+            break;
+          }
+        }
+      }
+      
+      // 如果找到了 message 实例，配置为全局属性
+      if (messageInstance) {
+        app.config.globalProperties.$message = messageInstance;
+        // 在开发模式下输出调试信息
+        if (process.env.NODE_ENV === 'development') {
+          console.log('$message configured:', messageInstance);
+        }
+      } else {
+        // 如果找不到，输出所有可用的导出以便调试
+        if (process.env.NODE_ENV === 'development') {
+          console.warn('$message not found in ApronVueComponents. Available exports:', allKeys);
+        }
+      }
       
       // 挂载应用
       vueAppRef.current = app as unknown as VueAppRef;
+      
+      // 在挂载前，确保容器存在且可见
+      if (!vueContainerRef.current) {
+        setError('Vue 容器未就绪');
+        return;
+      }
+      
+      // 挂载 Vue 应用
       app.mount(vueContainerRef.current);
+      
+      // 检查挂载是否成功（开发模式下）
+      if (process.env.NODE_ENV === 'development') {
+        // 检查组件是否已注册（通过尝试获取组件定义）
+        const checkComponent = (name: string) => {
+          try {
+            // 尝试通过应用实例检查组件
+            const component = (app as any)._context?.components?.[name];
+            return !!component;
+          } catch {
+            return false;
+          }
+        };
+        
+        // 检查关键组件是否已注册
+        const popoverRegistered = checkComponent('ad-popover') || checkComponent('AdPopover');
+        const popconfirmRegistered = checkComponent('ad-popconfirm') || checkComponent('ad-popover-confirm') || checkComponent('AdPopoverConfirm');
+        
+        // 检查模板中使用的组件名称
+        const templateUsesPopover = templateContent.includes('ad-popover') && !templateContent.includes('ad-popconfirm');
+        const templateUsesPopconfirm = templateContent.includes('ad-popconfirm');
+        
+        console.log('Vue app mounted successfully', {
+          container: vueContainerRef.current,
+          popoverRegistered,
+          popconfirmRegistered,
+          templateUsesPopover,
+          templateUsesPopconfirm,
+          registeredComponents: registeredComponents.filter(name => 
+            name.toLowerCase().includes('popover') || name.toLowerCase().includes('popconfirm')
+          ),
+          componentCheck: {
+            'ad-popover': checkComponent('ad-popover'),
+            'AdPopover': checkComponent('AdPopover'),
+            'ad-popconfirm': checkComponent('ad-popconfirm'),
+            'ad-popover-confirm': checkComponent('ad-popover-confirm'),
+            'AdPopoverConfirm': checkComponent('AdPopoverConfirm')
+          },
+          popoverRegistered,
+          popconfirmRegistered
+        });
+      }
       
       setError(null);
     } catch (err) {
       const errorMessage = err instanceof Error ? `Vue 组件渲染失败: ${err.message}` : 'Vue 组件渲染失败';
       setError(errorMessage);
       console.error('Vue component mount error:', err);
+      // 输出模板内容以便调试
+      console.error('Template content:', templateContent);
     }
   };
 
