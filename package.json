@@ -3,9 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev -p 7999",
+    "dev": "next dev -p 1117",
     "build": "next build",
-    "start": "next start -p 7999",
+    "start": "next start -p 1117",
     "lint": "eslint"
   },
   "dependencies": {
@@ -13,6 +13,8 @@
     "@apron-design/vue-next": "^21.0.1",
     "@babel/preset-react": "^7.28.5",
     "@babel/standalone": "^7.28.5",
+    "@code-apron/react": "^26.0.0",
+    "@code-apron/vue-next": "^26.0.0",
     "@gsap/react": "^2.1.2",
     "@vue/compiler-sfc": "^3.5.25",
     "@vue/runtime-dom": "^3.5.25",

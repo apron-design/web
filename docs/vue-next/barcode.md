@@ -32,15 +32,10 @@ npm install @code-apron/vue-next --save-dev
 :::demo
 ```vue
 <template>
-  <ad-barcode type="upc-a">139912478900</ad-barcode>
+  <ad-barcode type="upc-a" value="139912478900" />
 </template>
 ```
 :::
-
-# 扩展知识
-我们强烈建议您观看这期视频，将有助于您理解条形码、二维码的各种类型和使用场景。
-
-<iframe width="100%" style="aspect-ratio: 16 / 9;" src="https://www.youtube.com/embed/XW8sgT_D0To?si=yOGasUF97e1Sy-X6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 
 ## API
 
