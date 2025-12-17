@@ -302,34 +302,6 @@ const items = [
 ```
 :::
 
-### 暗色模式
-
-Steps 组件在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-    "
-  >
-    <ad-steps :items="defaultItems" :current="2" />
-  </div>
-</template>
-
-<script setup>
-const defaultItems = [
-  { title: 'Step 1' },
-  { title: 'Step 2' },
-  { title: 'Current' },
-  { title: 'Not reach' },
-];
-</script>
-```
-:::
 
 ## API
 

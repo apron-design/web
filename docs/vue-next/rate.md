@@ -320,46 +320,6 @@ const setValue = (val) => {
 ```
 :::
 
-### 暗色模式
-
-评分组件在暗色模式下会自动适配主题颜色。
-:::demo
-```vue
-<template>
-  <div
-    data-theme="dark"
-    style="
-      padding: 32px;
-      background-color: #18181b;
-      border-radius: 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    "
-  >
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Display Mode</h4>
-      <div style="display: flex; gap: 32px;">
-        <ad-rate :default-value="0" />
-        <ad-rate :default-value="5" />
-        <ad-rate :default-value="3.7" show-value />
-      </div>
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Control Mode</h4>
-      <ad-rate :default-value="3" allow-control show-value />
-    </div>
-
-    <div>
-      <h4 style="margin: 0 0 12px 0; color: #a1a1aa;">Disabled</h4>
-      <ad-rate :default-value="4" allow-control disabled show-value />
-    </div>
-  </div>
-</template>
-```
-:::
-
 ## API
 
 ### ad-rate
