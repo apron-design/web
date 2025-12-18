@@ -1,8 +1,8 @@
 # 开始使用
 
-## 安装 Apron Design Vue Next
+## 安装 Apron Design Vue
 
-需要同时安装 vue >= 3.0。
+需要安装 vue >= 3.0。
 
 在开始之前，你可能需要安装 npx。
 
@@ -25,7 +25,7 @@ npm install @apron-design/vue-next --save
 import '@apron-design/vue-next/styles'
 ```
 
-## 在 Nuxt.js 上使用
+## 在 Nuxt3 上使用
 
 首先，确保你的 Nuxt.js 项目已经创建。如果还没有，可以使用以下命令创建：
 
@@ -70,7 +70,3 @@ cd my-vue-app
 npm install
 npm run dev
 ```
-
-# 安全建议
-
-由于 Vue 的安全更新，我们强烈建议您定期更新您的 Vue 版本到最新版。

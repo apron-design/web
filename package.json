@@ -9,8 +9,8 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@apron-design/react": "^21.0.4",
-    "@apron-design/vue-next": "^21.0.1",
+    "@apron-design/react": "^26.0.2",
+    "@apron-design/vue-next": "^26.0.1",
     "@babel/preset-react": "^7.28.5",
     "@babel/standalone": "^7.28.5",
     "@code-apron/react": "^26.0.0",
@@ -24,7 +24,7 @@
     "gsap": "^3.13.0",
     "highlight.js": "^11.11.1",
     "lucide-react": "^0.556.0",
-    "next": "16.0.8",
+    "next": "^16.0.10",
     "next-nprogress-bar": "^2.4.7",
     "nprogress": "^0.2.0",
     "react": "^19.2.3",

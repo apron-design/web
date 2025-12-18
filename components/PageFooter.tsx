@@ -66,7 +66,7 @@ export function PageFooter() {
               <Col span={6}>
                 <div className="footer-title">设计</div>
                 <div className="footer-content">
-                  <Link href="/design/specifications">设计规范</Link>
+                  {/* <Link href="/design/specifications">设计规范</Link> */}
                   <Link href="/design/principles">设计原则</Link>
                   <Link href="/design/color" target="_blank">标准色</Link>
                 </div>
