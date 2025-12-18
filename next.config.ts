@@ -1,4 +1,5 @@
 import type { NextConfig } from "next";
+import path from 'path';
 
 const nextConfig: NextConfig = {
   output: 'export',
@@ -15,11 +16,21 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   
   // 配置 Turbopack（Next.js 16 默认使用）
-  // 注意：@code-apron/vue-next 使用动态导入，避免构建时的 .vue 文件解析错误
-  // Turbopack 会自动处理动态导入，不需要额外配置
-  turbopack: {},
+  // 使用 stub 文件替换 @code-apron/vue-next，避免构建时的 .vue 文件解析错误
+  turbopack: {
+    resolveAlias: {
+      '@code-apron/vue-next': './lib/code-apron-stub.js',
+    },
+  },
   
-  // 注意：@code-apron/vue-next 使用动态导入，避免构建时的 .vue 文件解析错误
+  // 配置 webpack（用于非 Turbopack 构建）
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      '@code-apron/vue-next': path.resolve('./lib/code-apron-stub.js'),
+    };
+    return config;
+  },
 };
 
 export default nextConfig;
