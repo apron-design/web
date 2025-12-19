@@ -36,6 +36,7 @@ export function generateStaticParams() {
     { alias: 'select' },
     { alias: 'switch' },
     { alias: 'alert' },
+    { alias: 'textarea' },
     { alias: 'drawer' },
     { alias: 'message' },
     { alias: 'modal' },
@@ -108,6 +109,7 @@ const navigation = [
       { label: '评分 Rate', href: '/react/rate' },
       { label: '选择器 Select', href: '/react/select' },
       { label: '开关 Switch', href: '/react/switch' },
+      { label: '文本域 Textarea', href: '/react/textarea' },
     ],
   },
   {
