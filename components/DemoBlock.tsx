@@ -4,7 +4,7 @@ import React, { useState, useEffect, ReactElement, useRef, ComponentType } from 
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import * as ApronReactComponents from '@apron-design/react';
 import * as ApronVueComponents from '@apron-design/vue-next';
-
+import * as MediaApronReactComponents from '@media-apron/react';
 
 import { transform } from '@babel/standalone';
 import './DemoBlock.scss';
@@ -33,14 +33,36 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
     };
   }, []);
 
+  // 加载 media-apron 样式
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    
+    // 检查代码中是否使用了 media-apron 组件
+    const usesMediaApron = componentCode.includes('Video') || componentCode.includes('Audio');
+    
+    if (usesMediaApron) {
+      const existingLink = document.querySelector('link[href*="@media-apron/react"]');
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/@media-apron/react@latest/dist/index.css';
+        link.onerror = () => {
+          console.warn('Failed to load @media-apron/react styles from CDN');
+        };
+        document.head.appendChild(link);
+      }
+    }
+  }, [componentCode]);
+
   // 处理 React 代码
   const renderReactComponent = (code: string): ReactElement | null => {
     try {
-      // 创建一个包含所有 apron-design React 组件的安全环境
+      // 创建一个包含所有 apron-design React 组件和 media-apron React 组件的安全环境
       const safeEnv = {
         React,
         useState,
-        ...ApronReactComponents
+        ...ApronReactComponents,
+        ...MediaApronReactComponents
       };
 
       // 移除 import 语句，因为在安全环境中已经提供了所有组件
