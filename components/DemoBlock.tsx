@@ -4,6 +4,7 @@ import React, { useState, useEffect, ReactElement, useRef, ComponentType } from 
 import { MarkdownRenderer } from "./MarkdownRenderer";
 import * as ApronReactComponents from '@apron-design/react';
 import * as ApronVueComponents from '@apron-design/vue-next';
+import * as MediaApronReactComponents from '@media-apron/react';
 
 import { transform } from '@babel/standalone';
 import './DemoBlock.scss';
@@ -20,11 +21,9 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
   const [expanded, setExpanded] = useState(false);
   const [renderedComponent, setRenderedComponent] = useState<ReactElement | null>(null);
   const [error, setError] = useState<string | null>(null);
-  const [isCodeApronLoaded, setIsCodeApronLoaded] = useState(false);
   const vueContainerRef = useRef<HTMLDivElement>(null);
   const vueAppRef = useRef<VueAppRef | null>(null);
   const isClientRef = useRef(false);
-  const codeApronReactRef = useRef<any>(null);
 
   // 检查是否在客户端环境
   useEffect(() => {
@@ -34,42 +33,36 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
     };
   }, []);
 
-  // 预加载 code-apron React 组件
+  // 加载 media-apron 样式
   useEffect(() => {
-    const loadCodeApronReact = async () => {
-      if (typeof window !== 'undefined' && !codeApronReactRef.current) {
-        try {
-          codeApronReactRef.current = await import('@code-apron/react');
-        } catch (err) {
-          console.warn('Failed to load @code-apron/react:', err);
-          codeApronReactRef.current = {};
-        }
-        setIsCodeApronLoaded(true);
+    if (typeof window === 'undefined') return;
+    
+    // 检查代码中是否使用了 media-apron 组件
+    const usesMediaApron = componentCode.includes('Video') || componentCode.includes('Audio');
+    
+    if (usesMediaApron) {
+      const existingLink = document.querySelector('link[href*="@media-apron/react"]');
+      if (!existingLink) {
+        const link = document.createElement('link');
+        link.rel = 'stylesheet';
+        link.href = 'https://unpkg.com/@media-apron/react@latest/dist/index.css';
+        link.onerror = () => {
+          console.warn('Failed to load @media-apron/react styles from CDN');
+        };
+        document.head.appendChild(link);
       }
-    };
-    loadCodeApronReact();
-  }, []);
+    }
+  }, [componentCode]);
 
   // 处理 React 代码
   const renderReactComponent = (code: string): ReactElement | null => {
     try {
-      // 获取 code-apron 组件
-      const codeApronComponents = codeApronReactRef.current || {};
-      
-      // 创建一个包含所有 apron-design React 组件和 code-apron 组件的安全环境
-      // 注意：需要过滤掉 'default' 等保留关键字，因为它们不能作为函数参数名
-      const filteredCodeApronComponents = Object.keys(codeApronComponents)
-        .filter(key => key !== 'default' && key !== '__esModule')
-        .reduce((obj, key) => {
-          obj[key] = codeApronComponents[key];
-          return obj;
-        }, {} as any);
-      
+      // 创建一个包含所有 apron-design React 组件和 media-apron React 组件的安全环境
       const safeEnv = {
         React,
         useState,
         ...ApronReactComponents,
-        ...filteredCodeApronComponents
+        ...MediaApronReactComponents
       };
 
       // 移除 import 语句，因为在安全环境中已经提供了所有组件
@@ -82,16 +75,13 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       });
 
       const transformedCode = babelResult.code || '';
-      
-      // 处理 export default
-      const finalCode = transformedCode.replace(/export\s+default\s+/, 'return ');
 
       // 创建一个函数来执行代码
       const executeFn = new Function(
         ...Object.keys(safeEnv),
         `
         "use strict";
-        ${finalCode}
+        ${transformedCode.replace(/export\s+default\s+/, 'return ')}
         `
       );
       
@@ -261,14 +251,6 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
       // 创建 Vue 应用
       const app = createApp(appConfig);
       
-      // 动态导入 code-apron Vue 组件
-      let CodeApronVue = null;
-      try {
-        CodeApronVue = await import('@code-apron/vue-next');
-      } catch (err) {
-        console.warn('Failed to load @code-apron/vue-next:', err);
-      }
-      
       // 注册所有 Apron Vue 组件
       const registeredComponents: string[] = [];
       Object.keys(ApronVueComponents).forEach(key => {
@@ -299,30 +281,6 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
           }
         }
       });
-      
-      // 注册所有 Code Apron Vue 组件
-      if (CodeApronVue) {
-        Object.keys(CodeApronVue).forEach(key => {
-          const component = (CodeApronVue as any)[key];
-          
-          // 注册驼峰命名的组件
-          app.component(key, component);
-          registeredComponents.push(key);
-          
-          // 同时注册短横线命名的组件
-          const kebabName = key.replace(/([A-Z])/g, (match, p1, offset) => {
-            return (offset > 0 ? '-' : '') + p1.toLowerCase();
-          });
-          app.component(kebabName, component);
-          registeredComponents.push(kebabName);
-          
-          // 为 Barcode 组件添加 ad-barcode 别名（文档中使用的名称）
-          if (key === 'Barcode') {
-            app.component('ad-barcode', component);
-            registeredComponents.push('ad-barcode');
-          }
-        });
-      }
       
       // 检查 popover 和 popconfirm 是否已注册
       if (process.env.NODE_ENV === 'development') {
@@ -473,12 +431,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
           // Vue 代码处理
           setRenderedComponent(renderVueComponent(componentCode));
         } else {
-          // React 代码处理 - 等待 code-apron 加载完成
-          if (!isCodeApronLoaded) {
-            setRenderedComponent(<div>正在加载组件库...</div>);
-            return;
-          }
-          
+          // React 代码处理
           try {
             const component = renderReactComponent(componentCode);
             setRenderedComponent(component);
@@ -489,7 +442,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
           }
         }
       } catch (err) {
-        // 提供更友好的错误信息n
+        // 提供更友好的错误信息
         let errorMessage = '组件渲染失败';
         if (err instanceof Error) {
           // 如果是 Babel 转译错误，提供更具体的错误信息
@@ -505,7 +458,7 @@ export function DemoBlock({ componentCode }: DemoBlockProps) {
     };
 
     renderComponent();
-  }, [componentCode, isCodeApronLoaded]);
+  }, [componentCode]);
 
   // 挂载 Vue 组件的副作用
   useEffect(() => {

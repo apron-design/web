@@ -16,6 +16,7 @@
     "@code-apron/react": "^26.0.0",
     "@code-apron/vue-next": "^26.0.0",
     "@gsap/react": "^2.1.2",
+    "@media-apron/react": "^26.0.0",
     "@vue/compiler-sfc": "^3.5.25",
     "@vue/runtime-dom": "^3.5.25",
     "aos": "^2.3.4",
