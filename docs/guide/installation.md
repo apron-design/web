@@ -79,40 +79,7 @@ createApp(App)
 import { AdButton } from '@apron-design/react'
 </script>
 ```
-### 在 Nuxt3 上使用
-首先，确保你的 Nuxt3 项目已经创建。如果还没有，可以使用以下命令创建：
-```bash
-npx nuxt@latest init my-nuxt-app
-cd my-nuxt-app
-```
-然后安装 Apron Design：
-```bash
-npm install @apron-design/react
-```
-在项目根目录创建 `plugins/apron-design.ts`：
-```typescript
-import '@apron-design/react/styles'
 
-export default defineNuxtPlugin(() => {
-  // 插件初始化
-})
-```
-或者直接在 `nuxt.config.ts` 中配置：
-```typescript
-export default defineNuxtConfig({
-  css: ['@apron-design/react/styles'],
-})
-```
-在组件中使用：
-```vue
-<template>
-  <ad-button>按钮</ad-button>
-</template>
-
-<script setup>
-import { AdButton } from '@apron-design/react'
-</script>
-```
 
 ## 在微信小程序使用
 
