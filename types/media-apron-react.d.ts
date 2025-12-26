@@ -15,6 +15,7 @@ declare module '@media-apron/react' {
     source?: string[] | AudioItem[];
     poster?: string;
     primaryColor?: string;
+    lyrics?: string;
     [key: string]: any;
   }
 
@@ -31,6 +32,7 @@ declare module '@media-apron/react' {
     summary?: string;
     poster?: string;
     url: string;
+    lyrics?: string;
   }
 
   export const Video: ComponentType<VideoProps>;
