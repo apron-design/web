@@ -19,9 +19,9 @@ import { Video } from "@media-apron/react";
 export default function VideoDemo() {
   return (
     <Video
-      src="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4"
-      poster="https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg"
-      cc="./subtitles.vtt"
+      src="http://apron-design.test.upcdn.net/demo/video/720P30fps%E3%80%90%E5%A5%BD%E7%94%9C%E5%BC%80%E7%AE%B1%E3%80%91%E4%B8%9C%E6%8B%BC%E8%A5%BF%E5%87%91%E4%B8%80%E5%8F%B0NAS.mp4"
+      poster="http://apron-design.test.upcdn.net/demo/video/03.jpg"
+      cc="http://apron-design.test.upcdn.net/demo/video/720P30fps%E3%80%90%E5%A5%BD%E7%94%9C%E5%BC%80%E7%AE%B1%E3%80%91%E4%B8%9C%E6%8B%BC%E8%A5%BF%E5%87%91%E4%B8%80%E5%8F%B0NAS.srt"
     />
   );
 }
@@ -38,9 +38,9 @@ import { Video } from "@media-apron/react";
 
 export default function VideoPlaylistSimpleDemo() {
   const playlist = [
-    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
-    'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    'http://apron-design.test.upcdn.net/demo/video/%E4%B8%93%E8%AE%BF%EF%BC%9A%E4%B8%80%E4%B8%AA%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E5%AF%B9%E6%9A%B4%E8%B5%B0%E9%9E%8B%E7%9A%84%E7%83%AD%E7%88%B1%E2%80%94%E2%80%94%E5%85%A8%E6%B0%91%E6%9A%B4%E8%B5%B0%E7%BD%91%E7%AB%99%E5%88%B6%E4%BD%9C%E4%BA%BA%E7%94%B0%E6%98%8A%E5%A4%A9%E7%9A%84%E4%B8%93%E8%AE%BF.mp4',
+    'http://apron-design.test.upcdn.net/demo/video/01.mp4',
+    'http://apron-design.test.upcdn.net/demo/video/1%EF%B8%8F%E2%83%A3%E4%B8%AA%E9%98%B3%E5%85%89%E5%B0%91%E5%B9%B4.mp4',
   ];
 
   return (
@@ -61,22 +61,31 @@ import { Video } from "@media-apron/react";
 export default function VideoPlaylistFullDemo() {
   const playlist = [
     {
-      title: '正在播放的视频标题（带字幕）',
-      summary: '视频摘要，没有可以不显示。点击设置按钮可以开关字幕。',
-      poster: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/BigBuckBunny.jpg',
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
-      cc: './subtitles.vtt',
+      title: '东拼西凑一台 NAS',
+      summary: '系列节目【好甜开箱】第3集',
+      poster: 'http://apron-design.test.upcdn.net/demo/video/03.jpg',
+      url: 'http://apron-design.test.upcdn.net/demo/video/720P30fps%E3%80%90%E5%A5%BD%E7%94%9C%E5%BC%80%E7%AE%B1%E3%80%91%E4%B8%9C%E6%8B%BC%E8%A5%BF%E5%87%91%E4%B8%80%E5%8F%B0NAS.mp4',
+      cc: 'http://apron-design.test.upcdn.net/demo/video/720P30fps%E3%80%90%E5%A5%BD%E7%94%9C%E5%BC%80%E7%AE%B1%E3%80%91%E4%B8%9C%E6%8B%BC%E8%A5%BF%E5%87%91%E4%B8%80%E5%8F%B0NAS.srt',
     },
     {
-      title: '下一个要播放的视频标题',
-      summary: '视频摘要，没有可以不显示',
-      poster: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/images/ElephantsDream.jpg',
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+      title: '青岛仓库探秘',
+      summary: '系列节目【全民暴走】第一季第13集（番外）',
+      url: 'http://apron-design.test.upcdn.net/demo/video/%E3%80%90%E5%85%A8%E6%B0%91%E6%9A%B4%E8%B5%B0%E3%80%91%E3%80%90%E7%95%AA%E5%A4%96%E7%AF%87%E3%80%91%E9%9D%92%E5%B2%9B%E4%BB%93%E5%BA%93%E6%8E%A2%E7%A7%98%20%20Heelys%20Stories.mp4',
     },
     {
-      title: '没有封面的视频（显示占位图标）',
-      summary: '当没有提供 poster 时，会显示深灰色背景和视频图标占位符',
-      url: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+      title: '专访：一个软件开发者对暴走鞋的热爱',
+      summary: '全民暴走节目创始人专访',
+      url: 'http://apron-design.test.upcdn.net/demo/video/%E4%B8%93%E8%AE%BF%EF%BC%9A%E4%B8%80%E4%B8%AA%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E8%80%85%E5%AF%B9%E6%9A%B4%E8%B5%B0%E9%9E%8B%E7%9A%84%E7%83%AD%E7%88%B1%E2%80%94%E2%80%94%E5%85%A8%E6%B0%91%E6%9A%B4%E8%B5%B0%E7%BD%91%E7%AB%99%E5%88%B6%E4%BD%9C%E4%BA%BA%E7%94%B0%E6%98%8A%E5%A4%A9%E7%9A%84%E4%B8%93%E8%AE%BF.mp4',
+    },
+    {
+      title: '1 个阳光少年',
+      summary: '竖屏视频',
+      url: 'http://apron-design.test.upcdn.net/demo/video/1%EF%B8%8F%E2%83%A3%E4%B8%AA%E9%98%B3%E5%85%89%E5%B0%91%E5%B9%B4.mp4',
+    },
+    {
+      title: 'Sundy chill in full rubber',
+      summary: '擦边视频',
+      url: 'http://apron-design.test.upcdn.net/demo/video/Sunday%20chill%20in%20full%20rubber.mp4',
     },
   ];
 
