@@ -9,14 +9,18 @@
     "lint": "eslint"
   },
   "dependencies": {
-    "@apron-design/react": "^26.0.2",
+    "@apron-design/react": "^26.0.3",
     "@apron-design/vue-next": "^21.0.1",
     "@babel/preset-react": "^7.28.5",
     "@babel/standalone": "^7.28.5",
     "@code-apron/react": "^26.0.0",
     "@code-apron/vue-next": "^26.0.0",
     "@gsap/react": "^2.1.2",
+<<<<<<< HEAD
     "@media-apron/react": "^26.0.3",
+=======
+    "@media-apron/react": "^26.0.2",
+>>>>>>> a2cc724f2009a26267e733d95f04e528492de38c
     "@vue/compiler-sfc": "^3.5.25",
     "@vue/runtime-dom": "^3.5.25",
     "aos": "^2.3.4",
