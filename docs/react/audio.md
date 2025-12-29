@@ -19,7 +19,7 @@ import { Audio } from "@media-apron/react";
 export default function AudioDemo() {
   return (
     <Audio
-      src="https://cdn.offontime.com/mp3/Ambala%2CSantino%20Surfers%20-%20Morning%20Lights.mp3"
+      src="https://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3"
     />
   );
 }
@@ -37,7 +37,7 @@ import { Audio } from "@media-apron/react";
 export default function AudioWithPosterDemo() {
   return (
     <Audio
-      src="https://cdn.offontime.com/mp3/Simone%20Stella%20-%20Chaconne%20in%20F%20Minor%2C%20P.43.mp3"
+      src="hhttps://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3"
       poster="https://cdn.offontime.com/images/p03.jpg"
       primaryColor="#1890ff"
     />
@@ -56,8 +56,8 @@ import { Audio } from "@media-apron/react";
 
 export default function AudioPlaylistSimpleDemo() {
   const playlist = [
-    'https://cdn.offontime.com/mp3/Ambala%2CSantino%20Surfers%20-%20Morning%20Lights.mp3',
-    'https://cdn.offontime.com/mp3/%E5%BD%AD%E5%AF%92%20-%203%EF%BC%9A7%EF%BC%88%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97%EF%BC%89.mp3',
+    'https://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3',
+    'https://cdn.offontime.com/mp3/Simone%20Stella%20-%20Chaconne%20in%20F%20Minor%2C%20P.43.mp3',
   ];
 
   return (
@@ -81,18 +81,13 @@ export default function AudioPlaylistFullDemo() {
       title: '第一首歌曲',
       summary: '这是第一首歌曲的简介',
       poster: 'https://cdn.offontime.com/images/p03.jpg',
-      url: 'https://cdn.offontime.com/mp3/Ambala%2CSantino%20Surfers%20-%20Morning%20Lights.mp3',
+      url: 'https://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3',
     },
     {
       title: '第二首歌曲',
       summary: '这是第二首歌曲的简介',
       poster: 'https://cdn.offontime.com/images/pexels-photo-39771661.jpg',
       url: 'https://cdn.offontime.com/mp3/Simone%20Stella%20-%20Chaconne%20in%20F%20Minor%2C%20P.43.mp3',
-    },
-    {
-      title: '第三首歌曲（无封面）',
-      summary: '没有封面的歌曲会显示背景色',
-      url: 'https://cdn.offontime.com/mp3/%E5%BD%AD%E5%AF%92%20-%203%EF%BC%9A7%EF%BC%88%E8%AF%86%E5%88%AB%E6%95%B0%E5%AD%97%EF%BC%89.mp3',
     },
   ];
 
@@ -141,14 +136,14 @@ export default function AudioPlaylistWithLyricsDemo() {
       title: '第一首歌曲',
       summary: '这是第一首歌曲的简介',
       poster: 'https://cdn.offontime.com/images/p03.jpg',
-      url: 'https://cdn.offontime.com/mp3/Ambala%2CSantino%20Surfers%20-%20Morning%20Lights.mp3',
+      url: 'https://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3',
       lyrics: '/lyrics.lrc',
     },
     {
       title: '第二首歌曲',
       summary: '这是第二首歌曲的简介',
       poster: 'https://cdn.offontime.com/images/pexels-photo-39771661.jpg',
-      url: 'https://cdn.offontime.com/mp3/Simone%20Stella%20-%20Chaconne%20in%20F%20Minor%2C%20P.43.mp3',
+      url: 'https://mitkimi-prod.oss-cn-beijing.aliyuncs.com/2025/12/29/music.mp3',
       lyrics: '/lyrics.lrc',
     },
   ];
