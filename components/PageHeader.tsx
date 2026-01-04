@@ -5,7 +5,10 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { SearchButton } from './SearchButton'; // 添加导入
+import { ThemeSwitcher } from './ThemeSwitcher'; // 添加导入
 import "./PageHeader.scss";
+
+type ThemeMode = "light" | "dark" | "system";
 
 interface PageHeaderProps {
   backgrounded?: number | boolean;
@@ -18,19 +21,36 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
   // 初始化主题 - 在客户端首次渲染时执行
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const stored = localStorage.getItem("theme");
-      const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-      const shouldBeDark = stored === "dark" || (!stored && prefersDark);
+      const savedMode = localStorage.getItem("themeMode") as ThemeMode | null;
+      let themeMode: ThemeMode = "system";
       
-      if (shouldBeDark) {
-        document.documentElement.setAttribute("data-prefers-color", "dark");
-        document.documentElement.style.backgroundColor = "#000000";
-        document.body.style.backgroundColor = "#000000";
+      if (savedMode) {
+        themeMode = savedMode;
       } else {
-        document.documentElement.setAttribute("data-prefers-color", "light");
-        document.documentElement.style.backgroundColor = "#FFFFFF";
-        document.body.style.backgroundColor = "#FFFFFF";
+        // 检查旧的 theme 设置
+        const oldTheme = localStorage.getItem("theme") as "light" | "dark" | null;
+        if (oldTheme) {
+          themeMode = oldTheme;
+        } else {
+          themeMode = "system";
+        }
       }
+      
+      // 获取实际要应用的主题
+      let themeValue: "light" | "dark" = "light";
+      if (themeMode === "system") {
+        themeValue = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      } else {
+        themeValue = themeMode;
+      }
+      
+      document.documentElement.setAttribute("data-prefers-color", themeValue);
+      document.documentElement.setAttribute("apron-theme", themeValue);
+      
+      // 设置背景色
+      const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
+      document.documentElement.style.backgroundColor = bgColor;
+      document.body.style.backgroundColor = bgColor;
     }
   }, []);
 
@@ -48,24 +68,7 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
     }
   }, [backgrounded]);
 
-  const toggleTheme = useCallback(() => {
-    if (typeof window === 'undefined') return;
-    
-    const currentTheme = document.documentElement.getAttribute("data-prefers-color");
-    const newIsDark = currentTheme !== "dark";
-    
-    if (newIsDark) {
-      document.documentElement.setAttribute("data-prefers-color", "dark");
-      document.documentElement.style.backgroundColor = "#000000";
-      document.body.style.backgroundColor = "#000000";
-      localStorage.setItem("theme", "dark");
-    } else {
-      document.documentElement.setAttribute("data-prefers-color", "light");
-      document.documentElement.style.backgroundColor = "#FFFFFF";
-      document.body.style.backgroundColor = "#FFFFFF";
-      localStorage.setItem("theme", "light");
-    }
-  }, []);
+
 
   // 确定是否显示背景
   const showBackground = 
@@ -164,27 +167,7 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
             />
           </Link>
           
-          <button
-            onClick={toggleTheme}
-            className="page-header-icon-button page-header-theme-toggle"
-            aria-label="切换主题"
-          >
-            {/* 使用 CSS 控制主题图标切换，避免 hydration 错误 */}
-            <Image
-              src="/assets/icons/moon.svg"
-              alt="切换到深色模式"
-              width={24}
-              height={24}
-              className="page-header-icon theme-icon-light"
-            />
-            <Image
-              src="/assets/icons/sun.svg"
-              alt="切换到浅色模式"
-              width={24}
-              height={24}
-              className="page-header-icon theme-icon-dark"
-            />
-          </button>
+          <ThemeSwitcher />
         </div>
       </div>
     </header>

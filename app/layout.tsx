@@ -42,18 +42,39 @@ export default function RootLayout({
             __html: `
               (function() {
                 try {
-                  const stored = localStorage.getItem("theme");
-                  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
-                  const shouldBeDark = stored === "dark" || (!stored && prefersDark);
-                  const themeValue = shouldBeDark ? "dark" : "light";
-                  const bgColor = shouldBeDark ? "#000000" : "#FFFFFF";
+                  const savedMode = localStorage.getItem("themeMode");
+                  let themeMode = "system";
+                  
+                  if (savedMode) {
+                    themeMode = savedMode;
+                  } else {
+                    // 检查旧的 theme 设置
+                    const oldTheme = localStorage.getItem("theme");
+                    if (oldTheme) {
+                      themeMode = oldTheme;
+                    } else {
+                      themeMode = "system";
+                    }
+                  }
+                  
+                  // 获取实际要应用的主题
+                  let themeValue = "light";
+                  if (themeMode === "system") {
+                    themeValue = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+                  } else {
+                    themeValue = themeMode;
+                  }
+                  
                   document.documentElement.setAttribute("data-prefers-color", themeValue);
+                  document.documentElement.setAttribute("apron-theme", themeValue);
+                  const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
                   document.documentElement.style.backgroundColor = bgColor;
                   if (document.body) {
                     document.body.style.backgroundColor = bgColor;
                   }
                 } catch (e) {
                   document.documentElement.setAttribute("data-prefers-color", "light");
+                  document.documentElement.setAttribute("apron-theme", "light");
                   document.documentElement.style.backgroundColor = "#FFFFFF";
                 }
               })();
