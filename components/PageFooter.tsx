@@ -77,6 +77,7 @@ export function PageFooter() {
                   <Link href="/react">React</Link>
                   <Link href="/vue-next">Vue3</Link>
                   <Link href="/miniprogram">微信小程序</Link>
+                  <Link href="https://mitkimi.github.io/apron-react-bits/">Apron React Bits</Link>
                 </div>
               </Col>
               <Col span={6}>

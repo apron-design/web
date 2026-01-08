@@ -14,6 +14,9 @@
 * [ReactBits](https://reactbits.dev/)
 * [VueBits](https://vue-bits.dev/)
 
+同样我们也自己开发了一些动效，称作 Apron React Bits。精力有限，暂时只有 React 版本的。
+* [Apron React Bits](https://mitkimi.github.io/apron-react-bits/)
+
 ## 缓动动效
 推荐使用 **AOS** 创建缓动动效，可以让你的页面在滑动到容器所在位置时添加一个动效。
 
