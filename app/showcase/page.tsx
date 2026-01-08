@@ -35,14 +35,22 @@ const products = [
     screenshot: "/assets/showcases/tg.png",
     link: "https://tg98.cn"
   },
-  {
-    key: "soundpad",
-    name: "SOUNDPAD",
-    icon: "/assets/who-are-using/soundpad.png",
-    description: "SOUNDPAD 是一款专业的音乐管理和演出工具。支持多种音频格式，多轨同时播放。适合晚会、音乐会、魔术专场等使用场景。",
-    screenshot: "/assets/showcases/soundpad.png",
-    link: "https://offontime.com/products/soundpad"
-  },
+  // {
+  //   key: "momenta",
+  //   name: "灯塔",
+  //   icon: "/assets/who-are-using/momenta.png",
+  //   description: "灯塔是一个基于区块链的智能合约平台，为开发者提供安全、透明、高效的智能合约服务。",
+  //   screenshot: "/assets/showcases/momenta.png",
+  //   link: "https://offontime.com/products/momenta"
+  // },
+  // {
+  //   key: "soundpad",
+  //   name: "SOUNDPAD",
+  //   icon: "/assets/who-are-using/soundpad.png",
+  //   description: "SOUNDPAD 是一款专业的音乐管理和演出工具。支持多种音频格式，多轨同时播放。适合晚会、音乐会、魔术专场等使用场景。",
+  //   screenshot: "/assets/showcases/soundpad.png",
+  //   link: "https://offontime.com/products/soundpad"
+  // },
   {
     key: "teleprompter",
     name: "提词器",
