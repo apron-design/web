@@ -115,10 +115,20 @@
     margin-bottom: 16px;
   }
 
-  ul, ol {
-    padding-left: 2em;
+  ul {
+    padding-left: 1.2em;
     margin-top: 0;
     margin-bottom: 16px;
+    list-style: disc;
+    list-style-position: outside;
+  }
+
+  ol {
+    padding-left: 1.2em;
+    margin-top: 0;
+    margin-bottom: 16px;
+    list-style: decimal;
+    list-style-position: outside;
   }
 
   li {
