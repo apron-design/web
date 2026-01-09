@@ -10,7 +10,7 @@ npm install @apron-design/react --save
 
 ### 导入样式
 ```typescript
-import '@apron-desing/react/styles'
+import '@apron-design/react/styles'
 ```
 
 ### 按需加载
