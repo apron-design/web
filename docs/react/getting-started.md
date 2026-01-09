@@ -21,7 +21,7 @@ npm install @apron-design/react --save
 然后在 `main.ts` 或 `main.js` 中导入样式
 
 ```typescript
-import '@apron-desing/react/styles'
+import '@apron-design/react/styles'
 ```
 
 ## 在 Next.js 上使用
