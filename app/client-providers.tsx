@@ -40,6 +40,13 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       document.documentElement.setAttribute("data-prefers-color", themeValue);
       document.documentElement.setAttribute("apron-theme", themeValue);
       
+      // 设置 body 上的 apron-theme 属性（组件库需要这个）
+      if (themeValue === "dark") {
+        document.body.setAttribute("apron-theme", "dark");
+      } else {
+        document.body.removeAttribute("apron-theme");
+      }
+      
       // 强制设置背景色
       document.documentElement.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
       document.body.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
@@ -56,12 +63,18 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
         offset: 100,
       });
 
-      // 监听主题变化，更新进度条颜色
+      // 监听主题变化，更新进度条颜色和 body 属性
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === "attributes" && mutation.attributeName === "data-prefers-color") {
             const isDark = document.documentElement.getAttribute("data-prefers-color") === "dark";
             setProgressColor(isDark ? "#f5f5f5" : "#393939");
+            // 同步更新 body 上的 apron-theme 属性
+            if (isDark) {
+              document.body.setAttribute("apron-theme", "dark");
+            } else {
+              document.body.removeAttribute("apron-theme");
+            }
           }
         });
       });
