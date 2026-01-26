@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "@apron-design/react/styles";
 @import "@media-apron/react/dist/style.css";
 
 @variant dark (&[data-prefers-color="dark"]);

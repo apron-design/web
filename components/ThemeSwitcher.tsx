@@ -32,6 +32,13 @@ export function ThemeSwitcher() {
     document.documentElement.setAttribute("data-prefers-color", themeToApply);
     document.documentElement.setAttribute("apron-theme", themeToApply);
     
+    // 设置 body 上的 apron-theme 属性（组件库需要这个）
+    if (themeToApply === "dark") {
+      document.body.setAttribute("apron-theme", "dark");
+    } else {
+      document.body.removeAttribute("apron-theme");
+    }
+    
     // 设置背景色
     const bgColor = themeToApply === "dark" ? "#000000" : "#FFFFFF";
     document.documentElement.style.backgroundColor = bgColor;

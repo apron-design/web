@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import "aos/dist/aos.css";
+import "@apron-design/react/styles";
 import { ClientProviders } from "./client-providers";
 
 const geistSans = Geist({
@@ -71,11 +72,20 @@ export default function RootLayout({
                   document.documentElement.style.backgroundColor = bgColor;
                   if (document.body) {
                     document.body.style.backgroundColor = bgColor;
+                    // 设置 body 上的 apron-theme 属性（组件库需要这个）
+                    if (themeValue === "dark") {
+                      document.body.setAttribute("apron-theme", "dark");
+                    } else {
+                      document.body.removeAttribute("apron-theme");
+                    }
                   }
                 } catch (e) {
                   document.documentElement.setAttribute("data-prefers-color", "light");
                   document.documentElement.setAttribute("apron-theme", "light");
                   document.documentElement.style.backgroundColor = "#FFFFFF";
+                  if (document.body) {
+                    document.body.removeAttribute("apron-theme");
+                  }
                 }
               })();
             `,
