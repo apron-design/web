@@ -37,7 +37,7 @@ export function PageFooter() {
   return (
     <footer className="page-footer">
       {/* 第一块版心 */}
-      <div className="page-footer-main">
+      <div className="page-footer-main container">
         <Row gutter={40}>
           <Col span={8}>
             <div className="footer-info">
@@ -108,7 +108,7 @@ export function PageFooter() {
       </div>
 
       {/* 第二块版心 */}
-      <div className="page-footer-bottom">
+      <div className="page-footer-bottom container">
         <div className="page-footer-copyright">
           &copy; Copyright Apron Design 2022~{currentYear}. Opensource by MIT.
         </div>
