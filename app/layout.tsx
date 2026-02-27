@@ -49,7 +49,6 @@ export default function RootLayout({
                   if (savedMode) {
                     themeMode = savedMode;
                   } else {
-                    // 检查旧的 theme 设置
                     const oldTheme = localStorage.getItem("theme");
                     if (oldTheme) {
                       themeMode = oldTheme;
@@ -58,7 +57,6 @@ export default function RootLayout({
                     }
                   }
                   
-                  // 获取实际要应用的主题
                   let themeValue = "light";
                   if (themeMode === "system") {
                     themeValue = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -66,13 +64,11 @@ export default function RootLayout({
                     themeValue = themeMode;
                   }
                   
-                  document.documentElement.setAttribute("data-prefers-color", themeValue);
                   document.documentElement.setAttribute("apron-theme", themeValue);
                   const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
                   document.documentElement.style.backgroundColor = bgColor;
                   if (document.body) {
                     document.body.style.backgroundColor = bgColor;
-                    // 设置 body 上的 apron-theme 属性（组件库需要这个）
                     if (themeValue === "dark") {
                       document.body.setAttribute("apron-theme", "dark");
                     } else {
@@ -80,7 +76,6 @@ export default function RootLayout({
                     }
                   }
                 } catch (e) {
-                  document.documentElement.setAttribute("data-prefers-color", "light");
                   document.documentElement.setAttribute("apron-theme", "light");
                   document.documentElement.style.backgroundColor = "#FFFFFF";
                   if (document.body) {

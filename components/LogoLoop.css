@@ -18,8 +18,8 @@
   padding-bottom: calc(var(--logoloop-logoHeight) * 0.1);
 }
 
-/* 深色模式 - 使用 data-prefers-color 属性 */
-[data-prefers-color="dark"] .logoloop {
+/* 深色模式 - 使用 apron-theme 属性 */
+[apron-theme="dark"] .logoloop {
   --logoloop-fadeColorAuto: #000000;
 }
 

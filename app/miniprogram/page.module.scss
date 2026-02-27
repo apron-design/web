@@ -23,7 +23,7 @@
     margin-bottom: 1.5rem;
     color: #1a1a1a;
 
-    @media (prefers-color-scheme: dark) {
+    html[apron-theme="dark"] & {
       color: #ffffff;
     }
   }
@@ -36,7 +36,7 @@
     margin-left: auto;
     margin-right: auto;
 
-    @media (prefers-color-scheme: dark) {
+    html[apron-theme="dark"] & {
       color: #d1d5db;
     }
   }
@@ -56,7 +56,7 @@
   padding: 1.5rem;
   max-width: 42rem;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     background-color: rgba(120, 53, 15, 0.2);
     border-color: #92400e;
   }
@@ -84,7 +84,7 @@
     color: #92400e;
     margin-bottom: 0.5rem;
 
-    @media (prefers-color-scheme: dark) {
+    html[apron-theme="dark"] & {
       color: #fde68a;
     }
   }
@@ -92,7 +92,7 @@
   p {
     color: #a16207;
 
-    @media (prefers-color-scheme: dark) {
+    html[apron-theme="dark"] & {
       color: #fcd34d;
     }
   }
@@ -122,7 +122,7 @@
   margin-top: 1rem;
   color: #4b5563;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     color: #d1d5db;
   }
 }
@@ -157,7 +157,7 @@
                 0 4px 6px -2px rgba(0, 0, 0, 0.05);
   }
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     background-color: #1f2937;
   }
 }
@@ -173,7 +173,7 @@
   margin-bottom: 0.5rem;
   color: #1a1a1a;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     color: #ffffff;
   }
 }
@@ -181,7 +181,7 @@
 .featureDescription {
   color: #4b5563;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     color: #d1d5db;
   }
 }
@@ -197,7 +197,7 @@
     text-align: center;
     color: #1a1a1a;
 
-    @media (prefers-color-scheme: dark) {
+    html[apron-theme="dark"] & {
       color: #ffffff;
     }
   }
@@ -212,7 +212,7 @@
   max-width: 56rem;
   margin: 0 auto;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     background-color: #1f2937;
   }
 }
@@ -236,7 +236,7 @@
   align-items: flex-start;
   color: #1a1a1a;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     color: #ffffff;
   }
 }
@@ -276,7 +276,7 @@
     box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.3);
   }
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     &:focus {
       box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.5);
     }
@@ -287,7 +287,7 @@
   margin-top: 1rem;
   color: #4b5563;
 
-  @media (prefers-color-scheme: dark) {
+  html[apron-theme="dark"] & {
     color: #d1d5db;
   }
 }

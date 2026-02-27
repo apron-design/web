@@ -1,9 +1,8 @@
 @import "tailwindcss";
 @import "@media-apron/react/dist/style.css";
 
-@variant dark (&[data-prefers-color="dark"]);
+@variant dark (&[apron-theme="dark"]);
 
-/* 浅色模式（默认）- 统一使用 data-prefers-color 属性 */
 :root {
   --color-background: #FFFFFF;
   --color-foreground: oklch(9.8% 0.005 285.88);
@@ -27,7 +26,7 @@
   --radius: 0.5rem;
 }
 
-html[data-prefers-color="light"] {
+html[apron-theme="light"] {
   --color-background: #FFFFFF;
   --color-foreground: oklch(9.8% 0.005 285.88);
   --color-card: #FFFFFF;
@@ -72,8 +71,7 @@ html[data-prefers-color="light"] {
   --radius: var(--radius);
 }
 
-/* 深色模式 - 统一使用 data-prefers-color 属性 */
-html[data-prefers-color="dark"] {
+html[apron-theme="dark"] {
   --color-background: #000000;
   --color-foreground: oklch(98% 0.002 285.88);
   --color-card: #000000;
@@ -95,17 +93,16 @@ html[data-prefers-color="dark"] {
   --color-ring: oklch(83.9% 0.013 285.88);
 }
 
-/* HTML 和 Body 背景色 - 统一使用 data-prefers-color 属性 */
 html {
   background-color: #FFFFFF !important;
   transition: background-color 0.2s ease;
 }
 
-html[data-prefers-color="dark"] {
+html[apron-theme="dark"] {
   background-color: #000000 !important;
 }
 
-html[data-prefers-color="light"] {
+html[apron-theme="light"] {
   background-color: #FFFFFF !important;
 }
 
@@ -118,11 +115,11 @@ body {
   margin: 0;
 }
 
-html[data-prefers-color="dark"] body {
+html[apron-theme="dark"] body {
   background-color: #000000 !important;
 }
 
-html[data-prefers-color="light"] body {
+html[apron-theme="light"] body {
   background-color: #FFFFFF !important;
 }
 
@@ -133,7 +130,6 @@ html[data-prefers-color="light"] body {
 }
 /* ==================== 自定义滚动条样式 ==================== */
 
-/* 滚动条颜色变量 */
 :root {
   --scrollbar-thumb: rgba(0, 0, 0, 0.2);
   --scrollbar-thumb-hover: rgba(0, 0, 0, 0.35);
@@ -143,14 +139,13 @@ html[data-prefers-color="light"] body {
   --scrollbar-radius: 8px;
 }
 
-html[data-prefers-color="dark"] {
+html[apron-theme="dark"] {
   --scrollbar-thumb: rgba(255, 255, 255, 0.15);
   --scrollbar-thumb-hover: rgba(255, 255, 255, 0.25);
   --scrollbar-thumb-active: rgba(255, 255, 255, 0.4);
   --scrollbar-track: transparent;
 }
 
-/* Webkit 浏览器滚动条样式（Chrome、Safari、Edge） */
 ::-webkit-scrollbar {
   width: var(--scrollbar-width);
   height: var(--scrollbar-width);
@@ -179,13 +174,11 @@ html[data-prefers-color="dark"] {
   background: transparent;
 }
 
-/* Firefox 滚动条样式 */
 * {
   scrollbar-width: thin;
   scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);
 }
 
-/* 滚动条在侧边栏等元素上的特殊样式 */
 .documents-sidebar::-webkit-scrollbar,
 .floating-toc::-webkit-scrollbar {
   width: 14px;
@@ -202,7 +195,6 @@ html[data-prefers-color="dark"] {
   background: var(--scrollbar-thumb-hover);
 }
 
-/* 主内容区域滚动条 */
 .documents-main::-webkit-scrollbar,
 #document-container::-webkit-scrollbar {
   width: 16px;
@@ -223,7 +215,6 @@ html[data-prefers-color="dark"] {
   background-clip: padding-box;
 }
 
-/* 隐藏滚动条但保持滚动功能（可选，用于某些特殊区域） */
 .scrollbar-hidden {
   -ms-overflow-style: none;
   scrollbar-width: none;
@@ -233,7 +224,6 @@ html[data-prefers-color="dark"] {
   display: none;
 }
 
-/* 细滚动条类（用于小型容器） */
 .scrollbar-thin::-webkit-scrollbar {
   width: 8px;
   height: 8px;
@@ -243,7 +233,6 @@ html[data-prefers-color="dark"] {
   border-radius: 4px;
 }
 
-/* 自动隐藏滚动条（鼠标悬停时显示） */
 .scrollbar-auto-hide::-webkit-scrollbar-thumb {
   background: transparent;
   transition: background 0.3s ease;

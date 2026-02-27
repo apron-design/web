@@ -2,7 +2,7 @@
   min-height: 100vh;
   background-color: #ffffff;
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     background-color: #000000;
   }
 }
@@ -46,7 +46,7 @@
     background: rgba(0, 0, 0, 0.35);
   }
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     background-color: #0a0a0a;
     border-right-color: #262626;
 
@@ -85,7 +85,7 @@
   margin: 0 0 12px 0;
   padding: 0 20px; // 统一内边距
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     color: #666666;
   }
 }
@@ -113,13 +113,13 @@
       background-color: #f0f0f0;
       color: #000000;
 
-      [data-prefers-color="dark"] & {
+      [apron-theme="dark"] & {
         background-color: #1a1a1a;
         color: #ffffff;
       }
     }
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #999999;
     }
   }
@@ -140,12 +140,12 @@
       background-color: #000000;
       border-radius: 0; // 取消圆角
 
-      [data-prefers-color="dark"] & {
+      [apron-theme="dark"] & {
         background-color: #ffffff;
       }
     }
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       background-color: transparent;
       color: #ffffff;
     }
@@ -178,7 +178,7 @@
     margin: 0 0 16px 0;
     line-height: 1.2;
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #ffffff;
     }
   }
@@ -189,7 +189,7 @@
     margin: 0 0 48px 0;
     line-height: 1.6;
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #999999;
     }
   }
@@ -206,7 +206,7 @@
     padding-top: 16px;
     border-top: 1px solid #e5e5e5;
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #ffffff;
       border-top-color: #262626;
     }
@@ -218,7 +218,7 @@
     color: #333333;
     margin: 0 0 16px 0;
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #cccccc;
     }
   }
@@ -230,7 +230,7 @@
     margin: 0;
     padding-left: 24px;
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       color: #cccccc;
     }
 
