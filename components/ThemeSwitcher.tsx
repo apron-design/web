@@ -9,6 +9,7 @@ type ThemeMode = "light" | "dark" | "system";
 export function ThemeSwitcher() {
   const [themeMode, setThemeMode] = useState<ThemeMode>("system");
   const [systemTheme, setSystemTheme] = useState<"light" | "dark">("light");
+  const [isInitialized, setIsInitialized] = useState(false);
 
   // 获取系统主题偏好
   const getSystemTheme = useCallback((): "light" | "dark" => {
@@ -28,21 +29,21 @@ export function ThemeSwitcher() {
       themeToApply = mode;
     }
 
-    // 设置数据属性
-    document.documentElement.setAttribute("data-prefers-color", themeToApply);
-    document.documentElement.setAttribute("apron-theme", themeToApply);
-    
-    // 设置 body 上的 apron-theme 属性（组件库需要这个）
-    if (themeToApply === "dark") {
-      document.body.setAttribute("apron-theme", "dark");
-    } else {
-      document.body.removeAttribute("apron-theme");
+    // 只在主题未设置或需要更新时才应用
+    const currentTheme = document.documentElement.getAttribute("apron-theme");
+    if (currentTheme !== themeToApply) {
+      document.documentElement.setAttribute("apron-theme", themeToApply);
+      
+      if (themeToApply === "dark") {
+        document.body.setAttribute("apron-theme", "dark");
+      } else {
+        document.body.removeAttribute("apron-theme");
+      }
+      
+      const bgColor = themeToApply === "dark" ? "#000000" : "#FFFFFF";
+      document.documentElement.style.backgroundColor = bgColor;
+      document.body.style.backgroundColor = bgColor;
     }
-    
-    // 设置背景色
-    const bgColor = themeToApply === "dark" ? "#000000" : "#FFFFFF";
-    document.documentElement.style.backgroundColor = bgColor;
-    document.body.style.backgroundColor = bgColor;
   }, [getSystemTheme]);
 
   // 初始化主题
@@ -63,6 +64,9 @@ export function ThemeSwitcher() {
         setThemeMode("system");
       }
     }
+    
+    // 标记初始化完成
+    setIsInitialized(true);
   }, []);
 
   // 监听系统主题变化
@@ -92,17 +96,13 @@ export function ThemeSwitcher() {
 
   // 当主题模式改变时应用主题
   useEffect(() => {
-    if (typeof window !== 'undefined') {
+    if (typeof window !== 'undefined' && isInitialized) {
       applyTheme(themeMode);
       
       // 保存到 localStorage
-      if (themeMode !== "system") {
-        localStorage.setItem("themeMode", themeMode);
-      } else {
-        localStorage.removeItem("themeMode");
-      }
+      localStorage.setItem("themeMode", themeMode);
     }
-  }, [themeMode, applyTheme]);
+  }, [themeMode, applyTheme, isInitialized]);
 
   const [isOpen, setIsOpen] = useState(false);
   const dropdownRef = useRef<HTMLDivElement>(null);

@@ -61,7 +61,7 @@ kbd {
   height: 12px;
 }
 
-[data-prefers-color="dark"] kbd {
+[apron-theme="dark"] kbd {
   background: rgba(255, 255, 255, 0.1);
   border-color: rgba(255, 255, 255, 0.2);
   color: var(--color-text-secondary);

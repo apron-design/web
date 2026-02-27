@@ -164,7 +164,6 @@
     color: rgba(255, 255, 255, 0.3);
   }
   
-  // Hover state
   &:hover {
     border-radius: 2px;
     .light & {
@@ -289,7 +288,6 @@
     z-index: 1;
   }
   
-  // Gray colors with dark mode support
   &.color-gray-100 {
     .light & {
       background-color: #393939;

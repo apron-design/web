@@ -80,7 +80,7 @@
     background: rgba(0, 0, 0, 0.25);
   }
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     &::-webkit-scrollbar-thumb {
       background: rgba(255, 255, 255, 0.12);
     }
@@ -110,7 +110,7 @@
   background: linear-gradient(90deg, rgba(76, 158, 234, 0.1) 0%, rgba(76, 158, 234, 0.05) 100%);
 }
 
-[data-prefers-color="dark"] .search-result-item.selected {
+[apron-theme="dark"] .search-result-item.selected {
   background: linear-gradient(90deg, rgba(76, 158, 234, 0.2) 0%, rgba(76, 158, 234, 0.1) 100%);
 }
 
@@ -138,7 +138,7 @@
   color: var(--color-text-secondary);
 }
 
-[data-prefers-color="dark"] .search-modal {
+[apron-theme="dark"] .search-modal {
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
 

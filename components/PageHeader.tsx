@@ -27,7 +27,6 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
       if (savedMode) {
         themeMode = savedMode;
       } else {
-        // 检查旧的 theme 设置
         const oldTheme = localStorage.getItem("theme") as "light" | "dark" | null;
         if (oldTheme) {
           themeMode = oldTheme;
@@ -36,7 +35,6 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
         }
       }
       
-      // 获取实际要应用的主题
       let themeValue: "light" | "dark" = "light";
       if (themeMode === "system") {
         themeValue = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
@@ -44,20 +42,20 @@ export function PageHeader({ backgrounded }: PageHeaderProps) {
         themeValue = themeMode;
       }
       
-      document.documentElement.setAttribute("data-prefers-color", themeValue);
-      document.documentElement.setAttribute("apron-theme", themeValue);
-      
-      // 设置 body 上的 apron-theme 属性（组件库需要这个）
-      if (themeValue === "dark") {
-        document.body.setAttribute("apron-theme", "dark");
-      } else {
-        document.body.removeAttribute("apron-theme");
+      // 只在主题未设置时才初始化
+      if (!document.documentElement.hasAttribute("apron-theme")) {
+        document.documentElement.setAttribute("apron-theme", themeValue);
+        
+        if (themeValue === "dark") {
+          document.body.setAttribute("apron-theme", "dark");
+        } else {
+          document.body.removeAttribute("apron-theme");
+        }
+        
+        const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
+        document.documentElement.style.backgroundColor = bgColor;
+        document.body.style.backgroundColor = bgColor;
       }
-      
-      // 设置背景色
-      const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
-      document.documentElement.style.backgroundColor = bgColor;
-      document.body.style.backgroundColor = bgColor;
     }
   }, []);
 

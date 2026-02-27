@@ -9,18 +9,16 @@ export function PageFooter() {
   const currentYear = new Date().getFullYear();
 
   useEffect(() => {
-    // Check initial theme
     const checkTheme = () => {
-      const theme = document.documentElement.getAttribute("data-prefers-color");
+      const theme = document.documentElement.getAttribute("apron-theme");
       setIsDark(theme === "dark");
     };
 
     checkTheme();
 
-    // Listen for theme changes
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        if (mutation.type === "attributes" && mutation.attributeName === "data-prefers-color") {
+        if (mutation.type === "attributes" && mutation.attributeName === "apron-theme") {
           checkTheme();
         }
       });
@@ -28,7 +26,7 @@ export function PageFooter() {
 
     observer.observe(document.documentElement, {
       attributes: true,
-      attributeFilter: ["data-prefers-color"]
+      attributeFilter: ["apron-theme"]
     });
 
     return () => observer.disconnect();

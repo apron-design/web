@@ -10,14 +10,13 @@
   background: transparent;
   transition: border-bottom-color 0.3s ease, background 0.3s ease, backdrop-filter 0.3s ease, -webkit-backdrop-filter 0.3s ease;
 
-  // 当有背景时的样式
   &--backgrounded {
     border-bottom: 1px solid rgba(0, 0, 0, 0.18);
     background: rgba(255, 255, 255, 0.1);
     -webkit-backdrop-filter: blur(10px);
     backdrop-filter: blur(10px);
 
-    [data-prefers-color="dark"] & {
+    [apron-theme="dark"] & {
       border-bottom-color: rgba(255, 255, 255, 0.18);
       background: rgba(0, 0, 0, 0.05);
     }
@@ -32,7 +31,6 @@
   max-width: 100%;
 }
 
-// 添加新的左侧容器样式
 .page-header-left {
   display: flex;
   align-items: center;
@@ -46,7 +44,6 @@
   width: 140px;
   position: relative;
 
-  // Logo 主题切换 - 使用 CSS 控制
   .logo-light {
     opacity: 1;
   }
@@ -55,7 +52,7 @@
     opacity: 0;
   }
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     .logo-light {
       opacity: 0;
     }
@@ -94,7 +91,7 @@
     font-weight: 500;
   }
   
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     color: #999999;
     
     &:hover {
@@ -134,7 +131,6 @@
     outline: none;
   }
 
-  // 主题图标切换 - 使用 CSS 控制
   .theme-icon-light {
     display: block;
   }
@@ -143,7 +139,7 @@
     display: none;
   }
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     .theme-icon-light {
       display: none;
     }
@@ -159,12 +155,11 @@
   height: 24px;
   transition: filter 0.2s ease;
 
-  [data-prefers-color="dark"] & {
+  [apron-theme="dark"] & {
     filter: brightness(0) invert(1);
   }
 }
 
-// 添加搜索按钮的响应式样式
 @media (max-width: 768px) {
   .page-header-left {
     gap: 12px;
