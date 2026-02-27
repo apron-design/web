@@ -367,6 +367,7 @@ export const LogoLoop = React.memo<LogoLoopProps>(
             ? undefined
             : toCssLength(width)
           : (toCssLength(width) ?? '100%'),
+        paddingTop: '20px',
         ...cssVariables,
         ...style
       }),
