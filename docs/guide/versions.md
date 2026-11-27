@@ -45,11 +45,11 @@ Apron Design 版本号遵循 Semver 规范，但略有区别：
 </style>
 
 <div class="version-container">
-  <div class="version-item version-0">26</div>
-  <div class="version-item version-1">4</div>
-  <div class="version-item version-2">13</div>
+  <div class="version-item version-0">27</div>
+  <div class="version-item version-1">0</div>
+  <div class="version-item version-2">x</div>
 </div>
 
-* 26：大版本号，跟随年份走，例子 26 表示 2026 年发布；
-* 4：中版本号，有组件更新、功能发布时更新，例子是第 26 年第 5 个中版本；
-* 13：小版本号：各端可能略有差异，主要是用来修复现有功能，例子是第 13 个小版本。
+* 27：大版本号；
+* 0：中版本号，用于发布功能更新；
+* x：小版本号，各端可能略有差异，主要用于修复现有功能。

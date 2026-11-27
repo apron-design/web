@@ -8,7 +8,6 @@ type ThemeMode = "light" | "dark" | "system";
 
 export function ThemeSwitcher() {
   const [themeMode, setThemeMode] = useState<ThemeMode>("system");
-  const [systemTheme, setSystemTheme] = useState<"light" | "dark">("light");
   const [isInitialized, setIsInitialized] = useState(false);
 
   // 获取系统主题偏好
@@ -29,21 +28,13 @@ export function ThemeSwitcher() {
       themeToApply = mode;
     }
 
-    // 只在主题未设置或需要更新时才应用
-    const currentTheme = document.documentElement.getAttribute("apron-theme");
-    if (currentTheme !== themeToApply) {
-      document.documentElement.setAttribute("apron-theme", themeToApply);
-      
-      if (themeToApply === "dark") {
-        document.body.setAttribute("apron-theme", "dark");
-      } else {
-        document.body.removeAttribute("apron-theme");
-      }
-      
-      const bgColor = themeToApply === "dark" ? "#000000" : "#FFFFFF";
-      document.documentElement.style.backgroundColor = bgColor;
-      document.body.style.backgroundColor = bgColor;
-    }
+    // html 用于网站现有主题样式，body 是组件库主题的唯一生效节点。
+    document.documentElement.setAttribute("apron-theme", themeToApply);
+    document.body.setAttribute("apron-theme", themeToApply);
+
+    const bgColor = themeToApply === "dark" ? "#000000" : "#FFFFFF";
+    document.documentElement.style.backgroundColor = bgColor;
+    document.body.style.backgroundColor = bgColor;
   }, [getSystemTheme]);
 
   // 初始化主题
@@ -73,10 +64,7 @@ export function ThemeSwitcher() {
   useEffect(() => {
     if (typeof window === 'undefined') return;
 
-    const handleSystemThemeChange = (e: MediaQueryListEvent) => {
-      const newSystemTheme = e.matches ? "dark" : "light";
-      setSystemTheme(newSystemTheme);
-
+    const handleSystemThemeChange = () => {
       // 如果当前模式是系统模式，则应用新的系统主题
       if (themeMode === "system") {
         applyTheme("system");
@@ -86,9 +74,6 @@ export function ThemeSwitcher() {
     const mediaQuery = window.matchMedia("(prefers-color-scheme: dark)");
     mediaQuery.addEventListener("change", handleSystemThemeChange);
     
-    // 设置初始系统主题
-    setSystemTheme(getSystemTheme());
-
     return () => {
       mediaQuery.removeEventListener("change", handleSystemThemeChange);
     };

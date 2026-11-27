@@ -49,7 +49,7 @@ export function PageFooter() {
                 />
               </div>
               <div className="version">
-                Version: 26.0.x
+                Version: 27.0.x
               </div>
               <div className="version-tips">
                 <p>版本规则：</p>

@@ -70,6 +70,8 @@
 }
 
 .page-header-nav-link {
+  position: relative;
+  z-index: 2;
   text-decoration: none;
   color: #666666;
   font-size: 14px;
