@@ -7,6 +7,7 @@
 - 需要设置图片的 object-fit 属性
 - 需要优雅地处理图片加载失败的情况
 - 需要在图片加载过程中显示占位内容
+- 需要点击图片后全屏查看大图
 
 ## 示例
 
@@ -111,6 +112,25 @@ export default () => (
 ```
 :::
 
+### 图片预览
+
+设置 `preview` 后，点击已加载的图片可打开全屏预览。预览支持放大、缩小、拖动和重置；点击右上角关闭按钮、预览蒙层，或按 `Esc` 键即可关闭。
+
+:::demo
+```jsx
+import { Image } from '@apron-design/react';
+
+export default () => (
+  <Image
+    src="https://picsum.photos/1200/800"
+    alt="可预览图片"
+    preview
+    style={{ width: '400px', height: '260px' }}
+  />
+);
+```
+:::
+
 ### 图片画廊
 
 展示多张图片组成的画廊。
@@ -152,6 +172,7 @@ export default () => (
 | src | 图片地址 | `string` | - |
 | alt | 图片替代文本 | `string` | - |
 | objectFit | 图片填充方式 | `'contain' \| 'cover' \| 'fill' \| 'none' \| 'scale-down'` | `'cover'` |
+| preview | 点击图片时是否打开全屏预览，支持缩放、拖动；可通过关闭按钮、点击蒙层或按 `Esc` 退出 | `boolean` | `false` |
 | className | 自定义类名 | `string` | - |
 | style | 自定义样式 | `React.CSSProperties` | - |
 | onLoad | 图片加载完成回调 | `React.EventHandler<React.SyntheticEvent<HTMLImageElement>>` | - |

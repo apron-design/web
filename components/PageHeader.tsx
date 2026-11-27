@@ -1,14 +1,12 @@
 "use client";
 
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from 'next/navigation';
 import { SearchButton } from './SearchButton'; // 添加导入
 import { ThemeSwitcher } from './ThemeSwitcher'; // 添加导入
 import "./PageHeader.scss";
-
-type ThemeMode = "light" | "dark" | "system";
 
 interface PageHeaderProps {
   backgrounded?: number | boolean;
@@ -17,47 +15,6 @@ interface PageHeaderProps {
 export function PageHeader({ backgrounded }: PageHeaderProps) {
   const [isScrolled, setIsScrolled] = useState(false);
   const pathname = usePathname();
-
-  // 初始化主题 - 在客户端首次渲染时执行
-  useEffect(() => {
-    if (typeof window !== 'undefined') {
-      const savedMode = localStorage.getItem("themeMode") as ThemeMode | null;
-      let themeMode: ThemeMode = "system";
-      
-      if (savedMode) {
-        themeMode = savedMode;
-      } else {
-        const oldTheme = localStorage.getItem("theme") as "light" | "dark" | null;
-        if (oldTheme) {
-          themeMode = oldTheme;
-        } else {
-          themeMode = "system";
-        }
-      }
-      
-      let themeValue: "light" | "dark" = "light";
-      if (themeMode === "system") {
-        themeValue = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
-      } else {
-        themeValue = themeMode;
-      }
-      
-      // 只在主题未设置时才初始化
-      if (!document.documentElement.hasAttribute("apron-theme")) {
-        document.documentElement.setAttribute("apron-theme", themeValue);
-        
-        if (themeValue === "dark") {
-          document.body.setAttribute("apron-theme", "dark");
-        } else {
-          document.body.removeAttribute("apron-theme");
-        }
-        
-        const bgColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
-        document.documentElement.style.backgroundColor = bgColor;
-        document.body.style.backgroundColor = bgColor;
-      }
-    }
-  }, []);
 
   useEffect(() => {
     // 如果 backgrounded 是数字，监听滚动事件

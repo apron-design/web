@@ -34,19 +34,10 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
         themeValue = themeMode;
       }
       
-      // 只在主题未设置时才初始化
-      if (!document.documentElement.hasAttribute("apron-theme")) {
-        document.documentElement.setAttribute("apron-theme", themeValue);
-        
-        if (themeValue === "dark") {
-          document.body.setAttribute("apron-theme", "dark");
-        } else {
-          document.body.removeAttribute("apron-theme");
-        }
-        
-        document.documentElement.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
-        document.body.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
-      }
+      document.documentElement.setAttribute("apron-theme", themeValue);
+      document.body.setAttribute("apron-theme", themeValue);
+      document.documentElement.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
+      document.body.style.backgroundColor = themeValue === "dark" ? "#000000" : "#FFFFFF";
 
       setProgressColor(themeValue === "dark" ? "#f5f5f5" : "#393939");
       setMounted(true);
@@ -61,13 +52,10 @@ export function ClientProviders({ children }: { children: React.ReactNode }) {
       const observer = new MutationObserver((mutations) => {
         mutations.forEach((mutation) => {
           if (mutation.type === "attributes" && mutation.attributeName === "apron-theme") {
-            const isDark = document.documentElement.getAttribute("apron-theme") === "dark";
+            const theme = document.documentElement.getAttribute("apron-theme") === "dark" ? "dark" : "light";
+            const isDark = theme === "dark";
             setProgressColor(isDark ? "#f5f5f5" : "#393939");
-            if (isDark) {
-              document.body.setAttribute("apron-theme", "dark");
-            } else {
-              document.body.removeAttribute("apron-theme");
-            }
+            document.body.setAttribute("apron-theme", theme);
           }
         });
       });

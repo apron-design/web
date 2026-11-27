@@ -69,17 +69,13 @@ export default function RootLayout({
                   document.documentElement.style.backgroundColor = bgColor;
                   if (document.body) {
                     document.body.style.backgroundColor = bgColor;
-                    if (themeValue === "dark") {
-                      document.body.setAttribute("apron-theme", "dark");
-                    } else {
-                      document.body.removeAttribute("apron-theme");
-                    }
+                    document.body.setAttribute("apron-theme", themeValue);
                   }
                 } catch (e) {
                   document.documentElement.setAttribute("apron-theme", "light");
                   document.documentElement.style.backgroundColor = "#FFFFFF";
                   if (document.body) {
-                    document.body.removeAttribute("apron-theme");
+                    document.body.setAttribute("apron-theme", "light");
                   }
                 }
               })();
